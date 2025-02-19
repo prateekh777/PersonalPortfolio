@@ -8,7 +8,8 @@ export const sections = pgTable("sections", {
   content: text("content").notNull(),
   type: text("type").notNull(), // home, expertise, etc.
   order: integer("order").notNull(),
-  mediaUrls: json("media_urls").$type<string[]>().default([]),
+  mediaUrls: text("media_urls").array().default([]).notNull(),
+  stats: json("stats").$type<{ label: string; value: string }[]>().default([]),
 });
 
 export const projects = pgTable("projects", {

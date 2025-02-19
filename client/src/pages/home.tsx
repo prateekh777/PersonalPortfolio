@@ -1,40 +1,46 @@
-import { useQuery } from "@tanstack/react-query";
-import { type Section } from "@shared/schema";
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { GridSection } from "@/components/sections/GridSection";
+
+const gridItems = [
+  {
+    title: "Skills Honed, Stories Told - My Journey",
+    icon: "PenTool",
+  },
+  {
+    title: "Turning Puzzles into Pathways",
+    icon: "Code",
+  },
+  {
+    title: "Things I've built Creations That Speak, Solutions That Sing",
+    icon: "Lightbulb",
+  },
+  {
+    title: "Where AI Meets Soul - Let's Explore Together",
+    icon: "Brain",
+  },
+  {
+    title: "Conversations Open Doors - Let's Talk",
+    icon: "MessageSquare",
+  },
+  {
+    title: "The Universe is Speaking—Here's How I Listen",
+    icon: "Radio",
+  },
+];
 
 export default function Home() {
-  const { data: sections, isLoading } = useQuery<Section[]>({
-    queryKey: ["/api/sections/home"],
-  });
-
-  if (isLoading) {
-    return (
-      <div className="space-y-8">
-        <Skeleton className="h-[400px] w-full" />
-        <Skeleton className="h-[400px] w-full" />
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-8">
-      {sections?.map((section) => (
-        <Card key={section.id}>
-          <CardContent className="p-6">
-            <h2 className="mb-4 text-2xl font-bold">{section.title}</h2>
-            <p className="text-muted-foreground">{section.content}</p>
-            {section.mediaUrls?.map((url, index) => (
-              <img
-                key={index}
-                src={url}
-                alt={`Media for ${section.title}`}
-                className="mt-4 rounded-lg"
-              />
-            ))}
-          </CardContent>
-        </Card>
-      ))}
+    <div className="min-h-screen">
+      <HeroSection
+        title="Hello"
+        subtitle="— It's D.Nova a design wizard"
+        videoUrl="/placeholder-hero.mp4" 
+        stats={[
+          { label: "Project completed", value: "200+" },
+          { label: "Startup rated", value: "50+" },
+        ]}
+      />
+      <GridSection title="The Sanctuary" items={gridItems} />
     </div>
   );
 }
