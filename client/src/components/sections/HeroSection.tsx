@@ -38,11 +38,11 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
 
       {/* Video container positioned within laptop screen */}
       <div 
-        className="absolute left-1/2 top-[42%] w-[50%] -translate-x-1/2 -translate-y-1/2 transform-gpu z-10"
+        className="absolute left-1/2 top-[45%] w-[65%] -translate-x-1/2 -translate-y-1/2 transform-gpu z-10"
         style={{
-          aspectRatio: '16/10',
+          aspectRatio: '16/9',
           perspective: '1000px',
-          transform: 'translate(-50%, -50%) rotateX(5deg)',
+          transform: 'translate(-50%, -50%) rotateX(5deg) rotateY(0deg)',
         }}
       >
         <video
