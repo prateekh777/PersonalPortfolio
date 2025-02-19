@@ -65,11 +65,11 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
           transform: 'translate(-50%, -50%) perspective(1000px) rotateX(5deg)',
         }}
       >
-        <div className="text-center flex flex-col gap-1 xs:gap-2 sm:gap-3">
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-[min(4.5vw,60px)] xl:text-[min(5vw,64px)] font-bold leading-none text-white">
+        <div className="text-center">
+          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-none text-white">
             {title}
           </h1>
-          <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-[min(1.25vw,18px)] xl:text-[min(1.5vw,20px)] font-light tracking-wide text-white/90">
+          <p className="mt-2 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-light tracking-wide text-white/90">
             {subtitle}
           </p>
         </div>
