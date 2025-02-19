@@ -1,16 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { type Section, type Project, type CaseStudy, type AiWork, type Interest, type Frame } from "@shared/schema";
+import { type Section, type Project, type Frame } from "@shared/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus, Edit, Trash2, Move, Type, Image, Video, Layers } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import {
-  ResizablePanelGroup,
-  ResizablePanel,
-  ResizableHandle,
-} from "@/components/ui/resizable";
+import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from "@/components/ui/resizable";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,7 +17,6 @@ export default function AdminDashboard() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
-  // Queries
   const { data: sections } = useQuery<Section[]>({
     queryKey: ["/api/sections/home"],
   });
@@ -30,13 +25,12 @@ export default function AdminDashboard() {
     queryKey: ["/api/projects"],
   });
 
-  // Section-specific frame queries
   const { data: frames } = useQuery<Frame[]>({
     queryKey: ["/api/sections", sections?.[0]?.id, "frames"],
     enabled: !!sections?.[0]?.id,
   });
 
-  // Delete mutations
+  // Mutations
   const deleteSection = useMutation({
     mutationFn: async (id: number) => {
       await apiRequest("DELETE", `/api/sections/${id}`);
@@ -63,7 +57,6 @@ export default function AdminDashboard() {
     },
   });
 
-  // Frame mutations
   const createFrame = useMutation({
     mutationFn: async (frame: { title: string; sectionId: number; contentType: string }) => {
       await apiRequest("POST", "/api/frames", {
@@ -166,188 +159,283 @@ export default function AdminDashboard() {
                           <DrawerTrigger asChild>
                             <Button variant="outline" size="sm">
                               <Plus className="mr-2 h-4 w-4" />
-                              Add Text Frame
+                              Add Frame
                             </Button>
                           </DrawerTrigger>
                           <DrawerContent>
                             <DrawerHeader>
-                              <DrawerTitle>Add New Text Frame</DrawerTitle>
+                              <DrawerTitle>Add New Frame</DrawerTitle>
                             </DrawerHeader>
                             <div className="p-4 space-y-4">
-                              <div className="space-y-2">
-                                <Label htmlFor="title">Frame Title</Label>
-                                <Input
-                                  id="title"
-                                  placeholder="Enter frame title"
-                                  onChange={(e) => {
-                                    // Handle title change
-                                  }}
-                                />
+                              <div className="grid grid-cols-3 gap-2">
+                                <Button
+                                  variant="outline"
+                                  onClick={() =>
+                                    createFrame.mutate({
+                                      title: "New Text Frame",
+                                      sectionId: section.id,
+                                      contentType: "text"
+                                    })
+                                  }
+                                >
+                                  <Type className="h-8 w-8 mb-2" />
+                                  <span>Text Frame</span>
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  onClick={() =>
+                                    createFrame.mutate({
+                                      title: "New Image Frame",
+                                      sectionId: section.id,
+                                      contentType: "image"
+                                    })
+                                  }
+                                >
+                                  <Image className="h-8 w-8 mb-2" />
+                                  <span>Image Frame</span>
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  onClick={() =>
+                                    createFrame.mutate({
+                                      title: "New Video Frame",
+                                      sectionId: section.id,
+                                      contentType: "video"
+                                    })
+                                  }
+                                >
+                                  <Video className="h-8 w-8 mb-2" />
+                                  <span>Video Frame</span>
+                                </Button>
                               </div>
-                              <Button 
-                                onClick={() => 
-                                  createFrame.mutate({
-                                    title: "New Text Frame",
-                                    sectionId: section.id,
-                                    contentType: "text"
-                                  })
-                                }
-                              >
-                                Create Frame
-                              </Button>
                             </div>
                           </DrawerContent>
                         </Drawer>
                       </div>
                     </div>
 
-                    <div className="border rounded-lg p-4">
-                      <ResizablePanelGroup direction="vertical">
-                        {frames?.map((frame, index) => (
-                          <div key={frame.id}>
-                            <ResizablePanel>
-                              <div className="p-4 border rounded-lg mb-2">
-                                <div className="flex items-center justify-between mb-4">
-                                  <div className="flex items-center gap-2">
-                                    <Move className="h-4 w-4 text-muted-foreground" />
-                                    <span className="font-medium">{frame.title}</span>
-                                  </div>
-                                  <div className="flex gap-2">
-                                    <Drawer>
-                                      <DrawerTrigger asChild>
-                                        <Button variant="outline" size="sm">
-                                          <Edit className="mr-2 h-4 w-4" />
-                                          Edit
-                                        </Button>
-                                      </DrawerTrigger>
-                                      <DrawerContent>
-                                        <DrawerHeader>
-                                          <DrawerTitle>Edit Frame</DrawerTitle>
-                                        </DrawerHeader>
-                                        <div className="p-4 space-y-4">
-                                          <div className="space-y-2">
-                                            <Label>Position</Label>
-                                            <div className="grid grid-cols-2 gap-2">
-                                              <div>
-                                                <Label htmlFor="x">X</Label>
-                                                <Input
-                                                  id="x"
-                                                  type="number"
-                                                  value={frame.x}
-                                                  onChange={(e) =>
-                                                    updateFrame.mutate({
-                                                      id: frame.id,
-                                                      x: parseFloat(e.target.value),
-                                                    })
-                                                  }
-                                                />
-                                              </div>
-                                              <div>
-                                                <Label htmlFor="y">Y</Label>
-                                                <Input
-                                                  id="y"
-                                                  type="number"
-                                                  value={frame.y}
-                                                  onChange={(e) =>
-                                                    updateFrame.mutate({
-                                                      id: frame.id,
-                                                      y: parseFloat(e.target.value),
-                                                    })
-                                                  }
-                                                />
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div className="space-y-2">
-                                            <Label>Size</Label>
-                                            <div className="grid grid-cols-2 gap-2">
-                                              <div>
-                                                <Label htmlFor="width">Width</Label>
-                                                <Input
-                                                  id="width"
-                                                  type="number"
-                                                  value={frame.width}
-                                                  onChange={(e) =>
-                                                    updateFrame.mutate({
-                                                      id: frame.id,
-                                                      width: parseFloat(e.target.value),
-                                                    })
-                                                  }
-                                                />
-                                              </div>
-                                              <div>
-                                                <Label htmlFor="height">Height</Label>
-                                                <Input
-                                                  id="height"
-                                                  type="number"
-                                                  value={frame.height}
-                                                  onChange={(e) =>
-                                                    updateFrame.mutate({
-                                                      id: frame.id,
-                                                      height: parseFloat(e.target.value),
-                                                    })
-                                                  }
-                                                />
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div className="space-y-2">
-                                            <Label>Content</Label>
-                                            {frame.contentType === "text" && (
-                                              <Textarea
-                                                value={frame.content.text}
+                    <div className="grid grid-cols-2 gap-4">
+                      {/* Frame Preview Area */}
+                      <div className="border rounded-lg p-4 bg-gray-50 min-h-[400px] relative">
+                        <h4 className="text-sm font-medium mb-2">Preview Area</h4>
+                        {frames?.map((frame) => (
+                          <div
+                            key={frame.id}
+                            className="absolute border-2 border-blue-500 bg-white p-2 cursor-move"
+                            style={{
+                              left: `${frame.x}%`,
+                              top: `${frame.y}%`,
+                              width: `${frame.width}%`,
+                              height: `${frame.height}%`,
+                              zIndex: frame.zIndex,
+                            }}
+                          >
+                            {frame.contentType === "text" && (
+                              <p style={frame.content.styles}>{frame.content.text || "Empty Text Frame"}</p>
+                            )}
+                            {frame.contentType === "image" && frame.content.mediaUrl && (
+                              <img
+                                src={frame.content.mediaUrl}
+                                alt={frame.content.altText || "Frame image"}
+                                className="w-full h-full object-cover"
+                              />
+                            )}
+                            {frame.contentType === "video" && frame.content.mediaUrl && (
+                              <video
+                                src={frame.content.mediaUrl}
+                                controls
+                                className="w-full h-full"
+                              />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Frame List */}
+                      <div className="border rounded-lg p-4">
+                        <h4 className="text-sm font-medium mb-2">Frame List</h4>
+                        <div className="space-y-2">
+                          {frames?.map((frame) => (
+                            <div
+                              key={frame.id}
+                              className="p-3 border rounded-lg hover:bg-gray-50"
+                            >
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  <Move className="h-4 w-4 text-muted-foreground" />
+                                  <span className="font-medium">{frame.title}</span>
+                                </div>
+                                <div className="flex gap-2">
+                                  <Drawer>
+                                    <DrawerTrigger asChild>
+                                      <Button variant="outline" size="sm">
+                                        <Edit className="mr-2 h-4 w-4" />
+                                        Edit
+                                      </Button>
+                                    </DrawerTrigger>
+                                    <DrawerContent>
+                                      <DrawerHeader>
+                                        <DrawerTitle>Edit Frame</DrawerTitle>
+                                      </DrawerHeader>
+                                      <div className="p-4 space-y-4">
+                                        <div className="space-y-2">
+                                          <Label>Position</Label>
+                                          <div className="grid grid-cols-2 gap-2">
+                                            <div>
+                                              <Label htmlFor="x">X (%)</Label>
+                                              <Input
+                                                id="x"
+                                                type="number"
+                                                value={frame.x}
                                                 onChange={(e) =>
                                                   updateFrame.mutate({
                                                     id: frame.id,
-                                                    content: {
-                                                      ...frame.content,
-                                                      text: e.target.value,
-                                                    },
+                                                    x: parseFloat(e.target.value),
                                                   })
                                                 }
                                               />
-                                            )}
+                                            </div>
+                                            <div>
+                                              <Label htmlFor="y">Y (%)</Label>
+                                              <Input
+                                                id="y"
+                                                type="number"
+                                                value={frame.y}
+                                                onChange={(e) =>
+                                                  updateFrame.mutate({
+                                                    id: frame.id,
+                                                    y: parseFloat(e.target.value),
+                                                  })
+                                                }
+                                              />
+                                            </div>
                                           </div>
-                                          <div className="flex items-center space-x-2">
-                                            <Label htmlFor="responsive">Responsive</Label>
-                                            <Switch
-                                              id="responsive"
-                                              checked={frame.isResponsive}
-                                              onCheckedChange={(checked) =>
+                                        </div>
+                                        <div className="space-y-2">
+                                          <Label>Size</Label>
+                                          <div className="grid grid-cols-2 gap-2">
+                                            <div>
+                                              <Label htmlFor="width">Width (%)</Label>
+                                              <Input
+                                                id="width"
+                                                type="number"
+                                                value={frame.width}
+                                                onChange={(e) =>
+                                                  updateFrame.mutate({
+                                                    id: frame.id,
+                                                    width: parseFloat(e.target.value),
+                                                  })
+                                                }
+                                              />
+                                            </div>
+                                            <div>
+                                              <Label htmlFor="height">Height (%)</Label>
+                                              <Input
+                                                id="height"
+                                                type="number"
+                                                value={frame.height}
+                                                onChange={(e) =>
+                                                  updateFrame.mutate({
+                                                    id: frame.id,
+                                                    height: parseFloat(e.target.value),
+                                                  })
+                                                }
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div className="space-y-2">
+                                          <Label>Z-Index</Label>
+                                          <Input
+                                            type="number"
+                                            value={frame.zIndex}
+                                            onChange={(e) =>
+                                              updateFrame.mutate({
+                                                id: frame.id,
+                                                zIndex: parseInt(e.target.value),
+                                              })
+                                            }
+                                          />
+                                        </div>
+                                        <div className="space-y-2">
+                                          <Label>Content</Label>
+                                          {frame.contentType === "text" && (
+                                            <Textarea
+                                              value={frame.content.text}
+                                              onChange={(e) =>
                                                 updateFrame.mutate({
                                                   id: frame.id,
-                                                  isResponsive: checked,
+                                                  content: {
+                                                    ...frame.content,
+                                                    text: e.target.value,
+                                                  },
                                                 })
                                               }
                                             />
-                                          </div>
+                                          )}
+                                          {frame.contentType === "image" && (
+                                            <Input
+                                              type="text"
+                                              placeholder="Image URL"
+                                              value={frame.content.mediaUrl}
+                                              onChange={(e) =>
+                                                updateFrame.mutate({
+                                                  id: frame.id,
+                                                  content: {
+                                                    ...frame.content,
+                                                    mediaUrl: e.target.value,
+                                                  },
+                                                })
+                                              }
+                                            />
+                                          )}
+                                          {frame.contentType === "video" && (
+                                            <Input
+                                              type="text"
+                                              placeholder="Video URL"
+                                              value={frame.content.mediaUrl}
+                                              onChange={(e) =>
+                                                updateFrame.mutate({
+                                                  id: frame.id,
+                                                  content: {
+                                                    ...frame.content,
+                                                    mediaUrl: e.target.value,
+                                                  },
+                                                })
+                                              }
+                                            />
+                                          )}
                                         </div>
-                                      </DrawerContent>
-                                    </Drawer>
-                                    <Button
-                                      variant="destructive"
-                                      size="sm"
-                                      onClick={() => deleteFrame.mutate(frame.id)}
-                                    >
-                                      <Trash2 className="mr-2 h-4 w-4" />
-                                      Delete
-                                    </Button>
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                                  <span>Position: {frame.x}, {frame.y}</span>
-                                  <span>Size: {frame.width}x{frame.height}</span>
-                                  <span>Z-Index: {frame.zIndex}</span>
-                                  {frame.isResponsive && (
-                                    <span className="text-green-600">Responsive</span>
-                                  )}
+                                        <div className="flex items-center space-x-2">
+                                          <Label htmlFor="responsive">Responsive</Label>
+                                          <Switch
+                                            id="responsive"
+                                            checked={frame.isResponsive}
+                                            onCheckedChange={(checked) =>
+                                              updateFrame.mutate({
+                                                id: frame.id,
+                                                isResponsive: checked,
+                                              })
+                                            }
+                                          />
+                                        </div>
+                                      </div>
+                                    </DrawerContent>
+                                  </Drawer>
+                                  <Button
+                                    variant="destructive"
+                                    size="sm"
+                                    onClick={() => deleteFrame.mutate(frame.id)}
+                                  >
+                                    <Trash2 className="mr-2 h-4 w-4" />
+                                    Delete
+                                  </Button>
                                 </div>
                               </div>
-                            </ResizablePanel>
-                            {index < frames.length - 1 && <ResizableHandle />}
-                          </div>
-                        ))}
-                      </ResizablePanelGroup>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
