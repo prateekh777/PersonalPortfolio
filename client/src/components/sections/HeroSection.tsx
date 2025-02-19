@@ -21,7 +21,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative min-h-[80vh] w-full overflow-hidden">
+    <section className="relative min-h-screen w-full overflow-hidden">
       {/* SVG Mask Definition */}
       <svg className="absolute -z-50 h-0 w-0">
         <defs>
@@ -35,65 +35,59 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         </defs>
       </svg>
 
-      {/* Main Frame Container */}
-      <div className="relative flex h-full min-h-[500px] w-full flex-col items-center justify-center">
-        {/* Laptop Background */}
-        <div className="absolute inset-0 -z-10">
+      {/* Main Container */}
+      <div className="relative mx-auto flex h-screen max-h-[900px] w-full items-center justify-center px-4">
+        {/* Laptop Frame Background */}
+        <div className="absolute inset-0">
           <img
             src="/laptop-bg.jpg"
             alt="Laptop Frame"
-            className="h-full w-full object-contain md:object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
 
-        {/* Screen Content Container */}
-        <div className="relative w-full">
-          {/* Video Container with SVG Mask */}
-          <div 
-            className="relative mx-auto"
-            style={{
-              width: '71.6%',
-              paddingTop: '51.552%', // 72% of 71.6% to maintain aspect ratio
-              maskImage: 'url(#laptop-screen-mask)',
-              WebkitMaskImage: 'url(#laptop-screen-mask)',
-            }}
-          >
-            {!videoError && (
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                onError={() => setVideoError(true)}
-                className="absolute inset-0 h-full w-full object-cover"
-              >
-                <source src={videoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            )}
-          </div>
+        {/* Content Container */}
+        <div className="relative w-full max-w-[1200px]">
+          {/* Screen Content Area */}
+          <div className="relative mx-auto" style={{ width: '71.6%' }}>
+            {/* Video Container */}
+            <div 
+              className="relative overflow-hidden"
+              style={{
+                paddingTop: '56.25%',
+                maskImage: 'url(#laptop-screen-mask)',
+                WebkitMaskImage: 'url(#laptop-screen-mask)',
+              }}
+            >
+              {!videoError && (
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  onError={() => setVideoError(true)}
+                  className="absolute inset-0 h-full w-full object-cover"
+                >
+                  <source src={videoUrl} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
 
-          {/* Content Container */}
-          <div className="mx-auto mt-4 flex w-[71.6%] flex-col items-center space-y-4 px-4">
-            <div className="title-container text-center">
-              <h1 
-                className="font-bold leading-tight text-white"
-                style={{
-                  fontSize: 'clamp(1.5rem, 5vw, 3.2rem)',
-                }}
-              >
-                {title}
-              </h1>
-            </div>
-            <div className="subtitle-container text-center" style={{ marginBottom: 'max(5%, 20px)' }}>
-              <p 
-                className="font-light tracking-wide text-white/90"
-                style={{
-                  fontSize: 'clamp(0.875rem, 2vw, 1.25rem)',
-                }}
-              >
-                {subtitle}
-              </p>
+              {/* Content Overlay */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/30">
+                <h1 
+                  className="text-center font-bold text-white"
+                  style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)' }}
+                >
+                  {title}
+                </h1>
+                <p 
+                  className="mt-2 text-center font-light text-white/90"
+                  style={{ fontSize: 'clamp(0.875rem, 1.5vw, 1.125rem)' }}
+                >
+                  {subtitle}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -101,12 +95,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
 
       {/* Scroll Indicator */}
       {showScroll && (
-        <div 
-          className="absolute left-1/2 z-20 -translate-x-1/2 animate-bounce"
-          style={{
-            bottom: 'min(3vh, 30px)',
-          }}
-        >
+        <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
           <ArrowDown className="h-6 w-6 text-white" />
         </div>
       )}
