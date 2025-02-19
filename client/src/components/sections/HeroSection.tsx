@@ -23,11 +23,11 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   return (
     <section className="relative h-screen max-h-[1080px] w-full overflow-hidden">
       {/* Main Frame - Laptop Screen Background */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10 bg-black/5 backdrop-blur-sm">
         <img
           src="/laptop-bg.jpg"
           alt="Laptop Frame"
-          className="h-full w-full object-contain"
+          className="h-full w-full object-cover"
         />
       </div>
 
