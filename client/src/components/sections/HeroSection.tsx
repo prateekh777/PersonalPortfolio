@@ -21,7 +21,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative min-h-screen w-full overflow-hidden">
       {/* Main Frame - Laptop Screen Background */}
       <div className="absolute inset-0 -z-10 flex items-center justify-center">
         <img
@@ -59,7 +59,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
 
       {/* Title and Subtitle Container - Positioned between video and bottom of laptop */}
       <div 
-        className="absolute left-1/2 z-20 w-[58%]"
+        className="absolute left-1/2 z-20 w-[58%] max-w-[800px] px-4 md:px-0"
         style={{
           top: 'calc(50% + 16.875vw - 10px)', // Position after video, lifted up by 10px
           transform: 'translate(-50%, -50%) perspective(1000px) rotateX(5deg)',
