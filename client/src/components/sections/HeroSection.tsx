@@ -35,10 +35,10 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       </svg>
 
       {/* Main Container */}
-      <div className="relative mx-auto flex min-h-[600px] w-full items-center justify-center px-4 py-12">
+      <div className="flex min-h-screen w-full items-center justify-center">
         {/* Laptop Frame Container */}
         <div className="relative w-full max-w-[1200px]">
-          <div className="relative" style={{ paddingTop: '56.25%' }}> {/* 16:9 aspect ratio */}
+          <div className="relative mx-auto w-[90%]" style={{ paddingTop: '50.625%' }}> {/* 16:9 aspect ratio */}
             {/* Laptop Background Image */}
             <img
               src="/laptop-bg.jpg"
