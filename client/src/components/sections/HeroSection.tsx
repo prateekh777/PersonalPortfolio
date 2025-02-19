@@ -26,25 +26,30 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
-      {/* Background with laptop image */}
+    <section className="relative min-h-screen w-full overflow-hidden bg-black">
+      {/* Background laptop frame */}
       <div className="absolute inset-0">
         <img
-          src="/attached_assets/laptop image_fixed.jpg"
-          alt="Laptop Background"
-          className="h-full w-full object-cover"
+          src="attached_assets/laptop image_fixed.jpg"
+          alt="Laptop Frame"
+          className="h-full w-full object-cover opacity-80"
         />
-        <div className="absolute inset-0 bg-background/60 backdrop-blur-sm" />
       </div>
 
-      {/* Video positioned within laptop screen */}
-      <div className="absolute left-1/2 top-1/2 aspect-[16/10] w-[45%] -translate-x-1/2 -translate-y-[60%] overflow-hidden rounded-lg">
+      {/* Video container positioned within laptop screen */}
+      <div 
+        className="absolute left-1/2 top-1/2 w-[60%] -translate-x-1/2 -translate-y-[58%]"
+        style={{
+          aspectRatio: '16/10',
+          transform: 'translate(-50%, -58%) perspective(1000px) rotateX(5deg)',
+        }}
+      >
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover rounded-lg"
         >
           <source src={videoUrl} type="video/mp4" />
         </video>
@@ -54,24 +59,24 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
       <div className="absolute right-8 top-8 flex gap-8">
         {stats.map((stat, index) => (
           <div key={index} className="text-right">
-            <div className="text-4xl font-bold">{stat.value}</div>
-            <div className="text-sm text-muted-foreground">{stat.label}</div>
+            <div className="text-4xl font-bold text-white">{stat.value}</div>
+            <div className="text-sm text-white/70">{stat.label}</div>
           </div>
         ))}
       </div>
 
       {/* Content */}
-      <div className="relative flex h-screen items-end justify-center pb-32">
+      <div className="relative flex min-h-screen items-end justify-center pb-32">
         <div className="text-center">
-          <h1 className="mb-4 text-[120px] font-bold leading-none">{title}</h1>
-          <p className="text-xl text-muted-foreground">{subtitle}</p>
+          <h1 className="mb-4 text-[120px] font-bold leading-none text-white">{title}</h1>
+          <p className="text-xl text-white/70">{subtitle}</p>
         </div>
       </div>
 
       {/* Scroll Indicator */}
       {showScroll && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <ArrowDown className="h-6 w-6" />
+          <ArrowDown className="h-6 w-6 text-white" />
         </div>
       )}
     </section>
