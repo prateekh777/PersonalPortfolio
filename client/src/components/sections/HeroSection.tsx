@@ -14,7 +14,6 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionProps) {
-  // Scroll indicator visibility
   const [showScroll, setShowScroll] = useState(true);
 
   useEffect(() => {
@@ -27,9 +26,19 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Video Background */}
+    <section className="relative min-h-screen w-full overflow-hidden">
+      {/* Background with laptop image */}
       <div className="absolute inset-0">
+        <img
+          src="/attached_assets/laptop image_fixed.jpg"
+          alt="Laptop Background"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-background/60 backdrop-blur-sm" />
+      </div>
+
+      {/* Video positioned within laptop screen */}
+      <div className="absolute left-1/2 top-1/2 aspect-[16/10] w-[45%] -translate-x-1/2 -translate-y-[60%] overflow-hidden rounded-lg">
         <video
           autoPlay
           muted
@@ -39,8 +48,6 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
         >
           <source src={videoUrl} type="video/mp4" />
         </video>
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-background/60 backdrop-blur-sm" />
       </div>
 
       {/* Stats */}
@@ -54,7 +61,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
       </div>
 
       {/* Content */}
-      <div className="relative flex h-full items-center justify-center">
+      <div className="relative flex h-screen items-end justify-center pb-32">
         <div className="text-center">
           <h1 className="mb-4 text-[120px] font-bold leading-none">{title}</h1>
           <p className="text-xl text-muted-foreground">{subtitle}</p>
