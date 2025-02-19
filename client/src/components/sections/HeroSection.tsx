@@ -26,22 +26,23 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-black">
+    <section className="relative min-h-screen w-full overflow-hidden">
       {/* Background laptop frame */}
       <div className="absolute inset-0">
         <img
-          src="/laptop image_fixed.jpg"
+          src="/laptop-bg.jpg"
           alt="Laptop Frame"
-          className="h-full w-full object-cover opacity-80"
+          className="h-full w-full object-cover"
         />
       </div>
 
       {/* Video container positioned within laptop screen */}
       <div 
-        className="absolute left-1/2 top-1/2 w-[60%] -translate-x-1/2 -translate-y-[58%]"
+        className="absolute left-1/2 top-[40%] w-[56%] -translate-x-1/2 -translate-y-1/2 transform-gpu"
         style={{
           aspectRatio: '16/10',
-          transform: 'translate(-50%, -58%) perspective(1000px) rotateX(5deg)',
+          perspective: '1000px',
+          transform: 'translateX(-50%) translateY(-50%) rotateX(5deg)',
         }}
       >
         <video
