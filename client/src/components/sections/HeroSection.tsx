@@ -63,12 +63,16 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/40 to-black/60" />
 
       {/* Main Content */}
-      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center" style={{ paddingBottom: '10vh' }}>
-        <div className="container mx-auto text-center">
-          <h1 className="mb-4 text-7xl font-bold leading-none text-white sm:text-8xl md:text-[120px]">
+      <div className="absolute left-1/2 top-1/2 z-20 w-[58%] -translate-x-1/2" 
+           style={{ 
+             top: '45%',
+             transform: 'translate(-50%, 20%) perspective(1000px) rotateX(5deg)'
+           }}>
+        <div className="text-center">
+          <h1 className="mb-2 text-6xl font-bold leading-none text-gray-900 sm:text-7xl md:text-8xl">
             {title}
           </h1>
-          <p className="text-xl text-white/80 sm:text-2xl font-light">
+          <p className="text-xl text-gray-600 sm:text-2xl font-light">
             {subtitle}
           </p>
         </div>

@@ -32,13 +32,9 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <HeroSection
-        title="Hello"
-        subtitle="— It's D.Nova a design wizard"
+        title="Hello, I'm Prateek H"
+        subtitle="– Welcome to My Creative Playground"
         videoUrl="/SampleVideo_1280x720_10mb.mp4"
-        stats={[
-          { label: "Project completed", value: "200+" },
-          { label: "Startup rated", value: "50+" },
-        ]}
       />
       <GridSection title="The Sanctuary" items={gridItems} />
     </div>
