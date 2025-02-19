@@ -29,7 +29,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-xl items-center justify-between px-4">
         <Link href="/">
           <a className="flex items-center space-x-2">
@@ -44,7 +44,7 @@ export function Header() {
               <NavigationMenuItem key={item.path}>
                 <Link href={item.path}>
                   <NavigationMenuLink
-                    className={`group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${
+                    className={`group inline-flex h-10 w-max items-center justify-center rounded-md bg-background/50 px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${
                       isActive(item.path) ? "bg-accent" : ""
                     }`}
                   >
