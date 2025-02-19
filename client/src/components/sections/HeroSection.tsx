@@ -21,7 +21,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative min-h-[500px] h-[90vh] lg:h-[85vh] xl:h-[80vh] 2xl:h-[75vh] w-full overflow-hidden">
       {/* Main Frame - Laptop Screen Background */}
       <div className="absolute inset-0 -z-10 flex items-center justify-center">
         <img
@@ -66,10 +66,10 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         }}
       >
         <div className="text-center flex flex-col gap-2">
-          <h1 className="whitespace-nowrap text-[min(5vw,64px)] font-bold leading-none text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[min(5vw,64px)] font-bold leading-none text-white">
             {title}
           </h1>
-          <p className="whitespace-nowrap text-[min(1.5vw,20px)] font-light tracking-wide text-white/90">
+          <p className="text-sm sm:text-base md:text-lg lg:text-[min(1.5vw,20px)] font-light tracking-wide text-white/90">
             {subtitle}
           </p>
         </div>
