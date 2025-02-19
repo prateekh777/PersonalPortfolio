@@ -31,7 +31,7 @@ export default function AdminDashboard() {
   });
 
   // Section-specific frame queries
-  const { data: frames, isLoading: isLoadingFrames } = useQuery<Frame[]>({
+  const { data: frames } = useQuery<Frame[]>({
     queryKey: ["/api/sections", sections?.[0]?.id, "frames"],
     enabled: !!sections?.[0]?.id,
   });
@@ -46,6 +46,19 @@ export default function AdminDashboard() {
       toast({
         title: "Section deleted",
         description: "The section has been successfully deleted.",
+      });
+    },
+  });
+
+  const deleteProject = useMutation({
+    mutationFn: async (id: number) => {
+      await apiRequest("DELETE", `/api/projects/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/projects"] });
+      toast({
+        title: "Project deleted",
+        description: "Project has been deleted successfully.",
       });
     },
   });
@@ -102,8 +115,8 @@ export default function AdminDashboard() {
       <h1 className="text-4xl font-bold">Admin Dashboard</h1>
 
       <Tabs defaultValue="home" className="w-full">
-        <TabsList>
-          <TabsTrigger value="home">Home Sections</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="home">Home</TabsTrigger>
           <TabsTrigger value="projects">Projects</TabsTrigger>
           <TabsTrigger value="case-studies">Case Studies</TabsTrigger>
           <TabsTrigger value="ai-works">AI Works</TabsTrigger>
@@ -191,8 +204,8 @@ export default function AdminDashboard() {
                     <div className="border rounded-lg p-4">
                       <ResizablePanelGroup direction="vertical">
                         {frames?.map((frame, index) => (
-                          <>
-                            <ResizablePanel key={frame.id}>
+                          <div key={frame.id}>
+                            <ResizablePanel>
                               <div className="p-4 border rounded-lg mb-2">
                                 <div className="flex items-center justify-between mb-4">
                                   <div className="flex items-center gap-2">
@@ -332,7 +345,7 @@ export default function AdminDashboard() {
                               </div>
                             </ResizablePanel>
                             {index < frames.length - 1 && <ResizableHandle />}
-                          </>
+                          </div>
                         ))}
                       </ResizablePanelGroup>
                     </div>
@@ -378,7 +391,17 @@ export default function AdminDashboard() {
           </div>
         </TabsContent>
 
-        {/* Similar TabsContent for case-studies, ai-works, and interests */}
+        <TabsContent value="case-studies">
+          <p>Case Studies management coming soon...</p>
+        </TabsContent>
+
+        <TabsContent value="ai-works">
+          <p>AI Works management coming soon...</p>
+        </TabsContent>
+
+        <TabsContent value="interests">
+          <p>Interests management coming soon...</p>
+        </TabsContent>
       </Tabs>
     </div>
   );
