@@ -62,17 +62,18 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       {/* Dark overlay for better text contrast */}
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/40 to-black/60" />
 
-      {/* Main Content */}
-      <div className="absolute left-1/2 top-1/2 z-20 w-[58%] -translate-x-1/2" 
-           style={{ 
-             top: '45%',
-             transform: 'translate(-50%, 20%) perspective(1000px) rotateX(5deg)'
-           }}>
+      {/* Text Content Below Video */}
+      <div 
+        className="absolute left-1/2 top-1/2 z-20 w-[58%] -translate-x-1/2"
+        style={{
+          transform: 'translate(-50%, 80%) perspective(1000px) rotateX(5deg)'
+        }}
+      >
         <div className="text-center">
-          <h1 className="mb-2 text-6xl font-bold leading-none text-gray-900 sm:text-7xl md:text-8xl">
+          <h1 className="text-[72px] font-bold leading-tight text-gray-900">
             {title}
           </h1>
-          <p className="text-xl text-gray-600 sm:text-2xl font-light">
+          <p className="text-xl text-gray-600 mt-2 font-light tracking-wide">
             {subtitle}
           </p>
         </div>
