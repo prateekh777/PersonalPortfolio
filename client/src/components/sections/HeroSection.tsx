@@ -44,10 +44,10 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       <div 
         className="absolute z-10"
         style={{
-          top: '13.5%',
-          left: '14%',
-          width: '72%',
-          height: '67.5%',
+          top: '17%',
+          left: '19%',
+          width: '60%',
+          height: '53%',
           clipPath: 'url(#laptop-screen-mask)',
           backgroundColor: '#000',
         }}
@@ -74,9 +74,9 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       <div 
         className="absolute z-30"
         style={{
-          top: 'calc(13.5% + 67.5%)',
-          left: '14%',
-          width: '72%',
+          top: 'calc(17% + 53%)',
+          left: '19%',
+          width: '60%',
           transform: 'translateY(-120%)',
         }}
       >
