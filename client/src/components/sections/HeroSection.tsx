@@ -23,12 +23,14 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Main Frame - Laptop Screen Background */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src="/laptop-bg.jpg"
-          alt="Laptop Frame"
-          className="h-full w-full object-cover"
-        />
+      <div className="absolute inset-0 -z-10 flex items-center justify-center">
+        <div className="relative h-full w-full max-w-[2000px]">
+          <img
+            src="/laptop-bg.jpg"
+            alt="Laptop Frame"
+            className="h-full w-full object-contain"
+          />
+        </div>
       </div>
 
       {/* Video Frame - 16:9 aspect ratio, aligned to top of main frame */}
