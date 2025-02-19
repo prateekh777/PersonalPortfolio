@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { ArrowDown } from 'lucide-react';
 
@@ -33,9 +32,9 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       </div>
 
       {/* Content Container - maintains aspect ratio and positioning */}
-      <div className="absolute left-1/2 top-[54%] w-[45%] sm:w-[50%] md:w-[45%] lg:w-[40%] -translate-x-1/2 -translate-y-1/2 max-h-[80vh]">
+      <div className="absolute left-1/2 top-[54%] w-[45%] sm:w-[50%] md:w-[45%] lg:w-[40%] -translate-x-1/2 -translate-y-1/2">
         {/* Video Container */}
-        <div className="relative w-full aspect-video">
+        <div className="relative w-full aspect-video overflow-hidden">
           {!videoError && (
             <video
               autoPlay
