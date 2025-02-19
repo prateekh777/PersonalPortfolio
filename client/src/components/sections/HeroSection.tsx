@@ -15,6 +15,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionProps) {
   const [showScroll, setShowScroll] = useState(true);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,16 +53,19 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
           transform: 'translate(-50%, -60%) perspective(1000px) rotateX(5deg)',
         }}
       >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full rounded-lg object-cover"
-        >
-          <source src={videoUrl} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        {!videoError && (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            onError={() => setVideoError(true)}
+            className="h-full w-full rounded-lg object-cover"
+          >
+            <source src={videoUrl} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        )}
       </div>
 
       {/* Stats Overlay */}
