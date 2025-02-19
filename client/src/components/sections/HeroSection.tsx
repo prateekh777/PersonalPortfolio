@@ -22,7 +22,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative min-h-[400px] xs:min-h-[450px] sm:min-h-[500px] h-[95vh] w-full overflow-hidden">
+    <section className="relative h-screen max-h-[1080px] w-full overflow-hidden">
       {/* Main Frame - Laptop Screen Background */}
       <div className="absolute inset-0 -z-10">
         <img
@@ -33,7 +33,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       </div>
 
       {/* Content Container - maintains aspect ratio and positioning */}
-      <div className="absolute left-1/2 top-[54%] w-[45%] sm:w-[50%] md:w-[45%] lg:w-[40%] -translate-x-1/2 -translate-y-1/2">
+      <div className="absolute left-1/2 top-[54%] w-[45%] sm:w-[50%] md:w-[45%] lg:w-[40%] -translate-x-1/2 -translate-y-1/2 max-h-[80vh]">
         {/* Video Container */}
         <div className="relative w-full aspect-video">
           {!videoError && (
