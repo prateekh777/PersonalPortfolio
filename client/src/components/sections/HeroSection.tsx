@@ -22,21 +22,16 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background laptop image */}
+      {/* Main Frame - Laptop Screen Background */}
       <div className="absolute inset-0 -z-10">
         <img
           src="/laptop-bg.jpg"
           alt="Laptop Frame"
           className="h-full w-full object-cover"
-          style={{
-            objectFit: 'cover',
-            width: '100vw',
-            height: '100vh'
-          }}
         />
       </div>
 
-      {/* Video container positioned within laptop screen */}
+      {/* Video Frame - 16:9 aspect ratio, aligned to top of main frame */}
       <div 
         className="absolute left-1/2 top-1/2 z-0 w-[58%] -translate-x-1/2 -translate-y-[60%]"
         style={{
@@ -62,19 +57,19 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       {/* Dark overlay for better text contrast */}
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/40 to-black/60" />
 
-      {/* Text Content Below Video */}
+      {/* Title and Subtitle Container - Positioned between video and bottom of laptop */}
       <div 
         className="absolute left-1/2 z-20 w-[58%]"
         style={{
-          top: 'calc(50% - 60% + 16.875vw)', // Calculated to position below video (16:9 aspect ratio)
-          transform: 'translate(-50%, 100%) perspective(1000px) rotateX(5deg)',
+          top: 'calc(50% + 16.875vw)', // Position after video (16:9 aspect ratio considered)
+          transform: 'translate(-50%, -50%) perspective(1000px) rotateX(5deg)',
         }}
       >
-        <div className="text-center">
+        <div className="text-center flex flex-col gap-2">
           <h1 className="whitespace-nowrap text-[min(5vw,64px)] font-bold leading-none text-white">
             {title}
           </h1>
-          <p className="mt-2 whitespace-nowrap text-[min(1.5vw,20px)] font-light tracking-wide text-white/90">
+          <p className="whitespace-nowrap text-[min(1.5vw,20px)] font-light tracking-wide text-white/90">
             {subtitle}
           </p>
         </div>
