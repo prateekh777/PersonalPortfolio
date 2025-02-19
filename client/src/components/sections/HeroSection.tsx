@@ -23,15 +23,11 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   return (
     <section className="relative min-h-[400px] xs:min-h-[450px] sm:min-h-[500px] h-[95vh] sm:h-[92vh] md:h-[88vh] lg:h-[85vh] xl:h-[82vh] 2xl:h-[78vh] w-full overflow-hidden">
       {/* SVG Mask Definition */}
-      <svg className="absolute h-0 w-0">
+      <svg width="0" height="0" className="absolute">
         <defs>
-          <mask id="laptop-screen-mask">
-            <path
-              d="M100,91 L710,91 Q725,91 725,106 L725,456 Q725,471 710,471 L100,471 Q85,471 85,456 L85,106 Q85,91 100,91 Z"
-              fill="white"
-              transform="scale(0.00142857)"
-            />
-          </mask>
+          <clipPath id="laptop-screen-mask" clipPathUnits="objectBoundingBox">
+            <path d="M0.125,0.16 H0.875 Q0.89,0.16 0.89,0.175 V0.825 Q0.89,0.84 0.875,0.84 H0.125 Q0.11,0.84 0.11,0.825 V0.175 Q0.11,0.16 0.125,0.16 Z" />
+          </clipPath>
         </defs>
       </svg>
 
@@ -44,7 +40,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         />
       </div>
 
-      {/* Video Container with Mask */}
+      {/* Video Container */}
       <div 
         className="absolute z-10"
         style={{
@@ -52,10 +48,8 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
           left: '14.2%',
           width: '71.6%',
           height: '72%',
-          maskImage: 'url(#laptop-screen-mask)',
-          WebkitMaskImage: 'url(#laptop-screen-mask)',
-          backgroundColor: 'black', 
-          overflow: 'hidden', 
+          clipPath: 'url(#laptop-screen-mask)',
+          backgroundColor: '#000',
         }}
       >
         {!videoError && (
@@ -66,13 +60,6 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
             playsInline
             onError={() => setVideoError(true)}
             className="h-full w-full object-cover"
-            style={{
-              position: 'absolute',
-              top: '0',
-              left: '0',
-              width: '100%',
-              height: '100%',
-            }}
           >
             <source src={videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
