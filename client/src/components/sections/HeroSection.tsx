@@ -23,20 +23,19 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
       {/* SVG Mask Definition */}
-      <svg className="absolute -z-50 h-0 w-0">
+      <svg width="0" height="0" className="absolute">
         <defs>
-          <mask id="laptop-screen-mask">
+          <mask id="laptop-screen-mask" maskUnits="userSpaceOnUse" x="85" y="91" width="640" height="380">
             <path
               d="M100,91 L710,91 Q725,91 725,106 L725,456 Q725,471 710,471 L100,471 Q85,471 85,456 L85,106 Q85,91 100,91 Z"
               fill="white"
-              transform="scale(0.00142857)"
             />
           </mask>
         </defs>
       </svg>
 
       {/* Main Container */}
-      <div className="relative mx-auto flex h-screen max-h-[900px] w-full items-center justify-center px-4">
+      <div className="relative mx-auto flex h-screen max-h-[900px] w-full items-center justify-center">
         {/* Laptop Frame Background */}
         <div className="absolute inset-0">
           <img
@@ -46,17 +45,20 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
           />
         </div>
 
-        {/* Content Container */}
-        <div className="relative w-full max-w-[1200px]">
-          {/* Screen Content Area */}
-          <div className="relative mx-auto" style={{ width: '71.6%' }}>
-            {/* Video Container */}
+        {/* Screen Content Area */}
+        <div className="relative mx-auto w-[71.6%]">
+          <div 
+            className="relative overflow-hidden"
+            style={{
+              paddingTop: '56.25%', // 16:9 aspect ratio
+            }}
+          >
+            {/* Video with Mask */}
             <div 
-              className="relative overflow-hidden"
+              className="absolute inset-0"
               style={{
-                paddingTop: '56.25%',
-                maskImage: 'url(#laptop-screen-mask)',
-                WebkitMaskImage: 'url(#laptop-screen-mask)',
+                mask: 'url(#laptop-screen-mask)',
+                WebkitMask: 'url(#laptop-screen-mask)',
               }}
             >
               {!videoError && (
@@ -66,7 +68,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
                   loop
                   playsInline
                   onError={() => setVideoError(true)}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="h-full w-full object-cover"
                 >
                   <source src={videoUrl} type="video/mp4" />
                   Your browser does not support the video tag.
