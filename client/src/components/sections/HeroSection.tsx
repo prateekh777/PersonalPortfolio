@@ -66,14 +66,15 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       <div 
         className="absolute left-1/2 top-1/2 z-20 w-[58%] -translate-x-1/2"
         style={{
-          transform: 'translate(-50%, 30%) perspective(1000px) rotateX(5deg)'
+          transform: 'translate(-50%, 90%) perspective(1000px) rotateX(5deg)',
+          maxWidth: 'min(58%, 800px)'
         }}
       >
         <div className="text-center">
-          <h1 className="text-[64px] font-bold leading-none text-white">
+          <h1 className="whitespace-nowrap text-[clamp(32px,5vw,64px)] font-bold leading-none text-white">
             {title}
           </h1>
-          <p className="mt-2 text-xl font-light tracking-wide text-white/90">
+          <p className="mt-2 whitespace-nowrap text-[clamp(16px,1.5vw,20px)] font-light tracking-wide text-white/90">
             {subtitle}
           </p>
         </div>
