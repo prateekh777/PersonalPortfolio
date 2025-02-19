@@ -33,7 +33,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       </div>
 
       {/* Content Container - maintains aspect ratio and positioning */}
-      <div className="absolute left-1/2 top-[62%] w-[45%] -translate-x-1/2 -translate-y-1/2">
+      <div className="absolute left-1/2 top-[56%] w-[45%] -translate-x-1/2 -translate-y-1/2">
         {/* Video Container */}
         <div className="relative w-full aspect-video">
           {!videoError && (
