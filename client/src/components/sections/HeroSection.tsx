@@ -44,9 +44,9 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         />
       </div>
 
-      {/* Video Frame Container with SVG Mask */}
+      {/* Video Container with Mask */}
       <div 
-        className="absolute"
+        className="absolute z-10"
         style={{
           top: '8.5%',
           left: '14.2%',
@@ -54,6 +54,8 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
           height: '72%',
           maskImage: 'url(#laptop-screen-mask)',
           WebkitMaskImage: 'url(#laptop-screen-mask)',
+          backgroundColor: 'black', 
+          overflow: 'hidden', 
         }}
       >
         {!videoError && (
@@ -63,7 +65,14 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
             loop
             playsInline
             onError={() => setVideoError(true)}
-            className="h-full w-full rounded-lg object-cover"
+            className="h-full w-full object-cover"
+            style={{
+              position: 'absolute',
+              top: '0',
+              left: '0',
+              width: '100%',
+              height: '100%',
+            }}
           >
             <source src={videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
@@ -72,11 +81,11 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       </div>
 
       {/* Dark overlay for better text contrast */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 to-black/40" />
+      <div className="absolute inset-0 z-20 bg-gradient-to-b from-black/20 to-black/40" />
 
       {/* Title and Subtitle Container */}
       <div 
-        className="absolute z-20"
+        className="absolute z-30"
         style={{
           top: 'calc(8.5% + 72%)',
           left: '14.2%',
@@ -96,7 +105,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
 
       {/* Scroll Indicator */}
       {showScroll && (
-        <div className="absolute bottom-2 xs:bottom-3 sm:bottom-4 md:bottom-6 lg:bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-2 xs:bottom-3 sm:bottom-4 md:bottom-6 lg:bottom-8 left-1/2 z-40 -translate-x-1/2 animate-bounce">
           <ArrowDown className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-white" />
         </div>
       )}
