@@ -34,7 +34,7 @@ export default function Home() {
       <HeroSection
         title="Hello"
         subtitle="— It's D.Nova a design wizard"
-        videoUrl="/placeholder-hero.mp4" 
+        videoUrl="/SampleVideo_1280x720_10mb.mp4"
         stats={[
           { label: "Project completed", value: "200+" },
           { label: "Startup rated", value: "50+" },

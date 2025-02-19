@@ -27,24 +27,22 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
-      {/* Background laptop frame */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="relative w-full max-w-[1600px] overflow-hidden">
-          <img
-            src="/laptop-bg.jpg"
-            alt="Laptop Frame"
-            className="h-auto w-full object-contain"
-          />
-        </div>
+      {/* Background laptop frame - full screen */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/laptop-bg.jpg"
+          alt="Laptop Frame"
+          className="h-screen w-full object-cover"
+        />
       </div>
 
       {/* Video container positioned within laptop screen */}
       <div 
-        className="absolute left-1/2 top-1/2 w-[60%] max-w-[1200px] -translate-x-1/2 -translate-y-[55%] transform-gpu z-10 sm:w-[65%] md:w-[62%] lg:w-[60%]"
+        className="absolute left-1/2 top-1/2 w-[56%] -translate-x-1/2 -translate-y-[58%] transform-gpu"
         style={{
           aspectRatio: '16/9',
           perspective: '1000px',
-          transform: 'translate(-50%, -50%) rotateX(5deg)',
+          transform: 'translate(-50%, -58%) rotateX(5deg)',
         }}
       >
         <video
@@ -55,6 +53,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
           className="h-full w-full rounded-lg object-cover"
         >
           <source src={videoUrl} type="video/mp4" />
+          Your browser does not support the video tag.
         </video>
       </div>
 
@@ -70,7 +69,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
 
       {/* Content */}
       <div className="relative z-20 flex min-h-screen items-end justify-center pb-16 sm:pb-24 md:pb-32">
-        <div className="text-center px-4">
+        <div className="text-center">
           <h1 className="mb-4 text-5xl font-bold leading-none text-white sm:text-7xl md:text-[90px] lg:text-[120px]">{title}</h1>
           <p className="text-lg text-white/70 sm:text-xl">{subtitle}</p>
         </div>
