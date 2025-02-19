@@ -1,11 +1,25 @@
-import { DndContext, DragEndEvent, useSensor, useSensors, PointerSensor, useDraggable } from "@dnd-kit/core";
+import { 
+  DndContext, 
+  DragEndEvent,
+  useSensor, 
+  useSensors, 
+  PointerSensor,
+  MouseSensor,
+  TouchSensor
+} from "@dnd-kit/core";
 import { type Frame } from "@shared/schema";
 import { Button } from "@/components/ui/button";
-import { Plus, Type, Image, Video, Layers, Save } from "lucide-react";
-import { useRef, useState } from "react";
+import { Plus, Type, Image, Video, Save } from "lucide-react";
+import { useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger 
+} from "@/components/ui/dialog";
 
 interface FrameEditorProps {
   sectionId: number;
@@ -21,17 +35,9 @@ function DraggableFrame({ frame, onUpdate, onDelete }: {
   onUpdate: (updates: Partial<Frame>) => void;
   onDelete: () => void;
 }) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: frame.id.toString(),
-  });
-
-  const style = transform ? {
-    transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-  } : undefined;
-
   return (
     <div
-      ref={setNodeRef}
+      data-frame-id={frame.id}
       style={{
         position: 'absolute',
         left: `${frame.x}%`,
@@ -39,11 +45,8 @@ function DraggableFrame({ frame, onUpdate, onDelete }: {
         width: `${frame.width}%`,
         height: `${frame.height}%`,
         zIndex: frame.zIndex || 0,
-        ...style
       }}
       className="border-2 border-blue-500 bg-white rounded p-2 cursor-move group"
-      {...attributes}
-      {...listeners}
     >
       {frame.contentType === 'text' && (
         <Textarea
@@ -123,14 +126,25 @@ export function FrameEditor({
   onDeleteFrame,
   onPublish,
 }: FrameEditorProps) {
-  const [selectedFrame, setSelectedFrame] = useState<number | null>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
-  const sensors = useSensors(useSensor(PointerSensor));
+
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, delta } = event;
-    const frame = frames.find((f) => f.id.toString() === active.id);
-    if (!frame || !canvasRef.current) return;
+    if (!active || !canvasRef.current) return;
+
+    const frameId = parseInt(active.id as string);
+    const frame = frames.find((f) => f.id === frameId);
+    if (!frame) return;
 
     const canvas = canvasRef.current.getBoundingClientRect();
     const deltaXPercent = (delta.x / canvas.width) * 100;
@@ -165,12 +179,12 @@ export function FrameEditor({
         </Button>
       </div>
 
-      <div 
-        ref={canvasRef}
-        className="relative w-full bg-gray-100 rounded-lg border-2 border-dashed border-gray-300"
-        style={{ height: "600px" }}
-      >
-        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+      <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <div 
+          ref={canvasRef}
+          className="relative w-full bg-gray-100 rounded-lg border-2 border-dashed border-gray-300"
+          style={{ height: "600px" }}
+        >
           {frames.map((frame) => (
             <DraggableFrame
               key={frame.id}
@@ -179,8 +193,8 @@ export function FrameEditor({
               onDelete={() => onDeleteFrame(frame.id)}
             />
           ))}
-        </DndContext>
-      </div>
+        </div>
+      </DndContext>
     </div>
   );
 }
