@@ -28,7 +28,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
       {/* Background laptop frame */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0">
         <img
           src="/laptop-bg.jpg"
           alt="Laptop Frame"
@@ -38,11 +38,11 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
 
       {/* Video container positioned within laptop screen */}
       <div 
-        className="absolute left-1/2 top-[40%] w-[56%] -translate-x-1/2 -translate-y-1/2 transform-gpu"
+        className="absolute left-1/2 top-[42%] w-[50%] -translate-x-1/2 -translate-y-1/2 transform-gpu z-10"
         style={{
           aspectRatio: '16/10',
           perspective: '1000px',
-          transform: 'translateX(-50%) translateY(-50%) rotateX(5deg)',
+          transform: 'translate(-50%, -50%) rotateX(5deg)',
         }}
       >
         <video
@@ -57,7 +57,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
       </div>
 
       {/* Stats */}
-      <div className="absolute right-8 top-8 flex gap-8">
+      <div className="absolute right-8 top-8 flex gap-8 z-20">
         {stats.map((stat, index) => (
           <div key={index} className="text-right">
             <div className="text-4xl font-bold text-white">{stat.value}</div>
@@ -67,7 +67,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
       </div>
 
       {/* Content */}
-      <div className="relative flex min-h-screen items-end justify-center pb-32">
+      <div className="relative flex min-h-screen items-end justify-center pb-32 z-20">
         <div className="text-center">
           <h1 className="mb-4 text-[120px] font-bold leading-none text-white">{title}</h1>
           <p className="text-xl text-white/70">{subtitle}</p>
@@ -76,7 +76,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
 
       {/* Scroll Indicator */}
       {showScroll && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-20">
           <ArrowDown className="h-6 w-6 text-white" />
         </div>
       )}
