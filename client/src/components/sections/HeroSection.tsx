@@ -33,7 +33,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       </div>
 
       {/* Content Container - maintains aspect ratio and positioning */}
-      <div className="absolute left-1/2 top-[56%] w-[45%] -translate-x-1/2 -translate-y-1/2">
+      <div className="absolute left-1/2 top-[54%] w-[45%] sm:w-[50%] md:w-[45%] lg:w-[40%] -translate-x-1/2 -translate-y-1/2">
         {/* Video Container */}
         <div className="relative w-full aspect-video">
           {!videoError && (
@@ -63,7 +63,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       </div>
 
       {/* Dark overlay for better text contrast */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 to-black/40" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 to-black/40 sm:from-black/15 sm:to-black/35 lg:from-black/10 lg:to-black/30" />
 
       {/* Scroll Indicator */}
       {showScroll && (
