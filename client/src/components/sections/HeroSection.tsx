@@ -1,19 +1,13 @@
 import { useState, useEffect } from 'react';
 import { ArrowDown } from 'lucide-react';
 
-interface Stat {
-  label: string;
-  value: string;
-}
-
 interface HeroSectionProps {
   title: string;
   subtitle: string;
   videoUrl: string;
-  stats: Stat[];
 }
 
-export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionProps) {
+export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   const [showScroll, setShowScroll] = useState(true);
   const [videoError, setVideoError] = useState(false);
 
@@ -28,10 +22,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Dark overlay for better text contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/60" />
-
-      {/* Laptop background image */}
+      {/* Background laptop image */}
       <div className="absolute inset-0 -z-10">
         <img
           src="/laptop-bg.jpg"
@@ -47,7 +38,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
 
       {/* Video container positioned within laptop screen */}
       <div 
-        className="absolute left-1/2 top-1/2 z-20 w-[58%] -translate-x-1/2 -translate-y-[60%]"
+        className="absolute left-1/2 top-1/2 z-0 w-[58%] -translate-x-1/2 -translate-y-[60%]"
         style={{
           aspectRatio: '16/9',
           transform: 'translate(-50%, -60%) perspective(1000px) rotateX(5deg)',
@@ -68,27 +59,16 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
         )}
       </div>
 
-      {/* Stats Overlay */}
-      <div className="absolute right-4 top-20 z-20 flex flex-wrap gap-4 sm:right-6 sm:top-24 md:right-8 md:gap-8">
-        {stats.map((stat, index) => (
-          <div key={index} className="text-right">
-            <div className="text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-              {stat.value}
-            </div>
-            <div className="text-xs text-white/70 sm:text-sm">
-              {stat.label}
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Dark overlay for better text contrast */}
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/40 to-black/60" />
 
       {/* Main Content */}
-      <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-16 pt-20 sm:pb-24 md:pb-32">
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center" style={{ paddingBottom: '10vh' }}>
         <div className="container mx-auto text-center">
-          <h1 className="mb-4 text-5xl font-bold leading-none text-white sm:text-7xl md:text-[90px] lg:text-[120px]">
+          <h1 className="mb-4 text-7xl font-bold leading-none text-white sm:text-8xl md:text-[120px]">
             {title}
           </h1>
-          <p className="text-lg text-white/70 sm:text-xl">
+          <p className="text-xl text-white/80 sm:text-2xl font-light">
             {subtitle}
           </p>
         </div>
