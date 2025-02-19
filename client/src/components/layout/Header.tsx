@@ -29,7 +29,7 @@ export function Header() {
   ];
 
   return (
-    <header className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+    <header className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-xl items-center justify-between px-4">
         <Link href="/">
           <a className="flex items-center space-x-2">

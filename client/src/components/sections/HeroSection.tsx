@@ -55,7 +55,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       </div>
 
       {/* Dark overlay for better text contrast */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/40 to-black/60" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 to-black/40" />
 
       {/* Title and Subtitle Container - Positioned between video and bottom of laptop */}
       <div 
