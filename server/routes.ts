@@ -1,7 +1,7 @@
 import express, { type Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertSectionSchema, insertProjectSchema, insertCaseStudySchema, insertAiWorkSchema, insertInterestSchema, insertFrameSchema } from "@shared/schema";
+import { insertSectionSchema, insertProjectSchema, insertCaseStudySchema, insertAiWorkSchema, insertInterestSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   const httpServer = createServer(app);
@@ -27,31 +27,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/sections/:id", async (req, res) => {
     const id = parseInt(req.params.id);
     await storage.deleteSection(id);
-    res.status(204).end();
-  });
-
-  // Frames
-  app.get("/api/sections/:sectionId/frames", async (req, res) => {
-    const sectionId = parseInt(req.params.sectionId);
-    const frames = await storage.getFrames(sectionId);
-    res.json(frames);
-  });
-
-  app.post("/api/frames", async (req, res) => {
-    const parsed = insertFrameSchema.parse(req.body);
-    const frame = await storage.createFrame(parsed);
-    res.json(frame);
-  });
-
-  app.patch("/api/frames/:id", async (req, res) => {
-    const id = parseInt(req.params.id);
-    const frame = await storage.updateFrame(id, req.body);
-    res.json(frame);
-  });
-
-  app.delete("/api/frames/:id", async (req, res) => {
-    const id = parseInt(req.params.id);
-    await storage.deleteFrame(id);
     res.status(204).end();
   });
 
