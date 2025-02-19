@@ -61,7 +61,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       <div 
         className="absolute left-1/2 z-20 w-[58%]"
         style={{
-          top: 'calc(50% + 16.875vw)', // Position after video (16:9 aspect ratio considered)
+          top: 'calc(50% + 16.875vw - 10px)', // Position after video, lifted up by 10px
           transform: 'translate(-50%, -50%) perspective(1000px) rotateX(5deg)',
         }}
       >
