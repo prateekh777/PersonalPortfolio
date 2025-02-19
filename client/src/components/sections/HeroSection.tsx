@@ -26,7 +26,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       <svg width="0" height="0" className="absolute">
         <defs>
           <clipPath id="laptop-screen-mask" clipPathUnits="objectBoundingBox">
-            <path d="M0.125,0.16 H0.875 Q0.89,0.16 0.89,0.175 V0.825 Q0.89,0.84 0.875,0.84 H0.125 Q0.11,0.84 0.11,0.825 V0.175 Q0.11,0.16 0.125,0.16 Z" />
+            <path d="M0.142,0.155 H0.858 Q0.87,0.155 0.87,0.17 V0.81 Q0.87,0.825 0.858,0.825 H0.142 Q0.13,0.825 0.13,0.81 V0.17 Q0.13,0.155 0.142,0.155 Z" />
           </clipPath>
         </defs>
       </svg>
@@ -44,10 +44,10 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       <div 
         className="absolute z-10"
         style={{
-          top: '8.5%',
-          left: '14.2%',
-          width: '71.6%',
-          height: '72%',
+          top: '9.5%',
+          left: '15.5%',
+          width: '69%',
+          height: '67%',
           clipPath: 'url(#laptop-screen-mask)',
           backgroundColor: '#000',
         }}
@@ -74,9 +74,9 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       <div 
         className="absolute z-30"
         style={{
-          top: 'calc(8.5% + 72%)',
-          left: '14.2%',
-          width: '71.6%',
+          top: 'calc(9.5% + 67%)',
+          left: '15.5%',
+          width: '69%',
           transform: 'translateY(-120%)',
         }}
       >
