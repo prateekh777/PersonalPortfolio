@@ -52,7 +52,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
           playsInline
           className="h-full w-full object-cover rounded-lg"
         >
-          <source src={videoUrl} type="video/mp4" />
+          <source src="/hero-video.mp4" type="video/mp4" />
         </video>
       </div>
 
