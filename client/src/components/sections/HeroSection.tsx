@@ -62,7 +62,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       </div>
 
       {/* Dark overlay for better text contrast */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 to-black/40 sm:from-black/15 sm:to-black/35 lg:from-black/10 lg:to-black/30" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 to-black/40 sm:from-black/15 sm:to-black/35 lg:from-black/10 lg:to-black/30 aspect-[16/9]" />
 
       {/* Scroll Indicator */}
       {showScroll && (
