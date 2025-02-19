@@ -44,6 +44,26 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
         />
       </div>
 
+      {/* Video container positioned within laptop screen */}
+      <div 
+        className="absolute left-1/2 top-1/2 z-20 w-[58%] -translate-x-1/2 -translate-y-[60%]"
+        style={{
+          aspectRatio: '16/9',
+          transform: 'translate(-50%, -60%) perspective(1000px) rotateX(5deg)',
+        }}
+      >
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="h-full w-full rounded-lg object-cover"
+        >
+          <source src={videoUrl} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
       {/* Stats Overlay */}
       <div className="absolute right-4 top-20 z-20 flex flex-wrap gap-4 sm:right-6 sm:top-24 md:right-8 md:gap-8">
         {stats.map((stat, index) => (
