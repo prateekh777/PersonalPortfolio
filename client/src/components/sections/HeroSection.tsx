@@ -26,38 +26,24 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
-      {/* Background laptop frame - full screen */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/laptop-bg.jpg"
-          alt="Laptop Frame"
-          className="h-screen w-full object-cover"
-        />
+    <section className="relative h-[100vh] w-full overflow-hidden bg-background">
+      {/* Background laptop frame - absolute full coverage */}
+      <div className="absolute inset-0">
+        <div className="relative h-full w-full">
+          <img
+            src="/laptop-bg.jpg"
+            alt="Laptop Frame"
+            className="h-full w-full object-cover"
+            style={{
+              objectPosition: 'center center',
+              minHeight: '100%',
+              minWidth: '100%'
+            }}
+          />
+        </div>
       </div>
 
-      {/* Video container positioned within laptop screen */}
-      <div 
-        className="absolute left-1/2 top-1/2 w-[56%] -translate-x-1/2 -translate-y-[58%] transform-gpu"
-        style={{
-          aspectRatio: '16/9',
-          perspective: '1000px',
-          transform: 'translate(-50%, -58%) rotateX(5deg)',
-        }}
-      >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full rounded-lg object-cover"
-        >
-          <source src={videoUrl} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-
-      {/* Stats */}
+      {/* Stats Overlay */}
       <div className="absolute right-4 top-4 z-20 flex flex-wrap gap-4 sm:right-6 sm:top-6 md:right-8 md:top-8 md:gap-8">
         {stats.map((stat, index) => (
           <div key={index} className="text-right">
@@ -67,8 +53,8 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
         ))}
       </div>
 
-      {/* Content */}
-      <div className="relative z-20 flex min-h-screen items-end justify-center pb-16 sm:pb-24 md:pb-32">
+      {/* Content Overlay */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-end pb-16 sm:pb-24 md:pb-32">
         <div className="text-center">
           <h1 className="mb-4 text-5xl font-bold leading-none text-white sm:text-7xl md:text-[90px] lg:text-[120px]">{title}</h1>
           <p className="text-lg text-white/70 sm:text-xl">{subtitle}</p>
@@ -77,7 +63,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
 
       {/* Scroll Indicator */}
       {showScroll && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 animate-bounce z-20 sm:bottom-6 md:bottom-8">
+        <div className="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 animate-bounce sm:bottom-6 md:bottom-8">
           <ArrowDown className="h-5 w-5 text-white sm:h-6 sm:w-6" />
         </div>
       )}
