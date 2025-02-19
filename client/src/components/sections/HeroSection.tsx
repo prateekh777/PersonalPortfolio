@@ -27,7 +27,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         <img
           src="/laptop-bg.jpg"
           alt="Laptop Frame"
-          className="h-full w-full object-contain md:object-cover backdrop-blur-sm"
+          className="h-full w-full object-contain md:object-cover"
         />
       </div>
 
@@ -54,8 +54,8 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         )}
       </div>
 
-      {/* Dark overlay with responsive blur */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/40 via-black/50 to-black/60 backdrop-blur-[2px] sm:backdrop-blur-[3px] md:backdrop-blur-[4px]" />
+      {/* Dark overlay for better text contrast */}
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/40 to-black/60" />
 
       {/* Title and Subtitle Container - Positioned between video and bottom of laptop */}
       <div 
