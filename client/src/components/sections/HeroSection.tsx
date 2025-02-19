@@ -21,7 +21,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative min-h-[400px] xs:min-h-[450px] sm:min-h-[500px] h-[95vh] sm:h-[92vh] md:h-[88vh] lg:h-[85vh] xl:h-[82vh] 2xl:h-[78vh] w-full overflow-hidden">
+    <section className="relative min-h-[80vh] w-full overflow-hidden">
       {/* SVG Mask Definition */}
       <svg className="absolute -z-50 h-0 w-0">
         <defs>
@@ -35,64 +35,79 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         </defs>
       </svg>
 
-      {/* Main Frame - Laptop Screen Background */}
-      <div className="absolute inset-0 -z-10">
-        <img
-          src="/laptop-bg.jpg"
-          alt="Laptop Frame"
-          className="h-full w-full object-contain md:object-cover"
-        />
-      </div>
+      {/* Main Frame Container */}
+      <div className="relative flex h-full min-h-[500px] w-full flex-col items-center justify-center">
+        {/* Laptop Background */}
+        <div className="absolute inset-0 -z-10">
+          <img
+            src="/laptop-bg.jpg"
+            alt="Laptop Frame"
+            className="h-full w-full object-contain md:object-cover"
+          />
+        </div>
 
-      {/* Video Container with SVG Mask */}
-      <div 
-        className="absolute"
-        style={{
-          top: '8.5%',
-          left: '14.2%',
-          width: '71.6%',
-          height: '72%',
-          maskImage: 'url(#laptop-screen-mask)',
-          WebkitMaskImage: 'url(#laptop-screen-mask)',
-        }}
-      >
-        {!videoError && (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            onError={() => setVideoError(true)}
-            className="h-full w-full object-cover rounded-lg"
+        {/* Screen Content Container */}
+        <div className="relative w-full">
+          {/* Video Container with SVG Mask */}
+          <div 
+            className="relative mx-auto"
+            style={{
+              width: '71.6%',
+              paddingTop: '51.552%', // 72% of 71.6% to maintain aspect ratio
+              maskImage: 'url(#laptop-screen-mask)',
+              WebkitMaskImage: 'url(#laptop-screen-mask)',
+            }}
           >
-            <source src={videoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        )}
-      </div>
+            {!videoError && (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                onError={() => setVideoError(true)}
+                className="absolute inset-0 h-full w-full object-cover"
+              >
+                <source src={videoUrl} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )}
+          </div>
 
-      {/* Content Container */}
-      <div 
-        className="absolute left-1/2 z-20 w-[71.6%]"
-        style={{
-          top: 'calc(8.5% + 72%)',
-          transform: 'translateX(-50%)',
-        }}
-      >
-        <div className="text-center">
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-none text-white">
-            {title}
-          </h1>
-          <p className="mt-2 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-light tracking-wide text-white/90">
-            {subtitle}
-          </p>
+          {/* Content Container */}
+          <div className="mx-auto mt-4 flex w-[71.6%] flex-col items-center space-y-4 px-4">
+            <div className="title-container text-center">
+              <h1 
+                className="font-bold leading-tight text-white"
+                style={{
+                  fontSize: 'clamp(1.5rem, 5vw, 3.2rem)',
+                }}
+              >
+                {title}
+              </h1>
+            </div>
+            <div className="subtitle-container text-center" style={{ marginBottom: 'max(5%, 20px)' }}>
+              <p 
+                className="font-light tracking-wide text-white/90"
+                style={{
+                  fontSize: 'clamp(0.875rem, 2vw, 1.25rem)',
+                }}
+              >
+                {subtitle}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
       {showScroll && (
-        <div className="absolute bottom-2 xs:bottom-3 sm:bottom-4 md:bottom-6 lg:bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
-          <ArrowDown className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-white" />
+        <div 
+          className="absolute left-1/2 z-20 -translate-x-1/2 animate-bounce"
+          style={{
+            bottom: 'min(3vh, 30px)',
+          }}
+        >
+          <ArrowDown className="h-6 w-6 text-white" />
         </div>
       )}
     </section>
