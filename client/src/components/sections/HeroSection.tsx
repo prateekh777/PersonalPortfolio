@@ -64,10 +64,10 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
 
       {/* Text Content Below Video */}
       <div 
-        className="absolute left-1/2 z-20 w-full max-w-[58%]"
+        className="absolute left-1/2 z-20 w-[58%]"
         style={{
-          top: '65%',
-          transform: 'translate(-50%, -50%) perspective(1000px) rotateX(5deg)',
+          top: 'calc(50% - 60% + 16.875vw)', // Calculated to position below video (16:9 aspect ratio)
+          transform: 'translate(-50%, 100%) perspective(1000px) rotateX(5deg)',
         }}
       >
         <div className="text-center">
