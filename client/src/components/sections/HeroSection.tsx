@@ -30,7 +30,7 @@ export function HeroSection({ title, subtitle, videoUrl, stats }: HeroSectionPro
       {/* Background laptop frame */}
       <div className="absolute inset-0">
         <img
-          src="attached_assets/laptop image_fixed.jpg"
+          src="/laptop image_fixed.jpg"
           alt="Laptop Frame"
           className="h-full w-full object-cover opacity-80"
         />
