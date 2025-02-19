@@ -22,8 +22,21 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
 
   return (
     <section className="relative min-h-[400px] xs:min-h-[450px] sm:min-h-[500px] h-[95vh] sm:h-[92vh] md:h-[88vh] lg:h-[85vh] xl:h-[82vh] 2xl:h-[78vh] w-full overflow-hidden">
+      {/* SVG Mask Definition */}
+      <svg className="absolute -z-50 h-0 w-0">
+        <defs>
+          <mask id="laptop-screen-mask">
+            <path
+              d="M100,91 L710,91 Q725,91 725,106 L725,456 Q725,471 710,471 L100,471 Q85,471 85,456 L85,106 Q85,91 100,91 Z"
+              fill="white"
+              transform="scale(0.00142857)"
+            />
+          </mask>
+        </defs>
+      </svg>
+
       {/* Main Frame - Laptop Screen Background */}
-      <div className="absolute inset-0 -z-10 flex items-center justify-center">
+      <div className="absolute inset-0 -z-10">
         <img
           src="/laptop-bg.jpg"
           alt="Laptop Frame"
@@ -31,12 +44,16 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         />
       </div>
 
-      {/* Video Frame - 16:9 aspect ratio, aligned to top of main frame */}
+      {/* Video Container with SVG Mask */}
       <div 
-        className="absolute left-1/2 top-1/2 z-0 w-[58%] -translate-x-1/2 -translate-y-[60%]"
+        className="absolute"
         style={{
-          aspectRatio: '16/9',
-          transform: 'translate(-50%, -60%) perspective(1000px) rotateX(5deg)',
+          top: '8.5%',
+          left: '14.2%',
+          width: '71.6%',
+          height: '72%',
+          maskImage: 'url(#laptop-screen-mask)',
+          WebkitMaskImage: 'url(#laptop-screen-mask)',
         }}
       >
         {!videoError && (
@@ -46,7 +63,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
             loop
             playsInline
             onError={() => setVideoError(true)}
-            className="h-full w-full rounded-lg object-cover"
+            className="h-full w-full object-cover rounded-lg"
           >
             <source src={videoUrl} type="video/mp4" />
             Your browser does not support the video tag.
@@ -54,15 +71,12 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         )}
       </div>
 
-      {/* Dark overlay for better text contrast */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 to-black/40" />
-
-      {/* Title and Subtitle Container */}
+      {/* Content Container */}
       <div 
-        className="absolute left-1/2 z-20 w-[58%]"
+        className="absolute left-1/2 z-20 w-[71.6%]"
         style={{
-          top: 'calc(50% + 16.875vw - 10px)',
-          transform: 'translate(-50%, -50%) perspective(1000px) rotateX(5deg)',
+          top: 'calc(8.5% + 72%)',
+          transform: 'translateX(-50%)',
         }}
       >
         <div className="text-center">
