@@ -1,5 +1,6 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -8,80 +9,88 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 export function Header() {
   const [location] = useLocation();
-
   const isActive = (path: string) => location === path;
 
+  const navItems = [
+    { path: "/expertise", label: "Expertise" },
+    { path: "/case-studies", label: "Case Studies" },
+    { path: "/projects", label: "Projects" },
+    { path: "/ai-works", label: "AI Works" },
+    { path: "/interests", label: "Interests" },
+  ];
+
   return (
-    <header className="w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+    <header className="sticky top-0 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-14 max-w-screen-xl items-center justify-between px-4">
         <Link href="/">
-          <a className="mr-6 flex items-center space-x-2">
+          <a className="flex items-center space-x-2">
             <span className="font-bold">Portfolio</span>
           </a>
         </Link>
-        <NavigationMenu>
+
+        {/* Desktop Navigation */}
+        <NavigationMenu className="hidden md:flex">
           <NavigationMenuList>
-            <NavigationMenuItem>
-              <Link href="/expertise">
-                <NavigationMenuLink
-                  className={`group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${
-                    isActive("/expertise") ? "bg-accent" : ""
-                  }`}
-                >
-                  Expertise
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/case-studies">
-                <NavigationMenuLink
-                  className={`group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${
-                    isActive("/case-studies") ? "bg-accent" : ""
-                  }`}
-                >
-                  Case Studies
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/projects">
-                <NavigationMenuLink
-                  className={`group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${
-                    isActive("/projects") ? "bg-accent" : ""
-                  }`}
-                >
-                  Projects
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/ai-works">
-                <NavigationMenuLink
-                  className={`group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${
-                    isActive("/ai-works") ? "bg-accent" : ""
-                  }`}
-                >
-                  AI Works
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/interests">
-                <NavigationMenuLink
-                  className={`group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${
-                    isActive("/interests") ? "bg-accent" : ""
-                  }`}
-                >
-                  Interests
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
+            {navItems.map((item) => (
+              <NavigationMenuItem key={item.path}>
+                <Link href={item.path}>
+                  <NavigationMenuLink
+                    className={`group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${
+                      isActive(item.path) ? "bg-accent" : ""
+                    }`}
+                  >
+                    {item.label}
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            ))}
           </NavigationMenuList>
         </NavigationMenu>
-        <div className="ml-auto">
+
+        {/* Mobile Navigation */}
+        <div className="flex md:hidden">
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <div className="flex flex-col space-y-3 p-4">
+                {navItems.map((item) => (
+                  <Link key={item.path} href={item.path}>
+                    <a
+                      className={`rounded-md px-4 py-2 text-sm font-medium ${
+                        isActive(item.path)
+                          ? "bg-accent text-accent-foreground"
+                          : "hover:bg-accent hover:text-accent-foreground"
+                      }`}
+                    >
+                      {item.label}
+                    </a>
+                  </Link>
+                ))}
+                <DrawerClose asChild>
+                  <Link href="/contact">
+                    <Button className="w-full" variant="outline">Contact</Button>
+                  </Link>
+                </DrawerClose>
+              </div>
+            </DrawerContent>
+          </Drawer>
+        </div>
+
+        {/* Desktop Contact Button */}
+        <div className="hidden md:block">
           <Link href="/contact">
             <Button variant="outline">Contact</Button>
           </Link>
