@@ -21,21 +21,22 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative w-full" style={{ height: 'calc(100vh - 64px)' }}>
+    <section className="relative min-h-[400px] xs:min-h-[450px] sm:min-h-[500px] h-[95vh] sm:h-[92vh] md:h-[88vh] lg:h-[85vh] xl:h-[82vh] 2xl:h-[78vh] w-full overflow-hidden">
       {/* Main Frame - Laptop Screen Background */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10 flex items-center justify-center">
         <img
           src="/laptop-bg.jpg"
           alt="Laptop Frame"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-contain md:object-cover"
         />
       </div>
 
-      {/* Video Frame */}
+      {/* Video Frame - 16:9 aspect ratio, aligned to top of main frame */}
       <div 
-        className="absolute left-1/2 top-1/2 z-0 w-[62%] aspect-video"
+        className="absolute left-1/2 top-1/2 z-0 w-[58%] -translate-x-1/2 -translate-y-[60%]"
         style={{
-          transform: 'translate(-50%, -58%) perspective(1000px) rotateX(5deg)',
+          aspectRatio: '16/9',
+          transform: 'translate(-50%, -60%) perspective(1000px) rotateX(5deg)',
         }}
       >
         {!videoError && (
@@ -58,16 +59,17 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
 
       {/* Title and Subtitle Container */}
       <div 
-        className="absolute left-1/2 top-[68%] z-20 w-[62%] transform -translate-x-1/2 -translate-y-1/2"
+        className="absolute left-1/2 z-20 w-[58%]"
         style={{
+          top: 'calc(50% + 16.875vw - 10px)',
           transform: 'translate(-50%, -50%) perspective(1000px) rotateX(5deg)',
         }}
       >
         <div className="text-center">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-none text-white">
+          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-none text-white">
             {title}
           </h1>
-          <p className="mt-2 text-sm sm:text-base md:text-lg lg:text-xl font-light tracking-wide text-white/90">
+          <p className="mt-2 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-light tracking-wide text-white/90">
             {subtitle}
           </p>
         </div>
@@ -75,8 +77,8 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
 
       {/* Scroll Indicator */}
       {showScroll && (
-        <div className="absolute bottom-4 sm:bottom-6 left-1/2 z-20 -translate-x-1/2 animate-bounce">
-          <ArrowDown className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
+        <div className="absolute bottom-2 xs:bottom-3 sm:bottom-4 md:bottom-6 lg:bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
+          <ArrowDown className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-white" />
         </div>
       )}
     </section>
