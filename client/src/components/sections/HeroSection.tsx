@@ -21,66 +21,55 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative min-h-[400px] xs:min-h-[450px] sm:min-h-[500px] h-[95vh] sm:h-[92vh] md:h-[88vh] lg:h-[85vh] xl:h-[82vh] 2xl:h-[78vh] w-full overflow-hidden">
-      {/* Main Frame - Laptop Screen Background */}
-      <div className="absolute inset-0 -z-10 flex items-center justify-center">
-        <img
-          src="/laptop-bg.jpg"
-          alt="Laptop Frame"
-          className="h-full w-full object-contain md:object-cover"
-        />
-      </div>
+    <section className="relative min-h-[calc(100vh-4rem)] w-full overflow-hidden">
+      {/* Background with blur effect */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 to-background/40 backdrop-blur-[2px]" />
 
-      {/* Video Frame - 16:9 aspect ratio, aligned to top of main frame */}
-      <div 
-        className="absolute left-1/2 top-1/2 z-0 w-[58%] -translate-x-1/2 -translate-y-[60%]"
-        style={{
-          aspectRatio: '16/9',
-          transform: 'translate(-50%, -60%) perspective(1000px) rotateX(5deg)',
-        }}
-      >
-        {!videoError && (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            onError={() => setVideoError(true)}
-            className="h-full w-full rounded-lg object-cover"
-          >
-            <source src={videoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        )}
-      </div>
+      {/* Main content container */}
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center px-4">
+        {/* Laptop frame container */}
+        <div className="relative w-full max-w-4xl">
+          <img
+            src="/laptop-bg.jpg"
+            alt="Laptop Frame"
+            className="w-full"
+          />
 
-      {/* Dark overlay for better text contrast */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 to-black/40" />
+          {/* Video container with proper positioning */}
+          <div className="absolute left-[21%] top-[6%] h-[67%] w-[58%]">
+            {!videoError && (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                onError={() => setVideoError(true)}
+                className="h-full w-full rounded-lg object-cover"
+              >
+                <source src={videoUrl} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )}
+          </div>
+        </div>
 
-      {/* Title and Subtitle Container */}
-      <div 
-        className="absolute left-1/2 z-20 w-[58%]"
-        style={{
-          top: 'calc(50% + 16.875vw - 10px)',
-          transform: 'translate(-50%, -50%) perspective(1000px) rotateX(5deg)',
-        }}
-      >
-        <div className="text-center">
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-none text-white">
+        {/* Text content */}
+        <div className="mt-8 text-center">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
             {title}
           </h1>
-          <p className="mt-2 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-light tracking-wide text-white/90">
+          <p className="mt-4 text-lg text-muted-foreground sm:text-xl">
             {subtitle}
           </p>
         </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      {showScroll && (
-        <div className="absolute bottom-2 xs:bottom-3 sm:bottom-4 md:bottom-6 lg:bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
-          <ArrowDown className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-white" />
-        </div>
-      )}
+        {/* Scroll indicator */}
+        {showScroll && (
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <ArrowDown className="h-6 w-6" />
+          </div>
+        )}
+      </div>
     </section>
   );
 }
