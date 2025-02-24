@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { ArrowDown } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { ArrowDown } from "lucide-react";
 
 interface HeroSectionProps {
   title: string;
@@ -16,8 +16,8 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       setShowScroll(window.scrollY < 100);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -27,16 +27,16 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         <img
           src="/laptop-bg.jpg"
           alt="Laptop Frame"
-          className="h-full w-full object-contain md:object-cover"
+          //className="h-full w-full object-contain md:object-cover"
         />
       </div>
 
       {/* Video Frame - 16:9 aspect ratio, aligned to top of main frame */}
-      <div 
-        className="absolute left-1/2 top-1/2 z-0 w-[58%] -translate-x-1/2 -translate-y-[60%]"
+      <div
+        className="relative left-1/2 top-1/2 z-0 w-[45%] -translate-x-1/2 -translate-y-[60%]"
         style={{
-          aspectRatio: '16/9',
-          transform: 'translate(-50%, -60%) perspective(1000px) rotateX(5deg)',
+          aspectRatio: "16/9",
+          transform: "translate(-50%, -60%) perspective(1000px) rotateX(5deg)",
         }}
       >
         {!videoError && (
@@ -58,11 +58,11 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/20 to-black/40" />
 
       {/* Title and Subtitle Container */}
-      <div 
+      <div
         className="absolute left-1/2 z-20 w-[58%]"
         style={{
-          top: 'calc(50% + 16.875vw - 10px)',
-          transform: 'translate(-50%, -50%) perspective(1000px) rotateX(5deg)',
+          top: "calc(50% + 16.875vw - 10px)",
+          transform: "translate(-50%, -50%) perspective(1000px) rotateX(5deg)",
         }}
       >
         <div className="text-center">
