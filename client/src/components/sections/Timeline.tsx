@@ -16,71 +16,71 @@ type TimelineProps = {
 const timelineData: Record<Role, TimelineEvent[]> = {
   "tech-leader": [
     {
-      date: "2023",
-      title: "Technical Architecture",
-      description: "Leading system design and architectural decisions",
-      percentage: "95.2%",
-      icon: "🏗️"
+      date: "2021",
+      title: "Modernized Tech Stack",
+      description: "Led migration to microservices architecture",
+      percentage: "92.3%",
+      icon: "🚀"
     },
     {
       date: "2022",
-      title: "System Innovation",
-      description: "Driving technical excellence and innovation",
+      title: "Scaled Platform",
+      description: "Improved system performance by 200%",
       percentage: "88.5%",
-      icon: "💡"
+      icon: "⚡"
     },
     {
-      date: "2021",
-      title: "Team Leadership",
-      description: "Mentoring and growing technical teams",
-      percentage: "92.3%",
-      icon: "👥"
+      date: "2023",
+      title: "Innovation Impact",
+      description: "Launched 5 major technical initiatives",
+      percentage: "95.2%",
+      icon: "💫"
     },
   ],
   "people-manager": [
     {
-      date: "2023",
-      title: "Organizational Growth",
-      description: "Scaling teams and processes",
-      percentage: "94.1%",
-      icon: "📈"
-    },
-    {
-      date: "2022",
-      title: "Team Development",
-      description: "Building high-performing teams",
-      percentage: "89.7%",
+      date: "2021",
+      title: "Team Foundation",
+      description: "Built core engineering team of 10",
+      percentage: "91.2%",
       icon: "🎯"
     },
     {
-      date: "2021",
-      title: "Process Implementation",
-      description: "Establishing agile methodologies",
-      percentage: "91.2%",
+      date: "2022",
+      title: "Process Optimization",
+      description: "Reduced delivery time by 40%",
+      percentage: "89.7%",
       icon: "⚙️"
+    },
+    {
+      date: "2023",
+      title: "Growth Achievement",
+      description: "Expanded team to 3 departments",
+      percentage: "94.1%",
+      icon: "📈"
     },
   ],
   "individual-contributor": [
     {
-      date: "2023",
-      title: "Technical Excellence",
-      description: "Delivering complex solutions",
-      percentage: "96.3%",
-      icon: "⭐"
+      date: "2021",
+      title: "Core System Design",
+      description: "Architected primary backend services",
+      percentage: "90.5%",
+      icon: "🔧"
     },
     {
       date: "2022",
-      title: "Innovation",
-      description: "Creating breakthrough solutions",
+      title: "Performance Impact",
+      description: "Optimized critical workflows by 60%",
       percentage: "93.8%",
-      icon: "🚀"
+      icon: "⚡"
     },
     {
-      date: "2021",
-      title: "Specialization",
-      description: "Mastering technical domains",
-      percentage: "90.5%",
-      icon: "📚"
+      date: "2023",
+      title: "Innovation Leadership",
+      description: "Delivered 3 breakthrough features",
+      percentage: "96.3%",
+      icon: "🌟"
     },
   ],
 };
