@@ -57,7 +57,7 @@ const timelineData: Record<Role, TimelineEvent[]> = {
     {
       date: "2021",
       title: "Core System Design",
-      description: "Architected primary backend services",
+      description: "Architected primarily focusing on scalability and maintainability",
       icon: "🔧"
     },
     {
