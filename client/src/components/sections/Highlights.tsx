@@ -54,11 +54,10 @@ export function Highlights({ role }: HighlightsProps) {
             />
           </div>
           <div className="space-y-4">
-            <ul className="space-y-4">
+            <ul className="list-disc list-inside space-y-4">
               {points.map((point, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="mr-2 mt-1.5 h-3 w-3 shrink-0 rounded-full bg-primary" />
-                  <span className="text-lg">{point}</span>
+                <li key={index} className="text-lg">
+                  {point}
                 </li>
               ))}
             </ul>
