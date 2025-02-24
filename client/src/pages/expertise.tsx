@@ -38,7 +38,7 @@ export default function Expertise() {
       <h1 className="text-4xl font-bold">Expertise</h1>
 
       {/* Role Selection */}
-      <div className="space-y-2">
+      <div className="flex items-center justify-center gap-4">
         <label className="text-lg font-medium">My Hats</label>
         <Select value={selectedRole} onValueChange={(value: Role) => setSelectedRole(value)}>
           <SelectTrigger className="w-[280px]">
