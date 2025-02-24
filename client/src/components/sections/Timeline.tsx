@@ -90,31 +90,66 @@ export function Timeline({ role }: TimelineProps) {
 
   return (
     <div className="space-y-8">
-      <h2 className="text-3xl font-bold text-center">Career Timeline</h2>
+      <h2 className="text-3xl font-bold text-center" style={{ color: '#222222' }}>Career Timeline</h2>
 
-      <div className="relative mt-16 px-8">
-        {/* Timeline Base Line */}
-        <div className="absolute top-8 left-0 w-full h-2 bg-gradient-to-r from-[#FF3366] via-[#FF9933] to-[#33CC99]" />
+      <div className="relative pl-16 pt-8">
+        {/* Vertical Timeline Line */}
+        <div 
+          className="absolute left-8 top-0 h-full w-1" 
+          style={{ 
+            background: 'linear-gradient(to bottom, #FF3366, #FF9933, #33CC99)',
+          }} 
+        />
 
         {/* Timeline Events */}
-        <div className="relative grid grid-cols-3 gap-4">
+        <div className="space-y-20">
           {events.map((event, index) => (
-            <div key={index} className="flex flex-col items-center">
-              {/* Year Label */}
-              <div className="mb-4 text-lg font-bold">{event.date}</div>
+            <div key={index} className="relative">
+              {/* Circle with Icon */}
+              <div 
+                className="absolute -left-12 flex h-24 w-24 items-center justify-center rounded-full border-4"
+                style={{ 
+                  backgroundColor: '#FFFFFF',
+                  borderColor: '#222222'
+                }}
+              >
+                <span className="text-4xl">{event.icon}</span>
+              </div>
 
-              {/* Node Point */}
-              <div className="w-6 h-6 rounded-full bg-white border-4 border-primary mb-4" />
+              {/* Content */}
+              <div className="ml-16 pt-2">
+                {/* Year */}
+                <div 
+                  className="mb-2 text-lg font-bold"
+                  style={{ color: '#222222' }}
+                >
+                  {event.date}
+                </div>
 
-              {/* Content Box */}
-              <div className={cn(
-                "w-full p-4 rounded-lg shadow-lg bg-white border border-muted",
-                "transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              )}>
-                <div className="text-3xl mb-2">{event.icon}</div>
-                <h3 className="text-lg font-semibold mb-2">{event.title}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{event.description}</p>
-                <div className="text-right text-primary font-bold">{event.percentage}</div>
+                {/* Title and Description */}
+                <div 
+                  className="rounded-lg p-4"
+                  style={{ backgroundColor: '#F8F8F8' }}
+                >
+                  <h3 
+                    className="mb-2 text-xl font-semibold"
+                    style={{ color: '#222222' }}
+                  >
+                    {event.title}
+                  </h3>
+                  <p 
+                    className="mb-3 text-base"
+                    style={{ color: '#7B7B7B' }}
+                  >
+                    {event.description}
+                  </p>
+                  <div 
+                    className="text-right font-bold"
+                    style={{ color: '#222222' }}
+                  >
+                    {event.percentage}
+                  </div>
+                </div>
               </div>
             </div>
           ))}
