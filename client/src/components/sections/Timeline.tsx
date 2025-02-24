@@ -112,23 +112,45 @@ export function Timeline({ role }: TimelineProps) {
               {/* Content */}
               <div 
                 className={cn(
-                  "w-5/12", // Take up less than half the width
+                  "w-[45%]", // Increased width to use more space
                   index % 2 === 0 ? "ml-auto pl-8" : "mr-auto pr-8" // Alternate sides
                 )}
               >
-                {/* Year */}
+                {/* Connector Line */}
                 <div 
-                  className="mb-2 text-base font-bold"
-                  style={{ color: '#222222' }}
-                >
-                  {event.date}
-                </div>
+                  className={cn(
+                    "absolute top-8 h-0.5 w-16",
+                    index % 2 === 0 ? "left-1/2" : "right-1/2",
+                    "bg-[#222222]" // Using primary color for connector
+                  )}
+                />
 
-                {/* Title and Description */}
+                {/* Content Box with Arrow */}
                 <div 
-                  className="rounded-lg p-4"
+                  className={cn(
+                    "relative rounded-lg p-4",
+                    index % 2 === 0 ? "ml-4" : "mr-4"
+                  )}
                   style={{ backgroundColor: '#F8F8F8' }}
                 >
+                  {/* Arrow pointing to timeline */}
+                  <div 
+                    className={cn(
+                      "absolute top-4 h-4 w-4 rotate-45",
+                      index % 2 === 0 ? "-left-2" : "-right-2"
+                    )}
+                    style={{ backgroundColor: '#F8F8F8' }}
+                  />
+
+                  {/* Year */}
+                  <div 
+                    className="mb-2 text-base font-bold"
+                    style={{ color: '#222222' }}
+                  >
+                    {event.date}
+                  </div>
+
+                  {/* Title and Description */}
                   <h3 
                     className="mb-2 text-lg font-semibold"
                     style={{ color: '#222222' }}
