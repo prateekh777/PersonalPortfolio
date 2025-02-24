@@ -1,9 +1,23 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { type Section } from "@shared/schema";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Timeline } from "@/components/sections/Timeline";
+import { Highlights } from "@/components/sections/Highlights";
+
+type Role = "tech-leader" | "people-manager" | "individual-contributor";
 
 export default function Expertise() {
+  const [selectedRole, setSelectedRole] = useState<Role>("tech-leader");
+
   const { data: sections, isLoading } = useQuery<Section[]>({
     queryKey: ["/api/sections/expertise"],
   });
@@ -20,8 +34,31 @@ export default function Expertise() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <h1 className="text-4xl font-bold">Expertise</h1>
+
+      {/* Role Selection */}
+      <div className="space-y-2">
+        <label className="text-lg font-medium">My Hats</label>
+        <Select value={selectedRole} onValueChange={(value: Role) => setSelectedRole(value)}>
+          <SelectTrigger className="w-[280px]">
+            <SelectValue placeholder="Select a role" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="tech-leader">Technology Leader</SelectItem>
+            <SelectItem value="people-manager">People Manager</SelectItem>
+            <SelectItem value="individual-contributor">Individual Contributor</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Timeline Section */}
+      <Timeline role={selectedRole} />
+
+      {/* Highlights Section */}
+      <Highlights role={selectedRole} />
+
+      {/* Original Sections */}
       <div className="grid gap-6 md:grid-cols-2">
         {sections?.map((section) => (
           <Card key={section.id}>
