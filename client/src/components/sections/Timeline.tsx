@@ -5,7 +5,6 @@ type TimelineEvent = {
   date: string;
   title: string;
   description: string;
-  percentage: string;
   icon: string;
 };
 
@@ -19,21 +18,18 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       date: "2021",
       title: "Modernized Tech Stack",
       description: "Led migration to microservices architecture",
-      percentage: "92.3%",
       icon: "🚀"
     },
     {
       date: "2022",
       title: "Scaled Platform",
       description: "Improved system performance by 200%",
-      percentage: "88.5%",
       icon: "⚡"
     },
     {
       date: "2023",
       title: "Innovation Impact",
       description: "Launched 5 major technical initiatives",
-      percentage: "95.2%",
       icon: "💫"
     },
   ],
@@ -42,21 +38,18 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       date: "2021",
       title: "Team Foundation",
       description: "Built core engineering team of 10",
-      percentage: "91.2%",
       icon: "🎯"
     },
     {
       date: "2022",
       title: "Process Optimization",
       description: "Reduced delivery time by 40%",
-      percentage: "89.7%",
       icon: "⚙️"
     },
     {
       date: "2023",
       title: "Growth Achievement",
       description: "Expanded team to 3 departments",
-      percentage: "94.1%",
       icon: "📈"
     },
   ],
@@ -65,21 +58,18 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       date: "2021",
       title: "Core System Design",
       description: "Architected primary backend services",
-      percentage: "90.5%",
       icon: "🔧"
     },
     {
       date: "2022",
       title: "Performance Impact",
       description: "Optimized critical workflows by 60%",
-      percentage: "93.8%",
       icon: "⚡"
     },
     {
       date: "2023",
       title: "Innovation Leadership",
       description: "Delivered 3 breakthrough features",
-      percentage: "96.3%",
       icon: "🌟"
     },
   ],
@@ -92,35 +82,43 @@ export function Timeline({ role }: TimelineProps) {
     <div className="space-y-8">
       <h2 className="text-3xl font-bold text-center" style={{ color: '#222222' }}>Career Timeline</h2>
 
-      <div className="relative pl-16 pt-8">
+      <div className="relative py-8">
         {/* Vertical Timeline Line */}
         <div 
-          className="absolute left-8 top-0 h-full w-1" 
+          className="absolute left-1/2 top-0 h-full w-1 -translate-x-1/2" 
           style={{ 
             background: 'linear-gradient(to bottom, #FF3366, #FF9933, #33CC99)',
           }} 
         />
 
         {/* Timeline Events */}
-        <div className="space-y-20">
+        <div className="space-y-16">
           {events.map((event, index) => (
             <div key={index} className="relative">
               {/* Circle with Icon */}
               <div 
-                className="absolute -left-12 flex h-24 w-24 items-center justify-center rounded-full border-4"
+                className={cn(
+                  "absolute left-1/2 -translate-x-1/2 flex h-16 w-16 items-center justify-center rounded-full border-4",
+                  "z-10"  // Ensure circle is above the line
+                )}
                 style={{ 
                   backgroundColor: '#FFFFFF',
                   borderColor: '#222222'
                 }}
               >
-                <span className="text-4xl">{event.icon}</span>
+                <span className="text-2xl">{event.icon}</span>
               </div>
 
               {/* Content */}
-              <div className="ml-16 pt-2">
+              <div 
+                className={cn(
+                  "w-5/12", // Take up less than half the width
+                  index % 2 === 0 ? "ml-auto pl-8" : "mr-auto pr-8" // Alternate sides
+                )}
+              >
                 {/* Year */}
                 <div 
-                  className="mb-2 text-lg font-bold"
+                  className="mb-2 text-base font-bold"
                   style={{ color: '#222222' }}
                 >
                   {event.date}
@@ -132,23 +130,17 @@ export function Timeline({ role }: TimelineProps) {
                   style={{ backgroundColor: '#F8F8F8' }}
                 >
                   <h3 
-                    className="mb-2 text-xl font-semibold"
+                    className="mb-2 text-lg font-semibold"
                     style={{ color: '#222222' }}
                   >
                     {event.title}
                   </h3>
                   <p 
-                    className="mb-3 text-base"
+                    className="text-sm"
                     style={{ color: '#7B7B7B' }}
                   >
                     {event.description}
                   </p>
-                  <div 
-                    className="text-right font-bold"
-                    style={{ color: '#222222' }}
-                  >
-                    {event.percentage}
-                  </div>
                 </div>
               </div>
             </div>
