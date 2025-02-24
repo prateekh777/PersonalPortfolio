@@ -87,12 +87,12 @@ export function Timeline({ role }: TimelineProps) {
         <div 
           className="absolute left-1/2 top-0 h-full w-1 -translate-x-1/2" 
           style={{ 
-            background: 'linear-gradient(to bottom, #FF3366, #FF9933, #33CC99)',
+            backgroundColor: '#222222',
           }} 
         />
 
         {/* Timeline Events */}
-        <div className="space-y-16">
+        <div className="space-y-12">
           {events.map((event, index) => (
             <div key={index} className="relative">
               {/* Circle with Icon */}
@@ -112,24 +112,24 @@ export function Timeline({ role }: TimelineProps) {
               {/* Content */}
               <div 
                 className={cn(
-                  "w-[45%]", // Increased width to use more space
+                  "w-[48%]", // Increased width to reduce white space
                   index % 2 === 0 ? "ml-auto pl-8" : "mr-auto pr-8" // Alternate sides
                 )}
               >
                 {/* Connector Line */}
                 <div 
                   className={cn(
-                    "absolute top-8 h-0.5 w-16",
-                    index % 2 === 0 ? "left-1/2" : "right-1/2",
-                    "bg-[#222222]" // Using primary color for connector
+                    "absolute top-8 h-0.5 w-[8%]", // Reduced width for more compact layout
+                    index % 2 === 0 ? "left-[48%]" : "right-[48%]",
                   )}
+                  style={{ backgroundColor: '#222222' }}
                 />
 
                 {/* Content Box with Arrow */}
                 <div 
                   className={cn(
                     "relative rounded-lg p-4",
-                    index % 2 === 0 ? "ml-4" : "mr-4"
+                    index % 2 === 0 ? "ml-2" : "mr-2"
                   )}
                   style={{ backgroundColor: '#F8F8F8' }}
                 >
