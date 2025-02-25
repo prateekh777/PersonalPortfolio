@@ -38,11 +38,11 @@ export default function Expertise() {
       <h1 className="text-4xl font-bold">Skills Honed, Stories Told.. My Journey!</h1>
 
       {/* Role Selection - Made sticky */}
-      <div className="sticky top-14 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4">
+      <div className="sticky top-14 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 rounded-lg">
         <div className="flex items-center justify-center gap-4">
           <label className="text-lg font-medium">My Hats</label>
           <Select value={selectedRole} onValueChange={(value: Role) => setSelectedRole(value)}>
-            <SelectTrigger className="w-[280px]">
+            <SelectTrigger className="w-[240px]">
               <SelectValue placeholder="Select a role" />
             </SelectTrigger>
             <SelectContent>
