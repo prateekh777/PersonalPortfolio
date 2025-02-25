@@ -55,13 +55,13 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       </div>
 
       {/* Overlay for better text contrast */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#222222]/5 to-[#222222]/20 backdrop-blur-sm" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-br from-transparent via-[#222222]/10 to-[#222222]/30 backdrop-blur-[2px]" />
 
       {/* Title and Subtitle Container */}
       <div
         className="absolute left-1/2 z-20 w-[65%]"
         style={{
-          top: "calc(50% + 16.875vw - 10px)",
+          top: "calc(25% + 16.875vw - 10px)",
           transform: "translate(-50%, -50%) perspective(1000px) rotateX(5deg)",
         }}
       >

@@ -33,7 +33,7 @@ export function GridSection({ title, items }: GridSectionProps) {
                 backgroundPosition: 'center'
               }}
             >
-              <CardContent className="flex min-h-[200px] flex-col items-center justify-center p-6 text-center backdrop-blur-lg bg-gradient-to-br from-[#222222]/10 to-[#222222]/30">
+              <CardContent className="flex min-h-[200px] flex-col items-center justify-center p-6 text-center diagonal-blur-gradient">
                 {/* Item title */}
                 <h3 className="text-lg font-semibold text-[#FFFFFF] drop-shadow-md">{item.title}</h3>
               </CardContent>
