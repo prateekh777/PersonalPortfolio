@@ -4,27 +4,27 @@ import { GridSection } from "@/components/sections/GridSection";
 const gridItems = [
   {
     title: "Skills Honed, Stories Told - My Journey",
-    icon: "PenTool",
+    gradient: "gradient-1",
   },
   {
     title: "Turning Puzzles into Pathways",
-    icon: "Code",
+    gradient: "gradient-2",
   },
   {
     title: "Things I've built Creations That Speak, Solutions That Sing",
-    icon: "Lightbulb",
+    gradient: "gradient-3",
   },
   {
     title: "Where AI Meets Soul - Let's Explore Together",
-    icon: "Brain",
+    gradient: "gradient-4",
   },
   {
     title: "Conversations Open Doors - Let's Talk",
-    icon: "MessageSquare",
+    gradient: "gradient-5",
   },
   {
     title: "The Universe is Speaking—Here's How I Listen",
-    icon: "Radio",
+    gradient: "gradient-6",
   },
 ];
 
