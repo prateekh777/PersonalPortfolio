@@ -35,7 +35,7 @@ export default function Expertise() {
 
   return (
     <div className="space-y-12 pt-16"> {/* Added top padding to account for fixed header */}
-      <h1 className="text-4xl font-bold">Expertise</h1>
+      <h1 className="text-4xl font-bold">Skills Honed, Stories Told.. My Journey!</h1>
 
       {/* Role Selection - Made sticky */}
       <div className="sticky top-14 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4">
