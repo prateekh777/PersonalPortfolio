@@ -1,19 +1,8 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Brain, Code, PenTool, MessageSquare, Lightbulb, Radio } from "lucide-react";
-
 interface GridItem {
   title: string;
-  icon: keyof typeof icons;
+  icon: string;
 }
-
-const icons = {
-  Brain,
-  Code,
-  PenTool,
-  MessageSquare,
-  Lightbulb,
-  Radio,
-};
 
 interface GridSectionProps {
   title: string;
@@ -31,11 +20,15 @@ export function GridSection({ title, items }: GridSectionProps) {
             return (
               <Card 
                 key={index}
-                className="group cursor-pointer transition-all hover:bg-primary hover:text-primary-foreground"
+                className="group relative cursor-pointer overflow-hidden transition-all hover:text-primary-foreground"
+                style={{
+                  backgroundImage: `url(${item.icon})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
               >
-                <CardContent className="flex flex-col items-center p-6 text-center">
-                  <Icon className="mb-4 h-8 w-8" />
-                  <h3 className="text-lg font-semibold">{item.title}</h3>
+                <CardContent className="flex min-h-[200px] flex-col items-center justify-center p-6 text-center backdrop-blur-sm">
+                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
                 </CardContent>
               </Card>
             );
