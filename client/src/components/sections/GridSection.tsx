@@ -1,6 +1,6 @@
 // Importing necessary components from the UI library
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 
 // Defining the structure of a single grid item
 interface GridItem {
@@ -48,6 +48,8 @@ const getItemLink = (item: GridItem): string => {
 
 // React component to render a section with a grid of items
 export function GridSection({ title, items }: GridSectionProps) {
+  const [, setLocation] = useLocation();
+
   return (
     <section className="py-20">
       <div className="container px-4 md:px-6 lg:px-8 mx-auto">
@@ -69,9 +71,13 @@ export function GridSection({ title, items }: GridSectionProps) {
             const itemLink = getItemLink(item);
             
             return (
-              <Link href={itemLink} key={index}>
+              <div 
+                key={index}
+                onClick={() => setLocation(itemLink)}
+                className="cursor-pointer"
+              >
                 <Card
-                  className="grid-card shimmer group relative cursor-pointer overflow-hidden border border-[#7B7B7B] transition-transform hover:scale-[1.02]"
+                  className="grid-card shimmer group relative overflow-hidden border border-[#7B7B7B] transition-transform hover:scale-[1.02]"
                   style={{
                     backgroundImage: `url(${item.icon})`,
                     backgroundSize: "cover",
@@ -107,7 +113,7 @@ export function GridSection({ title, items }: GridSectionProps) {
                     </h3>
                   </CardContent>
                 </Card>
-              </Link>
+              </div>
             );
           })}
         </div>
