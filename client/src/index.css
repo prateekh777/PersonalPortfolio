@@ -8,6 +8,7 @@
     src: url('/fonts/AeonikTRIAL-Regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
+    font-display: swap;
   }
 
   @font-face {
@@ -15,6 +16,7 @@
     src: url('/fonts/AeonikTRIAL-RegularItalic.otf') format('opentype');
     font-weight: 400;
     font-style: italic;
+    font-display: swap;
   }
 
   @font-face {
@@ -22,6 +24,7 @@
     src: url('/fonts/AeonikTRIAL-Light.otf') format('opentype');
     font-weight: 300;
     font-style: normal;
+    font-display: swap;
   }
 
   @font-face {
@@ -29,6 +32,7 @@
     src: url('/fonts/AeonikTRIAL-LightItalic.otf') format('opentype');
     font-weight: 300;
     font-style: italic;
+    font-display: swap;
   }
 
   @font-face {
@@ -36,6 +40,7 @@
     src: url('/fonts/AeonikTRIAL-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
+    font-display: swap;
   }
 
   @font-face {
@@ -43,6 +48,7 @@
     src: url('/fonts/AeonikTRIAL-BoldItalic.otf') format('opentype');
     font-weight: 700;
     font-style: italic;
+    font-display: swap;
   }
 
   * {
@@ -51,5 +57,33 @@
 
   body {
     @apply font-aeonik antialiased bg-background text-foreground;
+    background-color: rgb(150, 140, 120);
+    color: #222222;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-aeonik font-bold text-[#222222];
+    letter-spacing: -0.02em;
+  }
+  
+  p {
+    @apply font-aeonik text-[#222222];
+    letter-spacing: 0.01em;
+  }
+
+  /* Custom hover effects */
+  .hover-lift {
+    @apply transition-all duration-300;
+    transform: translateY(0);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Custom blur effects */
+  .blur-backdrop {
+    @apply backdrop-blur-md bg-white/20;
   }
 }
