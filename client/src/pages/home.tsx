@@ -12,7 +12,7 @@ const gridItems = [
   },
   {
     title: "Things I've built Creations That Speak, Solutions That Sing",
-    icon: "/images/gradients/green_card.png",
+    icon: "/images/gradients/red_card.png",
   },
   {
     title: "Where AI Meets Soul - Let's Explore Together",
@@ -24,7 +24,7 @@ const gridItems = [
   },
   {
     title: "The Universe is Speaking—Here's How I Listen",
-    icon: "/images/gradients/yellow_card.png",
+    icon: "/images/gradients/green_card.png",
   },
 ];
 
