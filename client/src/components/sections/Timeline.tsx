@@ -1,5 +1,6 @@
 import { type Role } from "@/types/roles";
 import { cn } from "@/lib/utils";
+import { Bold } from "lucide-react";
 
 type TimelineEvent = {
   date: string;
@@ -17,20 +18,31 @@ const timelineData: Record<Role, TimelineEvent[]> = {
     {
       date: "2024 | Complori | VP, Product",
       title: "Processes and Data Management that Kept Conversion Rates Consistent",
-      description: <><i>Scaling isn’t just about growth—it’s about stability.</i> At Complori, I led key initiatives that ensured conversion rates stayed strong despite scaling challenges. By refining engagement models and optimizing operational processes, we built a resilient system that supported long-term retention and sustained learner success.</>,
+      description: <><i>Scaling isn’t just about growth—it’s about stability.</i> At Complori, I led key initiatives that ensured conversion rates stayed strong despite scaling challenges. By refining engagement models and optimizing operational processes, we built a <b>resilient system </b> that supported long-term retention and sustained learner success.</>,
       icon: "/images/brightchamps-logo.png"
     },
     {
-      date: "2022",
-      title: "Scaled Platform",
-      description: "Improved system performance by 200%",
+      date: "2023 | Glacier | Head of Product",
+      title: "Let’s Get Tech-y! Bringing Solid Platforms, Engaging Tech Stacks, and Sharpening Vision",
+      description: <><i>Tech meets climate action.</i> At Glacier, I introduced scalable product structures that <b>enhanced content delivery</b> and accelerated our ability to educate at scale. Entering the <b>DACH region</b>, I gained hands-on experience in <b>regional strategies</b>, optimizing market entry and product alignment for a new audience.</>,
       icon: "/images/brightchamps-logo.png"
     },
     {
-      date: "GREETUDE ENERGY 2017",
-      title: "Innovation Impact",
-      description: `• Designed ESEE - an Energy Audit and Solution Recommendation platform.\n` +
-                  `• Took data from Energy guzzling equipments, analysed it, shared recommendations on solutions in order of RoI`,
+      date: "2020 | BrightChamps | Head of Academy / Operations",
+      title: "Designed Scalable Workflows for Partner Acquisition & Delivery",
+      description: <>Building a high-growth education platform required <b>speed, agility, and scale</b>. I developed <b>processes and workflows</b> that streamlined partner acquisition and lesson delivery. Our system clocked<b> over millions of minutes in tutoring</b> , managed a vast network of educators, and ensured an exceptional learning experience—all while moving at startup velocity.</>,
+      icon: "/images/brightchamps-logo.png"
+    },
+    {
+      date: "2019 | Edoflip | CEO",
+      title: "Built a Cross-Border Online Portal Connecting Tutors & Students",
+      description: <>When I started Edoflip, the focus was on <b>building lasting relationships in learning</b>. The result? A platform where <b>100% of students came through referrals and renewals</b>, boasting 15% YoY growth and an average student lifetime of 28 months. These weren’t just numbers—they were a testament to the <b>trust and value created in our learning network.</b></>,
+      icon: "/images/brightchamps-logo.png"
+    },
+    {
+      date: "2020 | BrightChamps | Head of Academy / Operations",
+      title: "Designed Scalable Workflows for Partner Acquisition & Delivery",
+      description: <>Building a high-growth education platform required <b>speed, agility, and scale</b>. I developed <b>processes and workflows</b> that streamlined partner acquisition and lesson delivery. Our system clocked<b> over millions of minutes in tutoring</b> , managed a vast network of educators, and ensured an exceptional learning experience—all while moving at startup velocity.</>,
       icon: "/images/brightchamps-logo.png"
     },
   ],
