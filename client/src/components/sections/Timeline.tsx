@@ -153,15 +153,16 @@ export function Timeline({ role }: TimelineProps) {
               {/* Content */}
               <div 
                 className={cn(
-                  "w-[48%]",
-                  index % 2 === 0 ? "ml-auto pl-8" : "mr-auto pr-8"
+                  "w-[42%]",
+                  index % 2 === 0 ? "ml-auto pl-8" : "mr-auto pr-8",
+                  index > 0 ? "mt-[-80px]" : ""
                 )}
               >
                 {/* Connector Line */}
                 <div 
                   className={cn(
-                    "absolute top-8 h-0.5 w-[8%]",
-                    index % 2 === 0 ? "left-[48%]" : "right-[48%]",
+                    "absolute top-8 h-0.5 w-[10%]",
+                    index % 2 === 0 ? "left-[42%]" : "right-[42%]",
                   )}
                   style={{ backgroundColor: '#222222' }}
                 />
