@@ -5,7 +5,7 @@ type TimelineEvent = {
   date: string;
   title: string;
   description: string;
-  icon: string;
+  icon: string; // Now represents the path to the image
 };
 
 type TimelineProps = {
@@ -18,19 +18,19 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       date: "2021",
       title: "Modernized Tech Stack",
       description: "Led migration to microservices architecture",
-      icon: "<img src='/BrightChamps_logo.png' alt='BrightChamps Logo' />"
+      icon: "/BrightChamps_logo-removebg-preview.png"
     },
     {
       date: "2022",
       title: "Scaled Platform",
       description: "Improved system performance by 200%",
-      icon: "⚡"
+      icon: "/BrightChamps_logo-removebg-preview.png"
     },
     {
       date: "2023",
       title: "Innovation Impact",
       description: "Launched 5 major technical initiatives",
-      icon: "💫"
+      icon: "/BrightChamps_logo-removebg-preview.png"
     },
   ],
   "people-manager": [
@@ -38,19 +38,19 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       date: "2021",
       title: "Team Foundation",
       description: "Built core engineering team of 10",
-      icon: "🎯"
+      icon: "/BrightChamps_logo-removebg-preview.png"
     },
     {
       date: "2022",
       title: "Process Optimization",
       description: "Reduced delivery time by 40%",
-      icon: "⚙️"
+      icon: "/BrightChamps_logo-removebg-preview.png"
     },
     {
       date: "2023",
       title: "Growth Achievement",
       description: "Expanded team to 3 departments",
-      icon: "📈"
+      icon: "/BrightChamps_logo-removebg-preview.png"
     },
   ],
   "individual-contributor": [
@@ -58,19 +58,19 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       date: "2021",
       title: "Core System Design",
       description: "Architected primarily focusing on scalability and maintainability",
-      icon: "🔧"
+      icon: "/BrightChamps_logo-removebg-preview.png"
     },
     {
       date: "2022",
       title: "Performance Impact",
       description: "Optimized critical workflows by 60%",
-      icon: "⚡"
+      icon: "/BrightChamps_logo-removebg-preview.png"
     },
     {
       date: "2023",
       title: "Innovation Leadership",
       description: "Delivered 3 breakthrough features",
-      icon: "🌟"
+      icon: "/BrightChamps_logo-removebg-preview.png"
     },
   ],
 };
@@ -86,40 +86,45 @@ export function Timeline({ role }: TimelineProps) {
         {/* Vertical Timeline Line */}
         <div 
           className="absolute left-1/2 top-0 h-full w-1 -translate-x-1/2" 
-          style={{ 
-            backgroundColor: '#222222',
-          }} 
+          style={{ backgroundColor: '#222222' }} 
         />
 
         {/* Timeline Events */}
         <div className="space-y-12">
           {events.map((event, index) => (
             <div key={index} className="relative">
-              {/* Circle with Icon */}
+              {/* Circle with Image */}
               <div 
                 className={cn(
                   "absolute left-1/2 -translate-x-1/2 flex h-16 w-16 items-center justify-center rounded-full border-4",
-                  "z-10"  // Ensure circle is above the line
+                  "z-10 overflow-hidden" // Added overflow-hidden to prevent image bleeding
                 )}
                 style={{ 
                   backgroundColor: '#FFFFFF',
                   borderColor: '#222222'
                 }}
               >
-                <span className="text-2xl">{event.icon}</span>
+                <img 
+                  src={event.icon}
+                  alt={event.title}
+                  className="w-full h-full object-cover object-center"
+                  style={{
+                    padding: '4px', // Add padding to prevent image touching the border
+                  }}
+                />
               </div>
 
               {/* Content */}
               <div 
                 className={cn(
-                  "w-[48%]", // Increased width to reduce white space
-                  index % 2 === 0 ? "ml-auto pl-8" : "mr-auto pr-8" // Alternate sides
+                  "w-[48%]",
+                  index % 2 === 0 ? "ml-auto pl-8" : "mr-auto pr-8"
                 )}
               >
                 {/* Connector Line */}
                 <div 
                   className={cn(
-                    "absolute top-8 h-0.5 w-[8%]", // Reduced width for more compact layout
+                    "absolute top-8 h-0.5 w-[8%]",
                     index % 2 === 0 ? "left-[48%]" : "right-[48%]",
                   )}
                   style={{ backgroundColor: '#222222' }}
