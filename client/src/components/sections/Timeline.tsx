@@ -15,9 +15,9 @@ type TimelineProps = {
 const timelineData: Record<Role, TimelineEvent[]> = {
   "tech-leader": [
     {
-      date: "2021",
-      title: "Modernized Tech Stack",
-      description: "Led migration to microservices architecture",
+      date: "2024 | Complori | VP, Product",
+      title: "Processes and Data Management that Kept Conversion Rates Consistent",
+      description: "Scaling isn’t just about growth—it’s about stability. At Complori, I led key initiatives that ensured conversion rates stayed strong despite scaling challenges. By refining engagement models and optimizing operational processes, we built a resilient system that supported long-term retention and sustained learner success.",
       icon: "/images/brightchamps-logo.png"
     },
     {
@@ -27,9 +27,10 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       icon: "/images/brightchamps-logo.png"
     },
     {
-      date: "2023",
+      date: "GREETUDE ENERGY 2017",
       title: "Innovation Impact",
-      description: "Launched 5 major technical initiatives",
+      description: `• Designed ESEE - an Energy Audit and Solution Recommendation platform.\n` +
+                  `• Took data from Energy guzzling equipments, analysed it, shared recommendations on solutions in order of RoI`,
       icon: "/images/brightchamps-logo.png"
     },
   ],
