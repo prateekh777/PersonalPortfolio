@@ -13,7 +13,7 @@ import {
 import { Timeline } from "@/components/sections/Timeline";
 import { Highlights } from "@/components/sections/Highlights";
 
-type Role = "tech-leader" | "people-manager" | "individual-contributor | "strategy-contributor";";
+type Role = "tech-leader" | "people-manager" | "individual-contributor" | "strategy-contributor";
 
 export default function Expertise() {
   const [selectedRole, setSelectedRole] = useState<Role>("tech-leader");
