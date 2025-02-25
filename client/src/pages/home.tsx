@@ -4,7 +4,7 @@ import { GridSection } from "@/components/sections/GridSection";
 const gridItems = [
   {
     title: "Skills Honed, Stories Told - My Journey",
-    icon: "PenTool",
+    icon: "/images/gradients/blue_card.png",
   },
   {
     title: "Turning Puzzles into Pathways",
