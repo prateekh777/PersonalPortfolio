@@ -20,7 +20,7 @@ export function GridSection({ title, items }: GridSectionProps) {
     <section className="py-16">
       <div className="container">
         {/* Section title */}
-        <h2 className="mb-12 text-center text-3xl font-bold text-[#222222] drop-shadow-sm">{title}</h2>
+        <h2 className="mb-12 text-center text-3xl font-bold text-[#333333] drop-shadow-sm">{title}</h2>
         {/* Grid container */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {items.map((item, index) => (
@@ -35,7 +35,7 @@ export function GridSection({ title, items }: GridSectionProps) {
             >
               <CardContent className="flex min-h-[200px] flex-col items-center justify-center p-6 text-center diagonal-blur-gradient">
                 {/* Item title */}
-                <h3 className="text-lg font-semibold text-[#FFFFFF] drop-shadow-md">{item.title}</h3>
+                <h3 className="text-lg font-semibold text-[#333333] drop-shadow-sm">{item.title}</h3>
               </CardContent>
             </Card>
           ))}

@@ -32,7 +32,10 @@ export default function Home() {
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Background element with blur effect */}
-      <div className="absolute inset-0 diagonal-blur-gradient -z-10"></div>
+      <div className="absolute inset-0 -z-10" style={{
+        background: "linear-gradient(135deg, rgba(245,240,230,0.8) 0%, rgba(230,225,215,0.85) 50%, rgba(215,210,200,0.9) 100%)",
+        backdropFilter: "blur(4px)"
+      }}></div>
       
       <HeroSection
         title="Hello, I'm Prateek H"
