@@ -127,7 +127,7 @@ export function Timeline({ role }: TimelineProps) {
         {/* Timeline Events */}
         <div className="space-y-4">
           {events.map((event, index) => (
-            <div key={index} className="relative" style={{ marginTop: index % 2 === 0 ? '-10px' : '-200px' }}>
+            <div key={index} className="relative" style={{ marginTop: index % 2 === 0 ? '-10px' : '-20px' }}>
               {/* Circle with Image */}
               <div 
                 className={cn(
