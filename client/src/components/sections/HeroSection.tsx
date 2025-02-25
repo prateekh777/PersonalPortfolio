@@ -54,24 +54,30 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         )}
       </div>
 
-      {/* Overlay for better text contrast */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-[#222222]/15 backdrop-blur-[1px]" />
+      {/* Overlay with softer gradient for better text contrast */}
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-[#222222]/10 to-[#222222]/20 backdrop-blur-[2px]" />
 
-      {/* Title and Subtitle Container */}
+      {/* Title and Subtitle Container with animation */}
       <div
-        className="absolute left-1/2 z-20 w-[65%]"
+        className="absolute left-1/2 z-20 w-[70%] animate-[fadeIn_0.8s_ease-in-out]"
         style={{
           top: "calc(25% + 16.875vw - 10px)",
           transform: "translate(-50%, -50%) perspective(1000px) rotateX(5deg)",
         }}
       >
-        <div className="text-center">
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-none text-[#FFFFFF] drop-shadow-md">
+        <div className="text-center relative">
+          {/* Animated border accent */}
+          <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-[#FFFFFF]/0 via-[#FFFFFF]/20 to-[#FFFFFF]/0 opacity-30 blur-sm"></div>
+          
+          <h1 className="shimmer text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-none text-[#FFFFFF] drop-shadow-md relative">
             {title}
           </h1>
-          <p className="mt-2 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-light tracking-wide text-[#F8F8F8] drop-shadow-md">
+          <p className="mt-4 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-light tracking-wide text-[#F8F8F8] drop-shadow-md relative">
             {subtitle}
           </p>
+          
+          {/* Animated highlight underline */}
+          <div className="h-[1px] w-[60%] mx-auto mt-6 bg-gradient-to-r from-transparent via-[#FFFFFF]/70 to-transparent"></div>
         </div>
       </div>
 

@@ -104,4 +104,107 @@
     background: linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.08) 100%);
     z-index: -1;
   }
+  
+  /* Grid card animations */
+  .grid-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+    border-radius: 12px;
+    position: relative;
+  }
+  
+  .grid-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .grid-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #e6e1d4, #c4bfb2);
+    z-index: -1;
+    opacity: 0;
+    border-radius: 14px;
+    transition: opacity 0.3s ease;
+  }
+  
+  .grid-card:hover::before {
+    opacity: 1;
+  }
+  
+  .grid-card-content {
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+  
+  .grid-card:hover .grid-card-content {
+    transform: scale(1.04);
+  }
+  
+  .grid-card:hover .card-icon {
+    transform: rotate(5deg) scale(1.1);
+  }
+  
+  .card-icon {
+    transition: all 0.5s ease;
+    display: inline-block;
+  }
+  
+  .card-title {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .card-title::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 50%;
+    background-color: #333;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+  
+  .grid-card:hover .card-title::after {
+    width: 70%;
+  }
+  
+  /* Shimmer effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: shimmerEffect 2.5s infinite;
+    pointer-events: none;
+  }
+  
+  @keyframes shimmerEffect {
+    0% {
+      transform: translateX(-100%) rotate(30deg);
+    }
+    100% {
+      transform: translateX(100%) rotate(30deg);
+    }
+  }
 }
