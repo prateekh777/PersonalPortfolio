@@ -5,7 +5,7 @@ type TimelineEvent = {
   date: string;
   title: string;
   description: string;
-  icon: string;
+  icon: string | JSX.Element;
 };
 
 type TimelineProps = {
