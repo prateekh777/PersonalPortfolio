@@ -81,10 +81,19 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Enhanced Scroll Indicator with ring effect */}
       {showScroll && (
-        <div className="absolute bottom-2 xs:bottom-3 sm:bottom-4 md:bottom-6 lg:bottom-8 left-1/2 z-20 -translate-x-1/2 animate-bounce">
-          <ArrowDown className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-[#FFFFFF] drop-shadow-md" />
+        <div className="absolute bottom-2 xs:bottom-3 sm:bottom-4 md:bottom-6 lg:bottom-8 left-1/2 z-20 -translate-x-1/2">
+          <div className="relative flex items-center justify-center">
+            {/* Pulse ring effect */}
+            <div className="absolute rounded-full h-8 w-8 border border-white/40 animate-pulse-subtle"></div>
+            
+            {/* Arrow icon */}
+            <div className="animate-bounce">
+              <ArrowDown className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 text-[#FFFFFF] drop-shadow-md" />
+            </div>
+          </div>
+          <p className="text-[10px] xs:text-xs text-white/70 text-center mt-1">Scroll Down</p>
         </div>
       )}
     </section>

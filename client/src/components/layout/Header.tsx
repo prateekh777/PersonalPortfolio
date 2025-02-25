@@ -31,10 +31,8 @@ export function Header() {
   return (
     <header className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-xl items-center justify-between px-4">
-        <Link href="/">
-          <a className="flex items-center space-x-2">
-            <span className="font-bold">Portfolio</span>
-          </a>
+        <Link href="/" className="flex items-center space-x-2">
+          <span className="font-bold">Portfolio</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -67,16 +65,16 @@ export function Header() {
             <DrawerContent>
               <div className="flex flex-col space-y-3 p-4">
                 {navItems.map((item) => (
-                  <Link key={item.path} href={item.path}>
-                    <a
-                      className={`rounded-md px-4 py-2 text-sm font-medium ${
-                        isActive(item.path)
-                          ? "bg-accent text-accent-foreground"
-                          : "hover:bg-accent hover:text-accent-foreground"
-                      }`}
-                    >
-                      {item.label}
-                    </a>
+                  <Link 
+                    key={item.path} 
+                    href={item.path}
+                    className={`rounded-md px-4 py-2 text-sm font-medium ${
+                      isActive(item.path)
+                        ? "bg-accent text-accent-foreground"
+                        : "hover:bg-accent hover:text-accent-foreground"
+                    }`}
+                  >
+                    {item.label}
                   </Link>
                 ))}
                 <DrawerClose asChild>
