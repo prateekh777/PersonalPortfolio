@@ -178,8 +178,8 @@ export function Timeline({ role }: TimelineProps) {
                   {/* Arrow pointing to timeline */}
                   <div 
                     className={cn(
-                      "absolute top-4 h-4 w-4 rotate-45",
-                      index % 2 === 0 ? "-left-2" : "-right-2"
+                      "absolute top-4 h-4 w-4",
+                      index % 2 === 0 ? "-right-2 rotate-45" : "-left-2 -rotate-45"
                     )}
                     style={{ backgroundColor: '#F8F8F8' }}
                   />
