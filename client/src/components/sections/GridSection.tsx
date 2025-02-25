@@ -18,7 +18,7 @@ interface GridSectionProps {
 export function GridSection({ title, items }: GridSectionProps) {
   return (
     <section className="py-16">
-      <div className="container">
+      <div className="container px-4 md:px-6 lg:px-8">
         {/* Section title */}
         <h2 className="mb-12 text-center text-3xl font-bold text-[#333333] drop-shadow-sm">{title}</h2>
         {/* Grid container */}
