@@ -17,7 +17,7 @@ const timelineData: Record<Role, TimelineEvent[]> = {
     {
       date: "2024 | Complori | VP, Product",
       title: "Processes and Data Management that Kept Conversion Rates Consistent",
-      description: `<i>Scaling isn’t just about growth—it’s about stability.</i> At Complori, I led key initiatives that ensured conversion rates stayed strong despite scaling challenges. By refining engagement models and optimizing operational processes, we built a resilient system that supported long-term retention and sustained learner success.`,
+      description: "Scaling isn’t just about growth—it’s about stability. At Complori, I led key initiatives that ensured conversion rates stayed strong despite scaling challenges. By refining engagement models and optimizing operational processes, we built a resilient system that supported long-term retention and sustained learner success.",
       icon: "/images/brightchamps-logo.png"
     },
     {
