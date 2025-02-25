@@ -1,3 +1,4 @@
+
 // Importing necessary components from the UI library
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -16,8 +17,7 @@ interface GridSectionProps {
 // React component to render a section with a grid of items
 export function GridSection({ title, items }: GridSectionProps) {
   return (
-    <section className="relative min-h-screen w-full bg-background py-12">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/20 to-black/40 backdrop-blur supports-[backdrop-filter]:bg-background/60" />
+    <section className="py-16">
       <div className="container">
         {/* Section title */}
         <h2 className="mb-12 text-center text-3xl font-bold">{title}</h2>
