@@ -16,7 +16,7 @@ export function GridSection({ title, items }: GridSectionProps) {
         <h2 className="mb-12 text-center text-3xl font-bold">{title}</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {items.map((item, index) => {
-            const Icon = icons[item.icon];
+            const Icon = icon[item.icon];
             return (
               <Card 
                 key={index}
