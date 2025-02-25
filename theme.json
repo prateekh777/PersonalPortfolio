@@ -4,7 +4,7 @@
   "appearance": "light",
   "radius": 0.5,
   "colors": {
-    "background": "rgb(150, 140, 120)",
+    "background": "rgb(180, 170, 150)",
     "foreground": "#222222",
     "card": "#FFFFFF",
     "card-foreground": "#222222",

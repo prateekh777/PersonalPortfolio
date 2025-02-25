@@ -56,8 +56,8 @@
   }
 
   body {
-    @apply font-aeonik antialiased bg-background text-foreground;
-    background-color: rgb(150, 140, 120);
+    @apply font-aeonik antialiased text-foreground;
+    background: linear-gradient(135deg, rgb(185, 175, 155) 0%, rgb(175, 165, 145) 50%, rgb(190, 180, 160) 100%);
     color: #222222;
   }
 

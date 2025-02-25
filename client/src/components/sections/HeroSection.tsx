@@ -55,7 +55,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
       </div>
 
       {/* Overlay for better text contrast */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#222222]/10 to-[#222222]/30 backdrop-blur-sm" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#222222]/5 to-[#222222]/20 backdrop-blur-sm" />
 
       {/* Title and Subtitle Container */}
       <div
