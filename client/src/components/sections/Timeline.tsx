@@ -5,7 +5,7 @@ type TimelineEvent = {
   date: string;
   title: string;
   description: string;
-  icon: string; // Now represents the path to the image
+  icon: string; // Path to the image in public directory
 };
 
 type TimelineProps = {
@@ -18,19 +18,19 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       date: "2021",
       title: "Modernized Tech Stack",
       description: "Led migration to microservices architecture",
-      icon: "/BrightChamps_logo-removebg-preview.png"
+      icon: "/images/brightchamps-logo.png"
     },
     {
       date: "2022",
       title: "Scaled Platform",
       description: "Improved system performance by 200%",
-      icon: "/BrightChamps_logo-removebg-preview.png"
+      icon: "/images/brightchamps-logo.png"
     },
     {
       date: "2023",
       title: "Innovation Impact",
       description: "Launched 5 major technical initiatives",
-      icon: "/BrightChamps_logo-removebg-preview.png"
+      icon: "/images/brightchamps-logo.png"
     },
   ],
   "people-manager": [
@@ -38,19 +38,19 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       date: "2021",
       title: "Team Foundation",
       description: "Built core engineering team of 10",
-      icon: "/BrightChamps_logo-removebg-preview.png"
+      icon: "/images/brightchamps-logo.png"
     },
     {
       date: "2022",
       title: "Process Optimization",
       description: "Reduced delivery time by 40%",
-      icon: "/BrightChamps_logo-removebg-preview.png"
+      icon: "/images/brightchamps-logo.png"
     },
     {
       date: "2023",
       title: "Growth Achievement",
       description: "Expanded team to 3 departments",
-      icon: "/BrightChamps_logo-removebg-preview.png"
+      icon: "/images/brightchamps-logo.png"
     },
   ],
   "individual-contributor": [
@@ -58,19 +58,19 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       date: "2021",
       title: "Core System Design",
       description: "Architected primarily focusing on scalability and maintainability",
-      icon: "/BrightChamps_logo-removebg-preview.png"
+      icon: "/images/brightchamps-logo.png"
     },
     {
       date: "2022",
       title: "Performance Impact",
       description: "Optimized critical workflows by 60%",
-      icon: "/BrightChamps_logo-removebg-preview.png"
+      icon: "/images/brightchamps-logo.png"
     },
     {
       date: "2023",
       title: "Innovation Leadership",
       description: "Delivered 3 breakthrough features",
-      icon: "/BrightChamps_logo-removebg-preview.png"
+      icon: "/images/brightchamps-logo.png"
     },
   ],
 };
@@ -97,21 +97,24 @@ export function Timeline({ role }: TimelineProps) {
               <div 
                 className={cn(
                   "absolute left-1/2 -translate-x-1/2 flex h-16 w-16 items-center justify-center rounded-full border-4",
-                  "z-10 overflow-hidden" // Added overflow-hidden to prevent image bleeding
+                  "z-10 bg-white overflow-hidden" // Added bg-white and overflow-hidden
                 )}
                 style={{ 
-                  backgroundColor: '#FFFFFF',
                   borderColor: '#222222'
                 }}
               >
-                <img 
-                  src={event.icon}
-                  alt={event.title}
-                  className="w-full h-full object-cover object-center"
-                  style={{
-                    padding: '4px', // Add padding to prevent image touching the border
-                  }}
-                />
+                <div className="w-12 h-12 relative"> {/* Added container for image */}
+                  <img 
+                    src={event.icon}
+                    alt={event.title}
+                    className="w-full h-full object-contain" // Changed to object-contain
+                    onError={(e) => {
+                      // Fallback handling if image fails to load
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.parentElement!.innerHTML = '🔄';
+                    }}
+                  />
+                </div>
               </div>
 
               {/* Content */}
