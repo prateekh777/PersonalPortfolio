@@ -14,6 +14,7 @@
     "primary-foreground": "#FFFFFF",
     "secondary": "#7B7B7B",
     "secondary-foreground": "#FFFFFF",
+    "tertiary": "#F8F8F8",
     "muted": "#F8F8F8",
     "muted-foreground": "#7B7B7B",
     "accent": "#F8F8F8",
@@ -22,6 +23,7 @@
     "destructive-foreground": "#FFFFFF",
     "border": "#7B7B7B",
     "input": "#F8F8F8",
-    "ring": "#222222"
+    "ring": "#222222",
+    "white": "#FFFFFF"
   }
 }

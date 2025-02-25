@@ -30,7 +30,10 @@ const gridItems = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background element with blur effect */}
+      <div className="absolute inset-0 bg-[rgb(150,140,120)] bg-opacity-90 backdrop-blur-md -z-10"></div>
+      
       <HeroSection
         title="Hello, I'm Prateek H"
         subtitle="– Welcome to My Creative Playground"
