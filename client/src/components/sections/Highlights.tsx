@@ -36,6 +36,15 @@ const highlightsData: Record<Role, {
       "Led technical design and implementation",
     ],
   },
+  "strategy-contributor": {
+    image: "/images/strategy-contributor.jpg",
+    points: [
+      "Developed complex technical solutions",
+      "Contributed to open-source projects",
+      "Specialized in performance optimization",
+      "Led technical design and implementation",
+    ],
+  },
 };
 
 export function Highlights({ role }: HighlightsProps) {

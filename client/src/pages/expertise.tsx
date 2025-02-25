@@ -13,7 +13,7 @@ import {
 import { Timeline } from "@/components/sections/Timeline";
 import { Highlights } from "@/components/sections/Highlights";
 
-type Role = "tech-leader" | "people-manager" | "individual-contributor";
+type Role = "tech-leader" | "people-manager" | "individual-contributor | "strategy-contributor";";
 
 export default function Expertise() {
   const [selectedRole, setSelectedRole] = useState<Role>("tech-leader");
@@ -46,9 +46,10 @@ export default function Expertise() {
               <SelectValue placeholder="Select a role" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="tech-leader">Technology Leader</SelectItem>
-              <SelectItem value="people-manager">People Manager</SelectItem>
-              <SelectItem value="individual-contributor">Individual Contributor</SelectItem>
+              <SelectItem value="tech-leader">Product Leader</SelectItem>
+              <SelectItem value="people-manager">Operations - People Manager</SelectItem>
+              <SelectItem value="individual-contributor">Founder - CXO</SelectItem>
+              <SelectItem value="strategy-contributor">Strategy and Planning</SelectItem>
             </SelectContent>
           </Select>
         </div>

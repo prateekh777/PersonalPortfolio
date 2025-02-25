@@ -73,6 +73,26 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       icon: "/images/brightchamps-logo.png"
     },
   ],
+  "strategy-contributor": [
+    {
+      date: "2021",
+      title: "Core System Design",
+      description: "Architected primarily focusing on scalability and maintainability",
+      icon: "/images/brightchamps-logo.png"
+    },
+    {
+      date: "2022",
+      title: "Performance Impact",
+      description: "Optimized critical workflows by 60%",
+      icon: "/images/brightchamps-logo.png"
+    },
+    {
+      date: "2023",
+      title: "Innovation Leadership",
+      description: "Delivered 3 breakthrough features",
+      icon: "/images/brightchamps-logo.png"
+    },
+  ],
 };
 
 export function Timeline({ role }: TimelineProps) {
