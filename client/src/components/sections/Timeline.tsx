@@ -18,7 +18,7 @@ const timelineData: Record<Role, TimelineEvent[]> = {
       date: "2021",
       title: "Modernized Tech Stack",
       description: "Led migration to microservices architecture",
-      icon: <img src="/shield-star.png" alt="Modernized Tech Stack icon" />
+      icon: "🚀"
     },
     {
       date: "2022",
