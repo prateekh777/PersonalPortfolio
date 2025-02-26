@@ -15,10 +15,12 @@ export const sections = pgTable("sections", {
 export const projects = pgTable("projects", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
+  subtitle: text("subtitle"),
   description: text("description").notNull(),
   imageUrl: text("image_url"),
   projectUrl: text("project_url"),
   tags: json("tags").$type<string[]>().default([]),
+  position: text("position").default("left"), // Can be "left" or "right" to indicate image position
 });
 
 export const caseStudies = pgTable("case_studies", {

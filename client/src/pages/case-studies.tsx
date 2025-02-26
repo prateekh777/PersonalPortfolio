@@ -19,7 +19,7 @@ export default function CaseStudies() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12 pt-16">
       <h1 className="text-4xl font-bold">Case Studies</h1>
       <div className="grid gap-6 md:grid-cols-2">
         {caseStudies?.map((study) => (

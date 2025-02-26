@@ -1,6 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { type AiWork } from "@shared/schema";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Brain } from "lucide-react";
@@ -21,7 +27,7 @@ export default function AiWorks() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12 pt-16">
       <div className="flex items-center gap-4">
         <Brain className="h-8 w-8 text-primary" />
         <h1 className="text-4xl font-bold">AI Works</h1>

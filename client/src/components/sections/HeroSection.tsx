@@ -33,7 +33,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
 
       {/* Video Frame - 16:9 aspect ratio, aligned to top of main frame */}
       <div
-        className="relative left-1/2 top-[56%] z-0 w-[45%] -translate-x-1/2 -translate-y-[60%] shadow-xl"
+        className="relative left-1/2 top-[52%] z-0 w-[45%] -translate-x-1/2 -translate-y-[60%] shadow-xl"
         style={{
           aspectRatio: "16/10",
           transform: "translate(-50%, -60%) perspective(1000px) rotateX(5deg)",

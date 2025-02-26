@@ -65,12 +65,13 @@ export default function Contact() {
   };
 
   return (
-    <div className="grid gap-8 md:grid-cols-2">
+    <div className="space-y-12 pt-16 grid gap-8 md:grid-cols-2">
       <Card>
         <CardHeader>
           <CardTitle>Contact Me</CardTitle>
           <CardDescription>
-            Fill out the form below and I'll get back to you as soon as possible.
+            Fill out the form below and I'll get back to you as soon as
+            possible.
           </CardDescription>
         </CardHeader>
         <CardContent>

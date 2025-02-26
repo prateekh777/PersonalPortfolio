@@ -41,7 +41,7 @@ export default function Home() {
       {/* Hero section with animated entrance */}
       <div style={{ animation: "fadeIn 0.8s ease-out" }}>
         <HeroSection
-          title="Hello, I'm Prateek H"
+          title="Hello, I'm Prateek Hakay"
           subtitle="– Welcome to My Creative Playground"
           videoUrl="/SampleVideo_1280x720_10mb.mp4"
         />

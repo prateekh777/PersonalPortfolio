@@ -21,11 +21,11 @@ export default function Interests() {
   }
 
   const categories = Array.from(
-    new Set(interests?.map((interest) => interest.category))
+    new Set(interests?.map((interest) => interest.category)),
   );
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12 pt-16">
       <h1 className="text-4xl font-bold">My Interests</h1>
       <Tabs defaultValue={categories[0]} className="w-full">
         <TabsList className="mb-8">

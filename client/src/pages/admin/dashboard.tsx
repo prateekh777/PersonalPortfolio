@@ -1,5 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { type Section, type Project, type CaseStudy, type AiWork, type Interest } from "@shared/schema";
+import {
+  type Section,
+  type Project,
+  type CaseStudy,
+  type AiWork,
+  type Interest,
+} from "@shared/schema";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -62,7 +68,7 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-8">
       <h1 className="text-4xl font-bold">Admin Dashboard</h1>
-      
+
       <Tabs defaultValue="home" className="w-full">
         <TabsList>
           <TabsTrigger value="home">Home Sections</TabsTrigger>
