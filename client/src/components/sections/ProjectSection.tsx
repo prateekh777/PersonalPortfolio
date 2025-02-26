@@ -63,25 +63,25 @@ export function ProjectSection({ project, index }: ProjectSectionProps) {
             )}
           </div>
           <div className="order-1 md:order-2">
-            {project.imageUrl && (
+            {project.imageUrl ? (
               <img 
                 src={project.imageUrl} 
                 alt={project.title} 
                 className="h-auto w-full rounded-lg object-cover shadow-lg"
               />
-            )}
+            ) : null}
           </div>
         </>
       ) : (
         <>
           <div className="order-1">
-            {project.imageUrl && (
+            {project.imageUrl ? (
               <img 
                 src={project.imageUrl} 
                 alt={project.title} 
                 className="h-auto w-full rounded-lg object-cover shadow-lg"
               />
-            )}
+            ) : null}
           </div>
           <div className="order-2 space-y-6">
             <div>
