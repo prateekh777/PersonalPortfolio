@@ -1,4 +1,4 @@
-import { Project } from "@shared/schema";
+import { Project } from "@/types/project";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";

@@ -1,38 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import { type Project } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProjectSection } from "@/components/sections/ProjectSection";
 import { motion } from "framer-motion";
 
+import { Project } from "@/types/project";
+
 export default function Projects() {
-  const { data: projects, isLoading } = useQuery<Project[]>({
-    queryKey: ["/api/projects"],
-  });
-
-  if (isLoading) {
-    return (
-      <div className="space-y-12">
-        <Skeleton className="h-[50px] w-1/3" />
-        <div className="space-y-16">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <Skeleton className="h-[300px]" />
-            <Skeleton className="h-[300px]" />
-          </div>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <Skeleton className="h-[300px]" />
-            <Skeleton className="h-[300px]" />
-          </div>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <Skeleton className="h-[300px]" />
-            <Skeleton className="h-[300px]" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // If no projects exist, create some sample projects
-  const sampleProjects = projects?.length ? projects : [
+  // Static project data
+  const projects: Project[] = [
     {
       id: 1,
       title: "E-Commerce Platform",
@@ -64,8 +38,6 @@ export default function Projects() {
       position: "left",
     }
   ];
-
-  const displayProjects = projects?.length ? projects : sampleProjects;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -100,7 +72,7 @@ export default function Projects() {
       </motion.div>
       
       <div className="space-y-16 divide-y divide-border">
-        {displayProjects.map((project, index) => (
+        {projects.map((project, index) => (
           <ProjectSection 
             key={project.id} 
             project={project} 
