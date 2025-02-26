@@ -56,9 +56,15 @@ export function ProjectSection({ project, index }: ProjectSectionProps) {
               ))}
             </div>
             {project.projectUrl && (
-              <Button onClick={handleOpenProject} className="text-gray-900">
-                <ExternalLink className="mr-2 h-4 w-4" />
-                View Project
+              <Button 
+                onClick={handleOpenProject} 
+                className="relative px-6 py-3 text-gray-900 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-105 group"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <div className="relative flex items-center space-x-2">
+                  <ExternalLink className="h-4 w-4 transform group-hover:rotate-12 transition-transform duration-300" />
+                  <span className="font-medium">View Project</span>
+                </div>
               </Button>
             )}
           </div>
@@ -97,9 +103,15 @@ export function ProjectSection({ project, index }: ProjectSectionProps) {
               ))}
             </div>
             {project.projectUrl && (
-              <Button onClick={handleOpenProject} className="text-gray-900">
-                <ExternalLink className="mr-2 h-4 w-4" />
-                View Project
+              <Button 
+                onClick={handleOpenProject} 
+                className="relative px-6 py-3 text-gray-900 bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-105 group"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <div className="relative flex items-center space-x-2">
+                  <ExternalLink className="h-4 w-4 transform group-hover:rotate-12 transition-transform duration-300" />
+                  <span className="font-medium">View Project</span>
+                </div>
               </Button>
             )}
           </div>
