@@ -52,23 +52,31 @@
   }
 
   * {
-    @apply border-border;
+    @apply border-border font-aeonik;
+    font-family: 'Aeonik TRIAL', sans-serif !important;
   }
 
   body {
     @apply font-aeonik antialiased text-foreground;
+    font-family: 'Aeonik TRIAL', sans-serif !important;
     background: linear-gradient(180deg, rgb(1000, 1000, 1000) 0%, rgb(200, 190, 170) 100%);
     color: #333333;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-aeonik font-bold text-[#222222];
+    font-family: 'Aeonik TRIAL', sans-serif !important;
     letter-spacing: -0.02em;
   }
   
   p {
     @apply font-aeonik text-[#222222];
+    font-family: 'Aeonik TRIAL', sans-serif !important;
     letter-spacing: 0.01em;
+  }
+  
+  a, button, input, textarea, select, span, div {
+    font-family: 'Aeonik TRIAL', sans-serif !important;
   }
 
   /* Custom hover effects */

@@ -4,10 +4,13 @@ export default {
   darkMode: ["class"],
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ['Aeonik TRIAL', 'ui-sans-serif', 'system-ui'],
+      serif: ['Aeonik TRIAL', 'ui-serif'],
+      mono: ['Aeonik TRIAL', 'ui-monospace'],
+      aeonik: ['Aeonik TRIAL'],
+    },
     extend: {
-      fontFamily: {
-        aeonik: ['Aeonik TRIAL', 'system-ui', 'sans-serif'],
-      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",

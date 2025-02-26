@@ -33,9 +33,9 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
 
       {/* Video Frame - 16:9 aspect ratio, aligned to top of main frame */}
       <div
-        className="relative left-1/2 top-[52%] z-0 w-[45%] -translate-x-1/2 -translate-y-[60%] shadow-xl"
+        className="relative left-1/2 top-[53%] z-0 w-[45%] -translate-x-1/2 -translate-y-[60%] shadow-xl"
         style={{
-          aspectRatio: "16/10",
+          aspectRatio: "16/8",
           transform: "translate(-50%, -60%) perspective(1000px) rotateX(5deg)",
         }}
       >
@@ -59,7 +59,7 @@ export function HeroSection({ title, subtitle, videoUrl }: HeroSectionProps) {
 
       {/* Title and Subtitle Container with animation */}
       <div
-        className="absolute left-1/2 z-20 w-[70%] animate-[fadeIn_0.8s_ease-in-out]"
+        className="absolute left-1/2 z-20 w-[70%]"
         style={{
           top: "calc(25% + 16.875vw - 10px)",
           transform: "translate(-50%, -50%) perspective(1000px) rotateX(5deg)",

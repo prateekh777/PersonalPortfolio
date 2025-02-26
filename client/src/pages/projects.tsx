@@ -1,4 +1,3 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect } from "react";
 import { ProjectSection } from "@/components/sections/ProjectSection";
 import { motion } from "framer-motion";
@@ -77,9 +76,9 @@ export default function Projects() {
       variants={containerVariants}
     >
       <motion.div variants={titleVariants}>
-        <h1 className="text-4xl font-bold">Projects</h1>
-        <p className="mt-4 text-xl text-muted-foreground">
-          Discover our innovative solutions and case studies
+        <h1 className="text-4xl flex items=center justify-center font-bold">Projects</h1>
+        <p className="mt-4 flex items=center justify-center text-xl text-muted-foreground">
+          Discover side hustles that make this world a better place!
         </p>
       </motion.div>
 
