@@ -57,7 +57,7 @@
 
   body {
     @apply font-aeonik antialiased text-foreground;
-    background: linear-gradient(135deg, rgb(195, 185, 165) 0%, rgb(185, 175, 155) 50%, rgb(200, 190, 170) 100%);
+    background: linear-gradient(180deg, rgb(1000, 1000, 1000) 0%, rgb(200, 190, 170) 100%);
     color: #333333;
   }
 
@@ -89,7 +89,7 @@
   
   /* Diagonal blur gradient - Lighter version */
   .diagonal-blur-gradient {
-    background: linear-gradient(135deg, rgba(240,235,220,0.5) 0%, rgba(220,215,200,0.6) 50%, rgba(200,195,180,0.7) 100%);
+    background: linear-gradient(135deg, rgba(240,235,220,0.5) 0%, rgba(200,195,180,0.7) 100%);
     backdrop-filter: blur(6px);
     position: relative;
   }
@@ -101,7 +101,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.08) 100%);
+    background: linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.08) 100%);
     z-index: -1;
   }
   
@@ -125,7 +125,7 @@
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background: linear-gradient(45deg, #e6e1d4, #c4bfb2);
+    background: linear-gradient(45deg, #f9f8f6, #cebd92);
     z-index: -1;
     opacity: 0;
     border-radius: 14px;
@@ -166,7 +166,7 @@
     height: 2px;
     bottom: -4px;
     left: 50%;
-    background-color: #333;
+    background-color: #535050;
     transition: all 0.3s ease;
     transform: translateX(-50%);
   }

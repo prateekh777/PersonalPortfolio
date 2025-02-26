@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { GridSection } from "@/components/sections/GridSection";
 
@@ -29,6 +30,9 @@ const gridItems = [
 ];
 
 export default function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="min-h-screen relative overflow-hidden">
       {/* Background element with improved blur gradient effect */}
