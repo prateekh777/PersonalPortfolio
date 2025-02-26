@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        aeonik: ['Aeonik', 'system-ui', 'sans-serif'],
+        aeonik: ['Aeonik TRIAL', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",

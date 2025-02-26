@@ -4,7 +4,7 @@
 
 @layer base {
   @font-face {
-    font-family: 'Aeonik';
+    font-family: 'Aeonik TRIAL';
     src: url('/fonts/AeonikTRIAL-Regular.otf') format('opentype');
     font-weight: 400;
     font-style: normal;
@@ -12,7 +12,7 @@
   }
 
   @font-face {
-    font-family: 'Aeonik';
+    font-family: 'Aeonik TRIAL';
     src: url('/fonts/AeonikTRIAL-RegularItalic.otf') format('opentype');
     font-weight: 400;
     font-style: italic;
@@ -20,7 +20,7 @@
   }
 
   @font-face {
-    font-family: 'Aeonik';
+    font-family: 'Aeonik TRIAL';
     src: url('/fonts/AeonikTRIAL-Light.otf') format('opentype');
     font-weight: 300;
     font-style: normal;
@@ -28,7 +28,7 @@
   }
 
   @font-face {
-    font-family: 'Aeonik';
+    font-family: 'Aeonik TRIAL';
     src: url('/fonts/AeonikTRIAL-LightItalic.otf') format('opentype');
     font-weight: 300;
     font-style: italic;
@@ -36,7 +36,7 @@
   }
 
   @font-face {
-    font-family: 'Aeonik';
+    font-family: 'Aeonik TRIAL';
     src: url('/fonts/AeonikTRIAL-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
@@ -44,7 +44,7 @@
   }
 
   @font-face {
-    font-family: 'Aeonik';
+    font-family: 'Aeonik TRIAL';
     src: url('/fonts/AeonikTRIAL-BoldItalic.otf') format('opentype');
     font-weight: 700;
     font-style: italic;
