@@ -56,7 +56,7 @@ export function ProjectSection({ project, index }: ProjectSectionProps) {
               ))}
             </div>
             {project.projectUrl && (
-              <Button onClick={handleOpenProject}>
+              <Button onClick={handleOpenProject} className="text-gray-900">
                 <ExternalLink className="mr-2 h-4 w-4" />
                 View Project
               </Button>
@@ -97,7 +97,7 @@ export function ProjectSection({ project, index }: ProjectSectionProps) {
               ))}
             </div>
             {project.projectUrl && (
-              <Button onClick={handleOpenProject}>
+              <Button onClick={handleOpenProject} className="text-gray-900">
                 <ExternalLink className="mr-2 h-4 w-4" />
                 View Project
               </Button>
