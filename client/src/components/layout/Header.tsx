@@ -57,29 +57,33 @@ export function Header() {
         {/* Mobile Navigation */}
         <div className="flex md:hidden">
           <Drawer>
-            <DrawerTrigger asChild>
+            <DrawerTrigger asChild>  
               <Button variant="ghost" size="icon">
                 <Menu className="h-5 w-5" />
-              </Button>
-            </DrawerTrigger>
+              </Button>  
+            </DrawerTrigger>  
             <DrawerContent>
               <div className="flex flex-col space-y-3 p-4">
                 {navItems.map((item) => (
-                  <Link 
-                    key={item.path} 
-                    href={item.path}
-                    className={`rounded-md px-4 py-2 text-sm font-medium ${
-                      isActive(item.path)
-                        ? "bg-accent text-accent-foreground"
-                        : "hover:bg-accent hover:text-accent-foreground"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
+                  <DrawerClose asChild key={item.path}>
+                    <Link
+                      href={item.path}
+                      className={`rounded-md px-4 py-2 text-sm font-medium ${
+                        isActive(item.path)
+                          ? "bg-accent text-accent-foreground"
+                          : "hover:bg-accent hover:text-accent-foreground"
+                      }`}
+                      onClick={() => {}}
+                    >
+                      {item.label}
+                    </Link>
+                  </DrawerClose>
                 ))}
                 <DrawerClose asChild>
                   <Link href="/contact">
-                    <Button className="w-full" variant="outline">Contact</Button>
+                    <Button className="w-full" variant="outline">
+                      Contact
+                    </Button>
                   </Link>
                 </DrawerClose>
               </div>
