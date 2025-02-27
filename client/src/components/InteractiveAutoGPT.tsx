@@ -33,10 +33,6 @@ export function InteractiveAutoGPT() {
   ]);
   
   const [isLoading, setIsLoading] = useState(false);
-  // We're using the server's environment API key instead of requesting from the user
-  const [apiKey, setApiKey] = useState<string | null>("server-managed-key");
-  const [showApiInput, setShowApiInput] = useState(false);
-  const [tempApiKey, setTempApiKey] = useState("");
   const [goal, setGoal] = useState<string | null>(null);
   const [steps, setSteps] = useState<GoalStep[]>([]);
   const [currentStep, setCurrentStep] = useState<number | null>(null);
@@ -52,18 +48,8 @@ export function InteractiveAutoGPT() {
   }, [messages, thinking, thoughtProcess]);
 
   const analyzeGoal = async (goalText: string) => {
-    // In a real implementation, we would use our backend API
-    // to interact with OpenAI, but for this demo we'll continue
-    // to use the browser's API key
-    if (!apiKey) {
-      toast({
-        title: "API Key Required",
-        description: "Please enter your OpenAI API key to continue.",
-        variant: "destructive"
-      });
-      setShowApiInput(true);
-      return;
-    }
+    // Our backend API already has access to the OpenAI API key
+    // from the environment variables, so we don't need to check for apiKey
 
     setGoal(goalText);
     setThinking(true);
@@ -149,15 +135,8 @@ export function InteractiveAutoGPT() {
   };
 
   const processStep = async (stepId: number) => {
-    if (!apiKey) {
-      toast({
-        title: "API Key Required",
-        description: "Please enter your OpenAI API key to continue.",
-        variant: "destructive"
-      });
-      setShowApiInput(true);
-      return;
-    }
+    // Our backend API already has access to the OpenAI API key
+    // from the environment variables, so we don't need to check for apiKey
 
     setThinking(true);
     setThoughtProcess([`Working on step ${stepId}...`]);
@@ -323,24 +302,7 @@ export function InteractiveAutoGPT() {
     setIsLoading(false);
   };
 
-  const saveApiKey = () => {
-    if (!tempApiKey.trim()) {
-      toast({
-        title: "Invalid API Key",
-        description: "Please enter a valid OpenAI API key.",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    setApiKey(tempApiKey);
-    setShowApiInput(false);
-    setTempApiKey("");
-    toast({
-      title: "API Key Saved",
-      description: "Your API key has been saved for this session.",
-    });
-  };
+  // API key is now managed by the server - no need for client-side API key handling
 
   return (
     <Card className="w-full">
@@ -515,7 +477,7 @@ export function InteractiveAutoGPT() {
       
       <Separator />
       
-      <CardFooter className="text-xs text-muted-foreground pt-4">
+      <CardFooter className="text-xs text-muted-foreground pt-4 flex flex-col gap-6">
         <div className="w-full">
           <p>
             This interactive demo showcases the core concept of AutoGPT - an autonomous agent that breaks down complex goals into manageable steps and executes them systematically.
@@ -523,6 +485,73 @@ export function InteractiveAutoGPT() {
           <p className="mt-2">
             Powered by GPT-4 with server-side API integration.
           </p>
+        </div>
+        
+        {/* Schematic diagram showing how AutoGPT works */}
+        <div className="w-full border rounded-md p-4 bg-muted/10">
+          <h3 className="text-sm font-semibold mb-4 text-foreground">How AutoGPT Works - System Architecture</h3>
+          
+          <div className="relative w-full h-[200px] flex flex-col items-center">
+            {/* User Input Box */}
+            <div className="absolute top-0 left-0 w-1/4 border rounded-md p-2 bg-muted/30 text-center text-[10px]">
+              <span className="font-semibold">User Input</span>
+              <p>Goal & Follow-up Questions</p>
+            </div>
+            
+            {/* Arrow Down */}
+            <div className="absolute top-[40px] left-[12%] transform-gpu rotate-90">
+              <ArrowDown className="h-4 w-4 text-primary" />
+            </div>
+            
+            {/* Frontend Processing */}
+            <div className="absolute top-0 left-1/3 w-1/3 border rounded-md p-2 bg-primary/10 text-center text-[10px]">
+              <span className="font-semibold">Frontend Processing</span>
+              <p>React UI & State Management</p>
+            </div>
+            
+            {/* Arrow Down */}
+            <div className="absolute top-[40px] left-[50%] transform-gpu -translate-x-1/2">
+              <ArrowDown className="h-4 w-4 text-primary" />
+            </div>
+            
+            {/* Server API */}
+            <div className="absolute top-[60px] left-1/3 w-1/3 border border-primary rounded-md p-2 bg-primary/5 text-center text-[10px]">
+              <span className="font-semibold">Server API</span>
+              <p>Express.js Backend with OpenAI Integration</p>
+            </div>
+            
+            {/* Arrow Down */}
+            <div className="absolute top-[100px] left-[50%] transform-gpu -translate-x-1/2">
+              <ArrowDown className="h-4 w-4 text-primary" />
+            </div>
+            
+            {/* OpenAI API */}
+            <div className="absolute top-[120px] left-1/3 w-1/3 border rounded-md p-2 bg-muted/20 text-center text-[10px]">
+              <span className="font-semibold">OpenAI GPT-4 API</span>
+              <p>Goal Analysis & Step Execution</p>
+            </div>
+            
+            {/* Arrow Down */}
+            <div className="absolute top-[100px] right-[12%] transform-gpu rotate-90">
+              <ArrowDown className="h-4 w-4 text-primary rotate-180" />
+            </div>
+            
+            {/* Result Output */}
+            <div className="absolute top-0 right-0 w-1/4 border rounded-md p-2 bg-green-50/30 text-center text-[10px]">
+              <span className="font-semibold">Results & Thinking</span>
+              <p>Response & Thinking Process</p>
+            </div>
+            
+            {/* Bottom box */}
+            <div className="absolute bottom-0 left-0 right-0 border border-primary/50 rounded-md p-2 bg-muted/5 text-center text-[10px]">
+              <span className="font-semibold">Key Features</span>
+              <div className="grid grid-cols-3 gap-2 mt-1">
+                <div className="border-r border-primary/20 px-1">Step-by-Step Planning</div>
+                <div className="border-r border-primary/20 px-1">Autonomous Execution</div>
+                <div className="px-1">Transparent Thinking</div>
+              </div>
+            </div>
+          </div>
         </div>
       </CardFooter>
     </Card>
