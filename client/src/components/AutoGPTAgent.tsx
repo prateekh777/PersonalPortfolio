@@ -185,7 +185,7 @@ export function AutoGPTAgent() {
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                 </div>
               </div>
-              <div className="p-4 font-mono text-sm bg-black text-green-400 h-64 overflow-y-auto">
+              <div className="p-4 font-mono text-sm bg-black text-emerald-300 h-64 overflow-y-auto">
                 <p className="pb-1">Welcome to AutoGPT! I am an autonomous agent working to help you.</p>
                 <p className="pb-1">🎯 Goal: Research the latest advancements in renewable energy and create a summary report.</p>
                 <p className="pb-1">I'll break this down into steps:</p>

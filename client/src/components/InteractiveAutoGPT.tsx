@@ -460,15 +460,15 @@ export function InteractiveAutoGPT() {
                       }}
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <span className="font-semibold text-muted-foreground flex items-center gap-1">
-                          <Sparkles className="h-3 w-3" /> Thought Process
+                        <span className="font-semibold text-foreground flex items-center gap-1">
+                          <Sparkles className="h-3 w-3 text-primary" /> Thought Process
                         </span>
                         <CircleX className="h-3 w-3 text-muted-foreground hover:text-foreground" />
                       </div>
-                      <ul className="space-y-1 text-muted-foreground">
+                      <ul className="space-y-1 text-foreground">
                         {message.thinking.map((thought, i) => (
                           <li key={i} className="flex items-start gap-1">
-                            <span className="font-mono text-primary/70">•</span>
+                            <span className="font-mono text-primary">•</span>
                             {thought}
                           </li>
                         ))}
@@ -493,13 +493,13 @@ export function InteractiveAutoGPT() {
                   
                   <div className="mt-2 text-xs bg-muted/40 p-2 rounded-md border border-muted">
                     <div className="flex items-center gap-1 mb-1">
-                      <Sparkles className="h-3 w-3 text-muted-foreground" />
-                      <span className="font-semibold text-muted-foreground">Thinking...</span>
+                      <Sparkles className="h-3 w-3 text-primary" />
+                      <span className="font-semibold text-foreground">Thinking...</span>
                     </div>
-                    <ul className="space-y-1 text-muted-foreground">
+                    <ul className="space-y-1 text-foreground">
                       {thoughtProcess.map((thought, i) => (
                         <li key={i} className="flex items-start gap-1">
-                          <span className="font-mono text-primary/70">•</span>
+                          <span className="font-mono text-primary">•</span>
                           {thought}
                         </li>
                       ))}
