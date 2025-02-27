@@ -195,7 +195,7 @@ export function AutoGPTAgent() {
                 <p className="pb-1 pl-4">4. Generate a comprehensive summary report</p>
                 <p className="pb-1">Executing step 1: Searching for recent publications...</p>
                 <p className="pb-1">Found 24 relevant papers from the last 6 months. Analyzing content...</p>
-                <p className="pb-1">Step 2: Collecting key information from sources with impact factor {'>'}4.0...</p>
+                <p className="pb-1">Step 2: Collecting key information from sources with impact factor &gt;4.0...</p>
                 <p className="pb-1">Creating summary...</p>
                 <p className="pb-1">Writing report to renewable_energy_report.md</p>
                 <p className="pb-1">Task completed successfully! The report contains 5 major breakthroughs in solar, wind, hydrogen, and battery storage technologies.</p>

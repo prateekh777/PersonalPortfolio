@@ -86,7 +86,11 @@ export default function AiWorks() {
                   <Button
                     variant="outline"
                     className="w-full"
-                    onClick={() => window.open(work.demoUrl, "_blank")}
+                    onClick={() => {
+                      if (work.demoUrl) {
+                        window.open(work.demoUrl, "_blank");
+                      }
+                    }}
                   >
                     <ExternalLink className="mr-2 h-4 w-4" />
                     View Demo
@@ -129,7 +133,11 @@ export default function AiWorks() {
                   <Button
                     variant="outline"
                     className="w-full"
-                    onClick={() => window.open(work.demoUrl, "_blank")}
+                    onClick={() => {
+                      if (work.demoUrl) {
+                        window.open(work.demoUrl, "_blank");
+                      }
+                    }}
                   >
                     <ExternalLink className="mr-2 h-4 w-4" />
                     View Demo
@@ -172,7 +180,11 @@ export default function AiWorks() {
                   <Button
                     variant="outline"
                     className="w-full"
-                    onClick={() => window.open(work.demoUrl, "_blank")}
+                    onClick={() => {
+                      if (work.demoUrl) {
+                        window.open(work.demoUrl, "_blank");
+                      }
+                    }}
                   >
                     <ExternalLink className="mr-2 h-4 w-4" />
                     View Demo
@@ -215,7 +227,11 @@ export default function AiWorks() {
                   <Button
                     variant="outline"
                     className="w-full"
-                    onClick={() => window.open(work.demoUrl, "_blank")}
+                    onClick={() => {
+                      if (work.demoUrl) {
+                        window.open(work.demoUrl, "_blank");
+                      }
+                    }}
                   >
                     <ExternalLink className="mr-2 h-4 w-4" />
                     View Demo
