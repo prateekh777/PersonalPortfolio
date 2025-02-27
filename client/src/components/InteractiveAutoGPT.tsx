@@ -73,21 +73,51 @@ export function InteractiveAutoGPT() {
         }),
       });
       
+      const result = await response.json();
+      
       if (!response.ok) {
-        throw new Error(`API request failed with status: ${response.status}`);
+        // Handle API error with details from result
+        const errorMessage = result.error || `API request failed with status: ${response.status}`;
+        throw new Error(errorMessage);
       }
       
-      const result = await response.json();
       const content = result.content || '';
       const thinking = result.thinking || [];
       
-      // Extract steps from the AI's response
-      const stepRegex = /\d+\.\s*(.*?)(?=\n\d+\.|\n\n|$)/g;
+      // Enhanced step extraction pattern to handle different formatting
+      // Look for numbered lists like "1. Step description" or "Step 1: Description"
+      const stepRegex = /(?:\d+\.|\bStep\s+\d+:?)\s*(.*?)(?=(?:\d+\.|\bStep\s+\d+:?)|\n\n|$)/gs;
       const extractedSteps: string[] = [];
       let match: RegExpExecArray | null;
+      
+      // First attempt with numbered pattern
       while ((match = stepRegex.exec(content)) !== null) {
-        if (match[1]) {
+        if (match[1] && match[1].trim()) {
           extractedSteps.push(match[1].trim());
+        }
+      }
+      
+      // If no steps found, try looking for clear paragraphs or bullet points
+      if (extractedSteps.length === 0) {
+        const bulletRegex = /(?:\*|\-|\•)\s*(.*?)(?=(?:\*|\-|\•)|\n\n|$)/gs;
+        while ((match = bulletRegex.exec(content)) !== null) {
+          if (match[1] && match[1].trim()) {
+            extractedSteps.push(match[1].trim());
+          }
+        }
+      }
+      
+      // As a last resort, split by double newlines and take sections that look like steps
+      if (extractedSteps.length === 0) {
+        const paragraphs = content.split(/\n\n+/).filter(p => 
+          p.trim() && 
+          p.length > 10 && 
+          !p.toLowerCase().includes("i've analyzed") &&
+          !p.toLowerCase().includes("here's my")
+        );
+        
+        if (paragraphs.length >= 2) {
+          extractedSteps.push(...paragraphs.slice(0, 5));
         }
       }
       
@@ -98,7 +128,7 @@ export function InteractiveAutoGPT() {
         status: "pending" as const
       }));
       
-      // If we couldn't extract steps, use default steps
+      // If we still couldn't extract steps, use default steps
       if (generatedSteps.length === 0) {
         const defaultSteps: GoalStep[] = [
           { id: 1, description: "Analyze and break down the main objective", status: "pending" as const },
@@ -123,12 +153,24 @@ export function InteractiveAutoGPT() {
       
       setMessages(prev => [...prev, newMessage]);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error analyzing goal:", error);
       setThinking(false);
+      
+      // More helpful error messages based on the error
+      let description = "Failed to analyze the goal. Please try again.";
+      
+      if (error.message.includes("API key")) {
+        description = "The API key for OpenAI is missing or invalid. Please check server configuration.";
+      } else if (error.message.includes("rate limit")) {
+        description = "The OpenAI API rate limit has been exceeded. Please try again later.";
+      } else if (error.message.includes("model not found")) {
+        description = "The selected AI model is not available. The system will try an alternative model.";
+      }
+      
       toast({
         title: "Error",
-        description: "Failed to analyze the goal. Please try again.",
+        description,
         variant: "destructive"
       });
     }
@@ -151,10 +193,26 @@ export function InteractiveAutoGPT() {
     
     try {
       // Include all previous messages for context
-      const historyMessages = messages.map(m => ({
-        role: m.role,
-        content: m.content
-      }));
+      // Only keep essential messages to avoid token limits
+      const relevantMessages = messages
+        .slice(-5) // Get only the latest 5 messages for context
+        .map(m => ({
+          role: m.role,
+          content: m.content
+        }));
+      
+      // Add a message explaining the current step context
+      const systemContext = {
+        role: "system" as const,
+        content: `You are now working on step ${stepId}: "${currentStepObj.description}" for the goal: "${goal}". 
+        Execute this step and provide a detailed report of what you've done and what you've learned.
+        
+        Previous steps context: ${steps
+          .filter(s => s.id < stepId)
+          .map(s => `Step ${s.id}: ${s.description} (${s.status})`)
+          .join(", ")}
+        `
+      };
       
       // Call our backend API to get the next step response
       const response = await fetch('/api/autogpt', {
@@ -164,23 +222,22 @@ export function InteractiveAutoGPT() {
         },
         body: JSON.stringify({
           messages: [
-            ...historyMessages,
-            {
-              role: "system",
-              content: `You are now working on step ${stepId}: "${currentStepObj.description}" for the goal: "${goal}". 
-              Execute this step and provide a detailed report of what you've done and what you've learned.`
-            }
+            systemContext,
+            ...relevantMessages
           ],
           goal,
           step: stepId
         }),
       });
       
+      const result = await response.json();
+      
       if (!response.ok) {
-        throw new Error(`API request failed with status: ${response.status}`);
+        // Handle API error with details from result
+        const errorMessage = result.error || `API request failed with status: ${response.status}`;
+        throw new Error(errorMessage);
       }
       
-      const result = await response.json();
       const content = result.content || '';
       const thinking = result.thinking || [];
       
@@ -210,12 +267,30 @@ export function InteractiveAutoGPT() {
       setMessages(prev => [...prev, newMessage]);
       setThinking(false);
       
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error processing step:", error);
       setThinking(false);
+      
+      // More helpful error messages based on error type
+      let description = `Failed to process step ${stepId}. Please try again.`;
+      
+      if (error.message.includes("API key")) {
+        description = "The API key for OpenAI is missing or invalid. Please check server configuration.";
+      } else if (error.message.includes("rate limit")) {
+        description = "The OpenAI API rate limit has been exceeded. Please try again later.";
+      } else if (error.message.includes("model not found")) {
+        description = "The selected AI model is not available. The system will try an alternative model.";
+      } else if (error.message.includes("maximum context length")) {
+        description = "The conversation is too long. Try starting a new session.";
+        // Reset step to pending so user can try again
+        setSteps(prev => prev.map(s => 
+          s.id === stepId ? { ...s, status: "pending" as const } : s
+        ));
+      }
+      
       toast({
         title: "Error",
-        description: `Failed to process step ${stepId}. Please try again.`,
+        description,
         variant: "destructive"
       });
     }
@@ -244,11 +319,21 @@ export function InteractiveAutoGPT() {
       setThoughtProcess(["Analyzing your question..."]);
       
       try {
-        // Include all previous messages for context
-        const historyMessages = messages.map(m => ({
-          role: m.role,
-          content: m.content
-        }));
+        // Include recent messages for context (limit to avoid token issues)
+        const relevantMessages = messages
+          .slice(-5) // Only include the most recent 5 messages
+          .map(m => ({
+            role: m.role,
+            content: m.content
+          }));
+        
+        // Add system context to remind the AI about the completed goal
+        const systemContext = {
+          role: "system" as const,
+          content: `You've helped the user with the goal: "${goal}". 
+          All steps have been completed. The user is now asking follow-up questions.
+          Provide helpful, informative responses based on the work that was done.`
+        };
         
         // Call our backend API to handle follow-up questions
         const response = await fetch('/api/autogpt', {
@@ -258,7 +343,8 @@ export function InteractiveAutoGPT() {
           },
           body: JSON.stringify({
             messages: [
-              ...historyMessages,
+              systemContext,
+              ...relevantMessages,
               {
                 role: "user",
                 content: input
@@ -268,11 +354,14 @@ export function InteractiveAutoGPT() {
           }),
         });
         
+        const result = await response.json();
+        
         if (!response.ok) {
-          throw new Error(`API request failed with status: ${response.status}`);
+          // Handle API error with details from result
+          const errorMessage = result.error || `API request failed with status: ${response.status}`;
+          throw new Error(errorMessage);
         }
         
-        const result = await response.json();
         const content = result.content || '';
         const thinking = result.thinking || [];
         
@@ -285,15 +374,36 @@ export function InteractiveAutoGPT() {
         setMessages(prev => [...prev, assistantMessage]);
         setThoughtProcess(thinking);
         
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error processing follow-up question:", error);
-        // Fall back to a generic response if the API call fails
+        
+        // More descriptive error handling
+        let errorThinking = ["Unable to process the question through the API"];
+        let errorContent = "I encountered an issue while processing your question. Is there anything specific about the completed tasks you'd like to discuss?";
+        
+        if (error.message.includes("API key")) {
+          errorThinking.push("API authentication issue detected");
+          errorContent = "I'm currently unable to access my knowledge base due to an API authentication issue. Please try again later or contact support.";
+        } else if (error.message.includes("rate limit")) {
+          errorThinking.push("API rate limit reached");
+          errorContent = "I've reached my usage limit for the moment. Please try again in a few minutes.";
+        }
+        
+        // Fall back to a generic response with context-aware messaging
         const assistantMessage: Message = {
           role: "assistant",
-          content: "I've completed all the steps for your goal. Is there anything specific about the solution you'd like me to explain or modify?",
-          thinking: ["Considering the completed task context", "Formulating helpful response options"]
+          content: errorContent,
+          thinking: errorThinking
         };
+        
         setMessages(prev => [...prev, assistantMessage]);
+        
+        // Show toast for user awareness
+        toast({
+          title: "Connection Issue",
+          description: "Had trouble connecting to the AI service. Provided a limited response.",
+          variant: "destructive"
+        });
       }
       
       setThinking(false);
