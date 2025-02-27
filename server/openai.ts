@@ -2,13 +2,24 @@
 import { OpenAI } from "openai";
 import { Request, Response } from "express";
 
-// Initialize OpenAI client
+// Initialize OpenAI client with better error handling
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Log API key status (without exposing the key)
+console.log(`OpenAI API key ${process.env.OPENAI_API_KEY ? 'is set' : 'is NOT set'}`);
+
 export async function handleAutoGPTRequest(req: Request, res: Response) {
   try {
+    // Validate API key first
+    if (!process.env.OPENAI_API_KEY) {
+      console.error("OpenAI API key is missing");
+      return res.status(401).json({
+        error: "OpenAI API key is not configured. Please set the OPENAI_API_KEY environment variable."
+      });
+    }
+
     const { messages, goal, step } = req.body;
     
     if (!messages || !Array.isArray(messages)) {
@@ -33,13 +44,17 @@ export async function handleAutoGPTRequest(req: Request, res: Response) {
       ...messages
     ];
     
+    console.log("Calling OpenAI API...");
+    
     // Call OpenAI API with proper error handling
     const completion = await openai.chat.completions.create({
-      model: "gpt-4", // May fallback to gpt-3.5-turbo if GPT-4 is not available
+      model: "gpt-3.5-turbo", // Use gpt-3.5-turbo as the default model (more accessible)
       messages: apiMessages,
       temperature: 0.7,
       max_tokens: 1000,
     });
+    
+    console.log("OpenAI API response received");
     
     // Extract and send the response
     const responseContent = completion.choices[0]?.message?.content || "";
@@ -53,15 +68,15 @@ export async function handleAutoGPTRequest(req: Request, res: Response) {
     console.error("Error calling OpenAI API:", error);
     
     // Detailed error handling with specific feedback
-    if (error.name === 'AuthenticationError') {
+    if (error.name === 'AuthenticationError' || error.message?.includes('auth')) {
       return res.status(401).json({
         error: "OpenAI API key is invalid or not set properly"
       });
-    } else if (error.name === 'RateLimitError') {
+    } else if (error.name === 'RateLimitError' || error.message?.includes('rate limit')) {
       return res.status(429).json({
         error: "OpenAI API rate limit exceeded"
       });
-    } else if (error.status === 404) {
+    } else if (error.status === 404 || error.message?.includes('model not found')) {
       return res.status(404).json({
         error: "Model not found or API endpoint incorrect"
       });
