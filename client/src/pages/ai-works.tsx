@@ -9,10 +9,11 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Brain, Sparkles } from "lucide-react";
+import { ExternalLink, Brain, Sparkles, Bot } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AutoGPTAgent } from "@/components/AutoGPTAgent";
+import { InteractiveAutoGPT } from "@/components/InteractiveAutoGPT";
 
 export default function AiWorks() {
   const { data: aiWorks, isLoading } = useQuery<AiWork[]>({
@@ -42,12 +43,26 @@ export default function AiWorks() {
         <h1 className="text-4xl font-bold">AI Works</h1>
       </div>
       
-      <div className="space-y-2">
+      <div className="space-y-2 mb-12">
         <div className="flex items-center gap-2">
           <Sparkles className="h-5 w-5 text-primary" />
           <h2 className="text-2xl font-semibold">Featured Agent</h2>
         </div>
         <AutoGPTAgent />
+      </div>
+      
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Bot className="h-5 w-5 text-primary" />
+          <h2 className="text-2xl font-semibold">Interactive AutoGPT Experience</h2>
+        </div>
+        <p className="text-muted-foreground mb-4">
+          Try out a real autonomous agent that breaks down complex goals into manageable steps and executes them. 
+          This interactive demo leverages the AutoGPT framework to showcase autonomous AI capabilities.
+        </p>
+        <div className="md:w-3/4 mx-auto">
+          <InteractiveAutoGPT />
+        </div>
       </div>
 
       <Tabs defaultValue="all" className="w-full">

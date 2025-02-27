@@ -51,6 +51,9 @@ export function InteractiveAutoGPT() {
   }, [messages, thinking, thoughtProcess]);
 
   const analyzeGoal = async (goalText: string) => {
+    // In a real implementation, we would use our backend API
+    // to interact with OpenAI, but for this demo we'll continue
+    // to use the browser's API key
     if (!apiKey) {
       toast({
         title: "API Key Required",
@@ -66,61 +69,69 @@ export function InteractiveAutoGPT() {
     setThoughtProcess(["Breaking down your goal into manageable steps..."]);
     
     try {
-      // This would normally be an API call to a backend service that interacts with OpenAI
-      // For demo purposes, we'll simulate the response
+      // Call our backend API to interact with OpenAI
+      const response = await fetch('/api/autogpt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [
+            {
+              role: "user",
+              content: `My goal is: ${goalText}. Please analyze this goal and break it down into 4-5 concrete steps that I should follow to achieve it.`
+            }
+          ],
+          goal: goalText
+        }),
+      });
       
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setThoughtProcess(prev => [...prev, "Analyzing the main objective..."]);
-      
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setThoughtProcess(prev => [...prev, "Determining required resources and knowledge..."]);
-
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setThoughtProcess(prev => [...prev, "Planning sequence of operations..."]);
-
-      await new Promise(resolve => setTimeout(resolve, 1800));
-      
-      // Simulate step generation based on common goals
-      let generatedSteps: GoalStep[] = [];
-      
-      if (goalText.toLowerCase().includes("research")) {
-        generatedSteps = [
-          { id: 1, description: "Define the specific research topic and key questions", status: "pending" },
-          { id: 2, description: "Gather information from reliable online sources", status: "pending" },
-          { id: 3, description: "Analyze and organize the collected information", status: "pending" },
-          { id: 4, description: "Generate a comprehensive summary report", status: "pending" }
-        ];
-      } else if (goalText.toLowerCase().includes("website") || goalText.toLowerCase().includes("web")) {
-        generatedSteps = [
-          { id: 1, description: "Define website purpose and target audience", status: "pending" },
-          { id: 2, description: "Design site structure and key pages", status: "pending" },
-          { id: 3, description: "Create basic HTML/CSS framework", status: "pending" },
-          { id: 4, description: "Implement responsive design and test functionality", status: "pending" }
-        ];
-      } else if (goalText.toLowerCase().includes("write") || goalText.toLowerCase().includes("content")) {
-        generatedSteps = [
-          { id: 1, description: "Outline the main sections and key points", status: "pending" },
-          { id: 2, description: "Research background information and supporting data", status: "pending" },
-          { id: 3, description: "Draft the content with appropriate tone and style", status: "pending" },
-          { id: 4, description: "Edit for clarity, coherence, and accuracy", status: "pending" }
-        ];
-      } else {
-        generatedSteps = [
-          { id: 1, description: "Analyze and break down the main objective", status: "pending" },
-          { id: 2, description: "Research necessary information and resources", status: "pending" },
-          { id: 3, description: "Execute the primary task components", status: "pending" },
-          { id: 4, description: "Review and refine the results", status: "pending" }
-        ];
+      if (!response.ok) {
+        throw new Error(`API request failed with status: ${response.status}`);
       }
       
-      setSteps(generatedSteps);
+      const result = await response.json();
+      const content = result.content || '';
+      const thinking = result.thinking || [];
+      
+      // Extract steps from the AI's response
+      const stepRegex = /\d+\.\s*(.*?)(?=\n\d+\.|\n\n|$)/g;
+      const extractedSteps: string[] = [];
+      let match: RegExpExecArray | null;
+      while ((match = stepRegex.exec(content)) !== null) {
+        if (match[1]) {
+          extractedSteps.push(match[1].trim());
+        }
+      }
+      
+      // Create step objects from extracted steps
+      const generatedSteps: GoalStep[] = extractedSteps.slice(0, 5).map((step, index) => ({
+        id: index + 1,
+        description: step,
+        status: "pending" as const
+      }));
+      
+      // If we couldn't extract steps, use default steps
+      if (generatedSteps.length === 0) {
+        const defaultSteps: GoalStep[] = [
+          { id: 1, description: "Analyze and break down the main objective", status: "pending" as const },
+          { id: 2, description: "Research necessary information and resources", status: "pending" as const },
+          { id: 3, description: "Execute the primary task components", status: "pending" as const },
+          { id: 4, description: "Review and refine the results", status: "pending" as const }
+        ];
+        setSteps(defaultSteps);
+      } else {
+        setSteps(generatedSteps);
+      }
+      
       setThinking(false);
       setCurrentStep(1);
+      setThoughtProcess(thinking);
       
       const newMessage: Message = {
         role: "assistant",
-        content: `I've analyzed your goal: "${goalText}"\n\nI've broken it down into ${generatedSteps.length} steps that we'll work through together. Let's start with step 1: ${generatedSteps[0].description}`,
-        thinking: thoughtProcess
+        content: `I've analyzed your goal: "${goalText}"\n\nI've broken it down into ${generatedSteps.length} steps that we'll work through together. Let's start with step 1: ${generatedSteps[0]?.description}`,
+        thinking: thinking
       };
       
       setMessages(prev => [...prev, newMessage]);
@@ -159,37 +170,44 @@ export function InteractiveAutoGPT() {
     ));
     
     try {
-      // Simulate processing time
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setThoughtProcess(prev => [...prev, "Gathering relevant information..."]);
+      // Include all previous messages for context
+      const historyMessages = messages.map(m => ({
+        role: m.role,
+        content: m.content
+      }));
       
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setThoughtProcess(prev => [...prev, "Analyzing possible approaches..."]);
+      // Call our backend API to get the next step response
+      const response = await fetch('/api/autogpt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          messages: [
+            ...historyMessages,
+            {
+              role: "system",
+              content: `You are now working on step ${stepId}: "${currentStepObj.description}" for the goal: "${goal}". 
+              Execute this step and provide a detailed report of what you've done and what you've learned.`
+            }
+          ],
+          goal,
+          step: stepId
+        }),
+      });
       
-      await new Promise(resolve => setTimeout(resolve, 1800));
-      setThoughtProcess(prev => [...prev, "Executing optimal solution strategy..."]);
-      
-      await new Promise(resolve => setTimeout(resolve, 2200));
-      
-      // Generate response based on the step
-      let responseContent = "";
-      
-      switch (stepId) {
-        case 1:
-          responseContent = `I've completed step 1: "${currentStepObj.description}"\n\nBased on your goal, I've identified the key requirements and constraints. We should focus on [specific aspects based on goal]. This will ensure we create a solid foundation for the next steps.`;
-          break;
-        case 2:
-          responseContent = `I've completed step 2: "${currentStepObj.description}"\n\nI've gathered the necessary information from reliable sources. Key findings include [relevant details]. This information will be essential for our next actions.`;
-          break;
-        case 3:
-          responseContent = `I've completed step 3: "${currentStepObj.description}"\n\nI've successfully executed the core tasks required. The implementation included [specific actions]. We're making excellent progress toward completing the goal.`;
-          break;
-        case 4:
-          responseContent = `I've completed the final step: "${currentStepObj.description}"\n\nI've reviewed and refined our work. The complete solution addresses all aspects of the original goal. Here's a summary of what we've accomplished:\n\n- [Achievement 1]\n- [Achievement 2]\n- [Achievement 3]\n\nIs there anything specific you'd like me to explain or modify about the solution?`;
-          break;
-        default:
-          responseContent = `I've completed step ${stepId}: "${currentStepObj.description}"\n\nWe've made good progress on this part of the goal. Would you like to proceed to the next step?`;
+      if (!response.ok) {
+        throw new Error(`API request failed with status: ${response.status}`);
       }
+      
+      const result = await response.json();
+      const content = result.content || '';
+      const thinking = result.thinking || [];
+      
+      setThoughtProcess(thinking);
+      
+      // Format the response to be more consistent
+      const responseContent = `I've completed step ${stepId}: "${currentStepObj.description}"\n\n${content}`;
       
       // Mark current step as completed
       setSteps(prev => prev.map(s => 
@@ -206,7 +224,7 @@ export function InteractiveAutoGPT() {
       const newMessage: Message = {
         role: "assistant",
         content: responseContent,
-        thinking: thoughtProcess
+        thinking: thinking
       };
       
       setMessages(prev => [...prev, newMessage]);
@@ -245,15 +263,59 @@ export function InteractiveAutoGPT() {
       setThinking(true);
       setThoughtProcess(["Analyzing your question..."]);
       
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      try {
+        // Include all previous messages for context
+        const historyMessages = messages.map(m => ({
+          role: m.role,
+          content: m.content
+        }));
+        
+        // Call our backend API to handle follow-up questions
+        const response = await fetch('/api/autogpt', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            messages: [
+              ...historyMessages,
+              {
+                role: "user",
+                content: input
+              }
+            ],
+            goal
+          }),
+        });
+        
+        if (!response.ok) {
+          throw new Error(`API request failed with status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        const content = result.content || '';
+        const thinking = result.thinking || [];
+        
+        const assistantMessage: Message = {
+          role: "assistant",
+          content,
+          thinking
+        };
+        
+        setMessages(prev => [...prev, assistantMessage]);
+        setThoughtProcess(thinking);
+        
+      } catch (error) {
+        console.error("Error processing follow-up question:", error);
+        // Fall back to a generic response if the API call fails
+        const assistantMessage: Message = {
+          role: "assistant",
+          content: "I've completed all the steps for your goal. Is there anything specific about the solution you'd like me to explain or modify?",
+          thinking: ["Considering the completed task context", "Formulating helpful response options"]
+        };
+        setMessages(prev => [...prev, assistantMessage]);
+      }
       
-      const assistantMessage: Message = {
-        role: "assistant",
-        content: "I've completed all the steps for your goal. Is there anything specific about the solution you'd like me to explain or modify?",
-        thinking: ["Considering the completed task context", "Formulating helpful response options"]
-      };
-      
-      setMessages(prev => [...prev, assistantMessage]);
       setThinking(false);
     }
     
