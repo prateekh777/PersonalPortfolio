@@ -383,7 +383,7 @@ export function InteractiveAutoGPT() {
         
         if (error.message.includes("API key")) {
           errorThinking.push("API authentication issue detected");
-          errorContent = "I'm currently unable to access my knowledge base due to an API authentication issue. Please try again later or contact support.";
+          errorContent = "I'm currently unable to access my knowledge base due to an API authentication issue. Please check if the OpenAI API key is properly set in the .env file or using the Secrets tool.";
         } else if (error.message.includes("rate limit")) {
           errorThinking.push("API rate limit reached");
           errorContent = "I've reached my usage limit for the moment. Please try again in a few minutes.";
