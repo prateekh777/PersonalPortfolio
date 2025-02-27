@@ -33,7 +33,8 @@ export function InteractiveAutoGPT() {
   ]);
   
   const [isLoading, setIsLoading] = useState(false);
-  const [apiKey, setApiKey] = useState<string | null>(null);
+  // We're using the server's environment API key instead of requesting from the user
+  const [apiKey, setApiKey] = useState<string | null>("server-managed-key");
   const [showApiInput, setShowApiInput] = useState(false);
   const [tempApiKey, setTempApiKey] = useState("");
   const [goal, setGoal] = useState<string | null>(null);
@@ -354,34 +355,8 @@ export function InteractiveAutoGPT() {
               Experience how an autonomous AI agent breaks down and solves complex tasks
             </CardDescription>
           </div>
-          {!apiKey && (
-            <Button 
-              variant="outline" 
-              onClick={() => setShowApiInput(!showApiInput)}
-              size="sm"
-            >
-              Add API Key
-            </Button>
-          )}
+          {/* API Key managed by the server */}
         </div>
-        
-        {showApiInput && (
-          <div className="mt-4 p-4 border rounded-md bg-muted/30">
-            <CardDescription className="mb-2">
-              Enter your OpenAI API key to enable interactive features.
-              Your key is stored in your browser session only and never sent to our servers.
-            </CardDescription>
-            <div className="flex gap-2">
-              <Textarea 
-                placeholder="sk-..." 
-                value={tempApiKey} 
-                onChange={(e) => setTempApiKey(e.target.value)}
-                className="font-mono"
-              />
-              <Button onClick={saveApiKey} className="shrink-0">Save</Button>
-            </div>
-          </div>
-        )}
         
         {goal && (
           <div className="mt-4">
@@ -546,7 +521,7 @@ export function InteractiveAutoGPT() {
             This interactive demo showcases the core concept of AutoGPT - an autonomous agent that breaks down complex goals into manageable steps and executes them systematically.
           </p>
           <p className="mt-2">
-            For the full experience, connect your OpenAI API key (requires GPT-4).
+            Powered by GPT-4 with server-side API integration.
           </p>
         </div>
       </CardFooter>
