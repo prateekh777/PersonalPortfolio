@@ -28,10 +28,25 @@ app.post('/api/autogpt', handleAutoGPTRequest);
     await setupVite(app, server);
   }
 
-  // ALWAYS serve the app on port 5000
-  const PORT = 5000;
-  server.listen(PORT, "0.0.0.0", () => {
-    log(`serving on port ${PORT}`);
-    log(`OpenAI API key ${process.env.OPENAI_API_KEY ? 'is configured' : 'is NOT configured'}`);
-  });
+  // Try to serve the app on port 5000, fall back to alternative ports if needed
+  const PORT = process.env.PORT || 5000;
+  
+  const startServer = (port: number) => {
+    server.listen(port, "0.0.0.0")
+      .on("error", (err: any) => {
+        if (err.code === "EADDRINUSE") {
+          log(`Port ${port} is already in use, trying port ${port + 1}`);
+          startServer(port + 1);
+        } else {
+          console.error("Server error:", err);
+        }
+      })
+      .on("listening", () => {
+        const actualPort = (server.address() as any).port;
+        log(`serving on port ${actualPort}`);
+        log(`OpenAI API key ${process.env.OPENAI_API_KEY ? 'is configured' : 'is NOT configured'}`);
+      });
+  };
+  
+  startServer(Number(PORT));
 })();
