@@ -2,7 +2,6 @@ import express, { type Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertSectionSchema, insertProjectSchema, insertCaseStudySchema, insertAiWorkSchema, insertInterestSchema } from "@shared/schema";
-import { handleAutoGPTRequest } from "./openai";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   const httpServer = createServer(app);
@@ -103,9 +102,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.status(204).end();
   });
 
-  // AutoGPT
-  app.post("/api/autogpt", handleAutoGPTRequest);
-  
   // Interests
   app.get("/api/interests", async (req, res) => {
     const interests = await storage.getInterests();
