@@ -75,6 +75,9 @@ export function GridSection({ title, items }: GridSectionProps) {
                 key={index}
                 onClick={() => setLocation(itemLink)}
                 className="cursor-pointer"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && setLocation(itemLink)}
               >
                 <Card
                   className="grid-card shimmer group relative overflow-hidden border border-[#7B7B7B] transition-transform hover:scale-[1.02]"
