@@ -74,11 +74,11 @@ import express, { type Express } from "express";
 import path from "path";
 import fs from "fs";
 
-export function log(message: string) {
+export function logMessage(message: string) {
   console.log(`[server] ${message}`);
 }
 
-export async function setupVite(app: Express, server: any) {
+export async function setupViteServer(app: Express, server: any) {
   const { createServer: createViteServer } = await import("vite");
   
   const vite = await createViteServer({
@@ -88,7 +88,7 @@ export async function setupVite(app: Express, server: any) {
   });
   
   app.use(vite.middlewares);
-  log("Vite middleware setup complete");
+  logMessage("Vite middleware setup complete");
 }
 
 export function serveStatic(app: Express) {
