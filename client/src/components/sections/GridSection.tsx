@@ -89,11 +89,14 @@ export function GridSection({ title, items }: GridSectionProps) {
                       backgroundImage: `url(${item.icon})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
-                      filter: "brightness(0.85) contrast(0.9)", // Subtle filter for consistency
+                      filter: "brightness(0.95) contrast(1.05)", // Improved visibility
                     }}
                   />
                   
-                  <CardContent className="grid-card-content relative z-10 flex min-h-[200px] flex-col items-center justify-center p-6 text-center diagonal-blur-gradient">
+                  <CardContent className="grid-card-content relative z-10 flex min-h-[200px] flex-col items-center justify-center p-6 text-center" style={{
+                    background: "linear-gradient(135deg, rgba(240,235,220,0.25) 0%, rgba(200,195,180,0.45) 100%)",
+                    backdropFilter: "blur(2px)" // Further reduced blur from 3px to 2px
+                  }}>
                     {/* Thematic icon based on card content */}
                     <div className="card-icon mb-4 opacity-75">
                       {item.title.includes("Skills") && (
