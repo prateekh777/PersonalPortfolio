@@ -65,17 +65,31 @@ export default function Contact() {
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
+      // Send the data to our API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       });
-      form.reset();
+      
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        toast({
+          title: "Message sent!",
+          description: "Thanks for reaching out. I'll get back to you soon.",
+        });
+        form.reset();
+      } else {
+        throw new Error(result.message || 'Failed to send message');
+      }
     } catch (error) {
+      console.error('Contact form error:', error);
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description: error instanceof Error ? error.message : "Something went wrong. Please try again.",
         variant: "destructive",
       });
     }
@@ -165,7 +179,7 @@ export default function Contact() {
               <Mail className="h-5 w-5 text-primary" />
               <div>
                 <h3 className="font-semibold">Email</h3>
-                <p className="text-muted-foreground">contact@example.com</p>
+                <p className="text-muted-foreground">prateek@edoflip.com</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
