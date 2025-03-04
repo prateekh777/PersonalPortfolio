@@ -218,7 +218,7 @@ export default function Contact() {
                   <div className="pt-4">
                     <Button 
                       type="submit" 
-                      className="w-full font-bold py-6 text-lg bg-primary hover:bg-primary/90 text-white shadow-lg" 
+                      className="w-full font-bold py-6 text-lg bg-primary hover:bg-primary/90 text-black shadow-lg" 
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? "Sending..." : "Send Message"}
