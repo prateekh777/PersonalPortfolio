@@ -126,9 +126,12 @@ export function Highlights({ role }: HighlightsProps) {
                   onEnded={(e) => handleVideoEnded(e.target as HTMLVideoElement)}
                   playsInline
                   muted
-                  preload="metadata"
+                  controls
+                  autoPlay
+                  preload="auto"
                   onError={(e) => {
                     const videoEl = e.target as HTMLVideoElement;
+                    console.error("Video error:", videoEl.error);
                     videoEl.style.display = 'none';
                     const parent = videoEl.parentElement;
                     if (parent) {
@@ -139,13 +142,7 @@ export function Highlights({ role }: HighlightsProps) {
                     }
                   }}
                 />
-                {!isPlaying && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 z-10">
-                    <div className="rounded-full bg-white bg-opacity-80 p-3 shadow-lg">
-                      <Play className="h-8 w-8 text-[#222222]" />
-                    </div>
-                  </div>
-                )}
+{/* Play button overlay removed as requested */}
               </div>
             )}
           </div>
