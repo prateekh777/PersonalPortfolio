@@ -6,13 +6,11 @@ type HighlightsProps = {
 };
 
 const highlightsData: Record<Role, {
-  media: string;
-  mediaType: 'image' | 'video';
+  image: string;
   points: string[];
 }> = {
   "tech-leader": {
-    media: "/assets/Cliamte Business.jpeg",
-    mediaType: 'image',
+    image: "public/assets/Cliamte Business.jpeg",
     points: [
       "Led initiatives to stabilize conversion rates during rapid scaling, refining engagement models and optimizing processes for sustained learner success.",
       "Introduced scalable product structures in climate education, enhancing content delivery and facilitating successfully large group learner engagements in the DACH region.",
@@ -22,8 +20,7 @@ const highlightsData: Record<Role, {
     ],
   },
   "people-manager": {
-    media: "/assets/Sales done slack text.jpg",
-    mediaType: 'image',
+    image: "public/assets/Sales done slack text.jpg",
     points: [
       "Developed and implemented robust operational strategies that streamlined company workflows, significantly increasing efficiency and reducing costs by over 20%.",
       "Fostered a team-oriented environment that encouraged innovation and collaborative problem-solving, leading to a 25% increase in project delivery efficiency.",
@@ -33,8 +30,7 @@ const highlightsData: Record<Role, {
     ],
   },
   "individual-contributor": {
-    media: "/images/individual-contributor.jpg",
-    mediaType: 'image',
+    image: "/images/individual-contributor.jpg",
     points: [
       "Developed complex technical solutions",
       "Contributed to open-source projects",
@@ -43,8 +39,7 @@ const highlightsData: Record<Role, {
     ],
   },
   "strategy-contributor": {
-    media: "/Interests/Startups/BC Video.mp4",
-    mediaType: 'video',
+    image: "public/Interests/Startups/BC Video.mp4",
     points: [
       "Developed complex technical solutions",
       "Contributed to open-source projects",
@@ -55,7 +50,7 @@ const highlightsData: Record<Role, {
 };
 
 export function Highlights({ role }: HighlightsProps) {
-  const { media, mediaType, points } = highlightsData[role];
+  const { image, points } = highlightsData[role];
 
   return (
     <div className="space-y-8">
@@ -63,22 +58,11 @@ export function Highlights({ role }: HighlightsProps) {
       <Card>
         <div className="grid gap-8 p-6 md:grid-cols-2">
           <div className="relative aspect-square overflow-hidden rounded-lg">
-            {mediaType === 'video' ? (
-              <video
-                src={media}
-                controls
-                autoPlay
-                loop
-                muted
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-            ) : (
-              <img
-                src={media}
-                alt={`${role} highlights`}
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-            )}
+            <img
+              src={image}
+              alt={`${role} highlights`}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
           </div>
           <div className="space-y-4">
             <ul className="list-disc list-inside space-y-4">
