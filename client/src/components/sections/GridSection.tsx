@@ -80,37 +80,39 @@ export function GridSection({ title, items }: GridSectionProps) {
                 onKeyDown={(e) => e.key === 'Enter' && setLocation(itemLink)}
               >
                 <Card
-                  className="grid-card shimmer group relative overflow-hidden border border-[#7B7B7B] transition-transform hover:scale-[1.02]"
+                  className="group relative overflow-hidden transition-all duration-300 hover:shadow-xl rounded-xl"
+                  style={{ 
+                    border: "1px solid rgba(255,255,255,0.15)"
+                  }}
                 >
-                  {/* Background image with semi-transparent overlay */}
+                  {/* Clean background image with gradient overlay */}
                   <div 
-                    className="absolute inset-0 z-0"
+                    className="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105"
                     style={{
-                      backgroundImage: `url(${item.icon})`,
+                      backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url(${item.icon})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
-                      filter: "brightness(1) contrast(1.1)", // Further improved visibility
                     }}
                   />
                   
-                  <CardContent className="grid-card-content relative z-10 flex min-h-[200px] flex-col items-center justify-center p-6 text-center" style={{
-                    background: "linear-gradient(135deg, rgba(240,235,220,0.2) 0%, rgba(200,195,180,0.35) 100%)",
-                    backdropFilter: "blur(1.5px)" // Further reduced blur
-                  }}>
-                    {/* Thematic icon based on card content */}
-                    <div className="card-icon mb-4 opacity-75">
+                  {/* Elegant content layout */}
+                  <CardContent className="grid-card-content relative z-10 flex min-h-[220px] flex-col items-center justify-end p-6 text-center transition-all duration-300">
+                    {/* Floating icon with elegant styling */}
+                    <div 
+                      className="card-icon absolute top-6 left-1/2 -translate-x-1/2 mb-4 rounded-full bg-white/90 p-4 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl"
+                    >
                       {item.title.includes("Skills") && (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
+                          width="28"
+                          height="28"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="2"
+                          strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="text-[#444]"
+                          className="text-[#333]"
                         >
                           <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"></path>
                           <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
@@ -131,15 +133,15 @@ export function GridSection({ title, items }: GridSectionProps) {
                       {item.title.includes("Puzzles") && (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
+                          width="28"
+                          height="28"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="2"
+                          strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="text-[#444]"
+                          className="text-[#333]"
                         >
                           <path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925-.314-.848-.88-1.448-1.764-1.448-.666 0-1.45.39-1.759 1.362-.49 1.528.620 2.181 1.319 2.45.47.182.871.608.665 1.111-.197.482-.636.84-1.134.869l-2.728.138c-1.349.068-2.494-.732-2.823-1.983-.264-1.007.1-2.18 1.125-2.909.889-.632.829-1.563-.115-2.302-.944-.74-1.826-.578-2.302-.072-.47.5-1.156.578-1.7.183l-1.914-1.39c-.471-.341-.722-.909-.692-1.465.029-.556.329-1.086.829-1.427l2.23-1.625c.235-.15.543-.233.9-.254.385-.021.766.049 1.043.233.277.185.470.452.548.765.197.765.892 1.471 1.863 1.471.912 0 1.585-.638 1.674-1.22.116-.579-.339-1.491-1.283-1.81-.904-.308-1.211-.945-1.133-1.508.078-.556.462-1.013.973-1.142l2.99-.769c.514-.132 1.083-.058 1.524.199s.744.658.85 1.142l.34 1.611c.068.325.226.611.447.825.221.215.5.358.802.417.471.078 1.044.183 1.59.77"/>
                         </svg>
@@ -147,15 +149,15 @@ export function GridSection({ title, items }: GridSectionProps) {
                       {item.title.includes("built") && (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
+                          width="28"
+                          height="28"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="2"
+                          strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="text-[#444]"
+                          className="text-[#333]"
                         >
                           <path d="M6 22V12a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10"></path>
                           <path d="M6 18H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
@@ -166,15 +168,15 @@ export function GridSection({ title, items }: GridSectionProps) {
                       {item.title.includes("AI") && (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
+                          width="28"
+                          height="28"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="2"
+                          strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="text-[#444]"
+                          className="text-[#333]"
                         >
                           <path d="M12 2H2v10h10V2Z"></path>
                           <path d="M12 12h10v10H12V12Z"></path>
@@ -187,15 +189,15 @@ export function GridSection({ title, items }: GridSectionProps) {
                       {item.title.includes("Conversations") && (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
+                          width="28"
+                          height="28"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="2"
+                          strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="text-[#444]"
+                          className="text-[#333]"
                         >
                           <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"></path>
                           <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"></path>
@@ -204,15 +206,15 @@ export function GridSection({ title, items }: GridSectionProps) {
                       {item.title.includes("Universe") && (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
+                          width="28"
+                          height="28"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="2"
+                          strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="text-[#444]"
+                          className="text-[#333]"
                         >
                           <circle cx="12" cy="12" r="10"></circle>
                           <circle cx="12" cy="12" r="6"></circle>
@@ -221,15 +223,12 @@ export function GridSection({ title, items }: GridSectionProps) {
                       )}
                     </div>
 
-                    {/* Item title with contrast band for better readability */}
-                    <div className="relative mt-2 px-3 py-2 rounded" style={{
-                      background: "rgba(240, 235, 225, 0.75)",
-                      backdropFilter: "blur(3px)",
-                      boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
-                    }}>
-                      <h3 className="card-title text-lg font-semibold text-[#333333]">
+                    {/* Clean, elegant title presentation */}
+                    <div className="transform transition-all duration-300 group-hover:translate-y-[-8px]">
+                      <h3 className="text-xl font-medium text-white">
                         {item.title}
                       </h3>
+                      <div className="mt-2 mx-auto h-[2px] w-16 bg-white/50 transition-all duration-300 group-hover:w-24 group-hover:bg-white/80"></div>
                     </div>
                   </CardContent>
                 </Card>
