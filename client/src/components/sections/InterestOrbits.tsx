@@ -27,8 +27,8 @@ const MOCK_INTERESTS: Record<InterestCategory, InterestItem[]> = {
   science: [
     { id: 4, title: 'Chemistry at Play', description: 'On Stage for Kids', mediaUrl: 'public/Interests/Science/Prateek%20Chemistry.jpg', mediaType: 'image' },
     { id: 5, title: 'Observations evaluated', description: 'The WoW effect!', mediaUrl: 'public/Interests/Science/Prateek Teaching.mp4', mediaType: 'video' },
-    { id: 6, title: 'Planets and Planeteriums!', description: 'Always wondered about the larger universe!', mediaUrl: 'public/Interests/Science/Speaker KPS.jpg', mediaType: 'image' },
-    { id: 11, title: 'How to Wonder', description: 'Matter and its transformations', mediaUrl: 'https://images.unsplash.com/photo-1581092335878-2d9ff86ca2bf', mediaType: 'image' },
+    { id: 6, title: 'Planets and Planeteriums!', description: 'Always wondered about the larger universe!', mediaUrl: 'public/Interests/Science/Science Prateek.jpg', mediaType: 'image' },
+    { id: 11, title: 'How to Wonder', description: 'Exploring mysteries together', mediaUrl: 'public/Interests/Science/Speaker KPS.jpg', mediaType: 'image' },
   ],
   spirituality: [
     { id: 7, title: 'Meditation', description: 'Finding inner peace', mediaUrl: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773', mediaType: 'image' },
@@ -82,11 +82,11 @@ export function InterestOrbits() {
       </div>
       
       {/* Orbiting circles (using CSS animations for the orbiting effect) */}
-      <div className="absolute w-[400px] h-[400px] rounded-full border border-dashed border-[#7B7B7B]/30">
+      <div className="absolute w-[350px] h-[350px] rounded-full border border-dashed border-[#7B7B7B]/30">
         {/* Startups orbit */}
         <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite' }}>
           <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full shadow-md orbit-item clickable-pulse"
+            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full shadow-md orbit-item clickable-pulse"
             onClick={() => handleOpenCategory('startups')}
           >
             <div className="orbit-content">
@@ -110,7 +110,7 @@ export function InterestOrbits() {
         {/* Science orbit (120 degrees offset) */}
         <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite', animationDelay: '-6.66s' }}>
           <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full shadow-md orbit-item clickable-pulse"
+            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full shadow-md orbit-item clickable-pulse"
             onClick={() => handleOpenCategory('science')}
           >
             <div className="orbit-content">
@@ -134,7 +134,7 @@ export function InterestOrbits() {
         {/* Spirituality orbit (240 degrees offset) */}
         <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite', animationDelay: '-13.33s' }}>
           <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full shadow-md orbit-item clickable-pulse"
+            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full shadow-md orbit-item clickable-pulse"
             onClick={() => handleOpenCategory('spirituality')}
           >
             <div className="orbit-content">
