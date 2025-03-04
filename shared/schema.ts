@@ -45,7 +45,8 @@ export const interests = pgTable("interests", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   description: text("description").notNull(),
-  imageUrl: text("image_url"),
+  mediaUrl: text("media_url").notNull(),
+  mediaType: text("media_type").default("image").notNull(), // "image" or "video"
   category: text("category").notNull(),
 });
 

@@ -40,15 +40,14 @@ export function Header() {
           <NavigationMenuList>
             {navItems.map((item) => (
               <NavigationMenuItem key={item.path}>
-                <Link href={item.path}>
-                  <NavigationMenuLink
-                    className={`group inline-flex h-10 w-max items-center justify-center rounded-md bg-background/50 px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${
-                      isActive(item.path) ? "bg-accent" : ""
-                    }`}
-                  >
-                    {item.label}
-                  </NavigationMenuLink>
-                </Link>
+                <NavigationMenuLink
+                  onClick={() => window.location.href = item.path}
+                  className={`group inline-flex h-10 w-max items-center justify-center rounded-md bg-background/50 px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer ${
+                    isActive(item.path) ? "bg-accent" : ""
+                  }`}
+                >
+                  {item.label}
+                </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>
