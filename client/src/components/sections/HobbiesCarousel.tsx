@@ -62,7 +62,15 @@ export function HobbiesCarousel() {
   // Function to scroll to the next slide
   const scrollNext = () => {
     if (api) {
-      api.scrollNext();
+      // With loop:true in the carousel options, this will automatically loop back to the first slide
+      // if we're at the end, but we're adding this check for additional robustness
+      const canScrollNext = api.canScrollNext();
+      if (canScrollNext) {
+        api.scrollNext();
+      } else {
+        // If we're at the last slide and can't scroll next, go back to the first slide
+        api.scrollTo(0);
+      }
     }
   };
   
@@ -118,7 +126,7 @@ export function HobbiesCarousel() {
           onMouseLeave={handleMouseLeave}
           className="auto-sliding-carousel"
         >
-          <Carousel className="w-full" setApi={setApi}>
+          <Carousel className="w-full" setApi={setApi} opts={{ loop: true }}>
             <CarouselContent className="-ml-2 md:-ml-4">
               {HOBBIES.map((hobby) => (
                 <CarouselItem key={hobby.id} className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">

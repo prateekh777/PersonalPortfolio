@@ -168,7 +168,7 @@ export function InterestOrbits() {
             </DialogTitle>
           </DialogHeader>
           
-          <Carousel className="w-full">
+          <Carousel className="w-full" opts={{ loop: true }}>
             <CarouselContent className="-ml-2 md:-ml-4">
               {activeCategory && MOCK_INTERESTS[activeCategory].map((item) => (
                 <CarouselItem key={item.id} className="pl-2 md:pl-4 sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
