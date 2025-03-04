@@ -27,7 +27,7 @@ export default function Interests() {
       </p>
       
       {/* First Section: Orbiting Interests Visualization */}
-      <section className="py-12">
+      <section className="pb-12">
         <InterestOrbits />
       </section>
       

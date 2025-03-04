@@ -84,29 +84,28 @@ export function InterestOrbits() {
         </button>
       </div>
 
-      {/* Main central circle */}
-      <div 
-        className="absolute z-10 w-40 h-40 rounded-full shadow-md orbit-item clickable-pulse"
-      >
-        <div className="orbit-content">
-          <div className="orbit-image-container">
-            <div className="w-32 h-32 rounded-full overflow-hidden">
-              <img 
-                src={PLACEHOLDER_IMAGES.central} 
-                alt="Central" 
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200?text=Interests';
-                }}
-              />
+      <div className="absolute w-[350px] h-[350px] rounded-full border border-dashed border-[#7B7B7B]/30">
+        {/* Main central circle */}
+        <div 
+          className="absolute z-10 w-40 h-40 rounded-full shadow-md orbit-item clickable-pulse"
+        >
+          <div className="orbit-content">
+            <div className="orbit-image-container">
+              <div className="w-32 h-32 rounded-full overflow-hidden">
+                <img 
+                  src={PLACEHOLDER_IMAGES.central} 
+                  alt="Central" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200?text=Interests';
+                  }}
+                />
+              </div>
+              <div className="orbit-title">Interests</div>
             </div>
-            <div className="orbit-title">Interests</div>
           </div>
         </div>
-      </div>
 
-      {/* Orbiting circles (using CSS animations for the orbiting effect) */}
-      <div className="absolute w-[350px] h-[350px] rounded-full border border-dashed border-[#7B7B7B]/30">
         {/* Startups orbit */}
         <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite' }}>
           <div 
