@@ -70,7 +70,7 @@ export function InterestOrbits() {
           <div className="orbit-image-container">
             <div className="w-28 h-28 rounded-full overflow-hidden">
               <img 
-                src={PLACEHOLDER_IMAGES.central} 
+                src="/Interests/Hobbies/Main image.jpg" 
                 alt="Central" 
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -156,6 +156,10 @@ export function InterestOrbits() {
             </div>
           </div>
         </div>
+      </div>
+      {/* Instruction text below the orbits */}
+      <div className="absolute bottom-2 left-8 text-xs text-[#7B7B7B]">
+        <p className="italic">Click on sphere to know more...</p>
       </div>
       
       {/* Dialog for showing selected category images */}
