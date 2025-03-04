@@ -122,48 +122,9 @@
   background-color: rgba(34, 34, 34, 0.9);
 }
 
-/* Interest tabs styling */
-.interest-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 1rem 0;
-  margin-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(120, 120, 120, 0.1);
-}
-
-.interest-tab {
-  background-color: #FFFFFF;
-  color: #222222;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  border-bottom: 2px solid transparent;
-}
-
-.interest-tab:hover {
-  background-color: #F0F0F0;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.interest-one-liner {
-  font-style: italic;
-  text-align: center;
-  color: #777;
-  font-weight: 400;
-  max-width: 650px;
-  margin: 0 auto;
-}
-
 @media (max-width: 640px) {
   .carousel-control {
     width: 40px;
     height: 40px;
-  }
-  
-  .interest-tab {
-    padding: 0.5rem 1rem;
-    margin: 0.25rem;
-    font-size: 0.875rem;
   }
 }
