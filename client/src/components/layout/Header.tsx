@@ -30,9 +30,9 @@ export function Header() {
 
   return (
     <header className="fixed top-0 z-50 w-full bg-background/80 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-xl items-center justify-between px-4">
-        <Link href="/" className="flex items-center space-x-2">
-          <span className="font-bold">Portfolio</span>
+      <div className="container flex h-14 max-w-screen-xl items-center justify-between px-2 sm:px-4">
+        <Link href="/" className="flex items-center">
+          <span className="font-bold text-sm sm:text-base">Portfolio</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -41,12 +41,12 @@ export function Header() {
             {navItems.map((item) => (
               <NavigationMenuItem key={item.path}>
                 <NavigationMenuLink
-                  onClick={() => window.location.href = item.path}
-                  className={`group inline-flex h-10 w-max items-center justify-center rounded-md bg-background/50 px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer ${
+                  asChild
+                  className={`group inline-flex h-9 w-max items-center justify-center rounded-md bg-background/50 px-3 py-1 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer ${
                     isActive(item.path) ? "bg-accent" : ""
                   }`}
                 >
-                  {item.label}
+                  <Link href={item.path}>{item.label}</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
@@ -57,11 +57,11 @@ export function Header() {
         <div className="flex md:hidden">
           <Drawer>
             <DrawerTrigger asChild>  
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="h-8 w-8 p-0">
                 <Menu className="h-5 w-5" />
               </Button>  
             </DrawerTrigger>  
-            <DrawerContent>
+            <DrawerContent className="max-h-[80vh]">
               <div className="flex flex-col space-y-3 p-4">
                 {navItems.map((item) => (
                   <DrawerClose asChild key={item.path}>
@@ -72,7 +72,6 @@ export function Header() {
                           ? "bg-accent text-accent-foreground"
                           : "hover:bg-accent hover:text-accent-foreground"
                       }`}
-                      onClick={() => {}}
                     >
                       {item.label}
                     </Link>
@@ -93,7 +92,7 @@ export function Header() {
         {/* Desktop Contact Button */}
         <div className="hidden md:block">
           <Link href="/contact">
-            <Button variant="outline">Contact</Button>
+            <Button variant="outline" size="sm">Contact</Button>
           </Link>
         </div>
       </div>

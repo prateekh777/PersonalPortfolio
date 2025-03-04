@@ -60,108 +60,110 @@ export function InterestOrbits() {
   };
 
   return (
-    <div className="relative w-full h-[550px] flex items-center justify-center" 
-      style={{ background: 'rgba(150, 140, 120, 0.05)' }}>
-      {/* Main central circle */}
-      <div 
-        className="absolute z-10 w-36 h-36 rounded-full shadow-md orbit-item clickable-pulse"
-      >
-        <div className="orbit-content">
-          <div className="orbit-image-container">
-            <div className="w-28 h-28 rounded-full overflow-hidden">
-              <img 
-                src="/Interests/Hobbies/Main image.jpg" 
-                alt="Central" 
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200?text=Interests';
-                }}
-              />
-            </div>
-            <div className="orbit-title text-sm text-[#222222]">Interests</div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Orbiting circles (using CSS animations for the orbiting effect) */}
-      <div className="absolute w-[330px] h-[330px] rounded-full border border-dashed border-[#7B7B7B]/30">
-        {/* Startups orbit */}
-        <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite' }}>
-          <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full shadow-md orbit-item clickable-pulse"
-            onClick={() => handleOpenCategory('startups')}
-          >
-            <div className="orbit-content">
-              <div className="orbit-image-container">
-                <div className="w-20 h-20 rounded-full overflow-hidden">
-                  <img 
-                    src={PLACEHOLDER_IMAGES.startups} 
-                    alt="Startups" 
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Startups';
-                    }}
-                  />
-                </div>
-                <div className="orbit-title text-xs text-[#222222]">Startups</div>
+    <>
+      <div className="relative w-full h-[450px] sm:h-[500px] flex items-center justify-center overflow-hidden" 
+        style={{ background: 'rgba(150, 140, 120, 0.05)' }}>
+        {/* Main central circle */}
+        <div 
+          className="absolute z-10 w-28 h-28 sm:w-36 sm:h-36 rounded-full shadow-md orbit-item clickable-pulse"
+        >
+          <div className="orbit-content">
+            <div className="orbit-image-container">
+              <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden">
+                <img 
+                  src="/Interests/Hobbies/Main image.jpg" 
+                  alt="Central" 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200?text=Interests';
+                  }}
+                />
               </div>
+              <div className="orbit-title text-xs sm:text-sm text-[#222222]">Interests</div>
             </div>
           </div>
         </div>
         
-        {/* Science orbit (120 degrees offset) */}
-        <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite', animationDelay: '-6.66s' }}>
-          <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full shadow-md orbit-item clickable-pulse"
-            onClick={() => handleOpenCategory('science')}
-          >
-            <div className="orbit-content">
-              <div className="orbit-image-container">
-                <div className="w-20 h-20 rounded-full overflow-hidden">
-                  <img 
-                    src={PLACEHOLDER_IMAGES.science} 
-                    alt="Science" 
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Science';
-                    }}
-                  />
+        {/* Orbiting circles (using CSS animations for the orbiting effect) */}
+        <div className="absolute w-[260px] h-[260px] sm:w-[300px] sm:h-[300px] rounded-full border border-dashed border-[#7B7B7B]/30">
+          {/* Startups orbit */}
+          <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite' }}>
+            <div 
+              className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full shadow-md orbit-item clickable-pulse"
+              onClick={() => handleOpenCategory('startups')}
+            >
+              <div className="orbit-content">
+                <div className="orbit-image-container">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden">
+                    <img 
+                      src={PLACEHOLDER_IMAGES.startups} 
+                      alt="Startups" 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Startups';
+                      }}
+                    />
+                  </div>
+                  <div className="orbit-title text-[10px] sm:text-xs text-[#222222]">Startups</div>
                 </div>
-                <div className="orbit-title text-xs text-[#222222]">Science</div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Science orbit (120 degrees offset) */}
+          <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite', animationDelay: '-6.66s' }}>
+            <div 
+              className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full shadow-md orbit-item clickable-pulse"
+              onClick={() => handleOpenCategory('science')}
+            >
+              <div className="orbit-content">
+                <div className="orbit-image-container">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden">
+                    <img 
+                      src={PLACEHOLDER_IMAGES.science} 
+                      alt="Science" 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Science';
+                      }}
+                    />
+                  </div>
+                  <div className="orbit-title text-[10px] sm:text-xs text-[#222222]">Science</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Spirituality orbit (240 degrees offset) */}
+          <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite', animationDelay: '-13.33s' }}>
+            <div 
+              className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full shadow-md orbit-item clickable-pulse"
+              onClick={() => handleOpenCategory('spirituality')}
+            >
+              <div className="orbit-content">
+                <div className="orbit-image-container">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden">
+                    <img 
+                      src={PLACEHOLDER_IMAGES.spirituality} 
+                      alt="Spirituality" 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Spirituality';
+                      }}
+                    />
+                  </div>
+                  <div className="orbit-title text-[10px] sm:text-xs text-[#222222]">Spirituality</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        {/* Instruction text below the orbits */}
+        <div className="absolute bottom-2 left-0 right-0 text-center sm:text-left sm:left-8 sm:right-auto text-xs text-[#7B7B7B]">
+          <p className="italic">Click on sphere to know more...</p>
+        </div>
+      </div>
         
-        {/* Spirituality orbit (240 degrees offset) */}
-        <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite', animationDelay: '-13.33s' }}>
-          <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full shadow-md orbit-item clickable-pulse"
-            onClick={() => handleOpenCategory('spirituality')}
-          >
-            <div className="orbit-content">
-              <div className="orbit-image-container">
-                <div className="w-20 h-20 rounded-full overflow-hidden">
-                  <img 
-                    src={PLACEHOLDER_IMAGES.spirituality} 
-                    alt="Spirituality" 
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Spirituality';
-                    }}
-                  />
-                </div>
-                <div className="orbit-title text-xs text-[#222222]">Spirituality</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* Instruction text below the orbits */}
-      <div className="absolute bottom-2 left-8 text-xs text-[#7B7B7B]">
-        <p className="italic">Click on sphere to know more...</p>
-      </div>
-      
       {/* Dialog for showing selected category images */}
       <Dialog open={activeCategory !== null} onOpenChange={handleCloseDialog}>
         <DialogContent className="sm:max-w-[90vw] max-h-[90vh] overflow-auto p-5" 
@@ -218,6 +220,6 @@ export function InterestOrbits() {
           </Carousel>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 }
