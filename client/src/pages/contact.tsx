@@ -156,9 +156,11 @@ export default function Contact() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
+                <div className="pt-4">
+                  <Button type="submit" className="w-full font-bold py-3" disabled={isSubmitting}>
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </Button>
+                </div>
               </form>
             </Form>
           </CardContent>
