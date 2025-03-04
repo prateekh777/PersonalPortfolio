@@ -60,8 +60,30 @@ export function InterestOrbits() {
   };
 
   return (
-    <div className="relative w-full h-[600px] flex items-center justify-center" 
+    <div className="relative w-full h-[600px] flex flex-col items-center justify-center" 
       style={{ background: 'rgba(150, 140, 120, 0.05)' }}>
+      {/* Interest Tabs */}
+      <div className="interest-tabs mb-6 z-20">
+        <button 
+          onClick={() => handleOpenCategory('startups')}
+          className="interest-tab px-8 py-3 mx-2 rounded-lg transition-all font-medium"
+        >
+          Startups
+        </button>
+        <button 
+          onClick={() => handleOpenCategory('science')}
+          className="interest-tab px-8 py-3 mx-2 rounded-lg transition-all font-medium"
+        >
+          Science
+        </button>
+        <button 
+          onClick={() => handleOpenCategory('spirituality')}
+          className="interest-tab px-8 py-3 mx-2 rounded-lg transition-all font-medium"
+        >
+          Spirituality
+        </button>
+      </div>
+      
       {/* Main central circle */}
       <div 
         className="absolute z-10 w-40 h-40 rounded-full shadow-md orbit-item clickable-pulse"
@@ -163,9 +185,14 @@ export function InterestOrbits() {
         <DialogContent className="sm:max-w-[90vw] max-h-[90vh] overflow-auto p-6" 
           style={{ background: '#F8F8F8', borderColor: '#222222' }}>
           <DialogHeader>
-            <DialogTitle className="text-2xl capitalize mb-4" style={{ color: '#222222' }}>
+            <DialogTitle className="text-2xl capitalize mb-2" style={{ color: '#222222' }}>
               {activeCategory} Interests
             </DialogTitle>
+            <div className="interest-one-liner mb-4 text-lg text-gray-600">
+              {activeCategory === 'startups' && "Building the future through innovation and entrepreneurship"}
+              {activeCategory === 'science' && "Exploring the mysteries of our universe through curiosity and discovery"}
+              {activeCategory === 'spirituality' && "Finding balance, meaning, and connection in our daily lives"}
+            </div>
           </DialogHeader>
           
           <Carousel className="w-full" opts={{ loop: true }}>
