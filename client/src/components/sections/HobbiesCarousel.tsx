@@ -108,13 +108,13 @@ export function HobbiesCarousel() {
   };
 
   return (
-    <div className="w-full py-12 bg-neutral-50" style={{ background: 'rgba(150, 140, 120, 0.05)' }}>
-      <div className="container mx-auto px-4">
-        <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center text-[#222222]">
+    <div className="w-full py-8 sm:py-12" style={{ background: 'rgba(150, 140, 120, 0.05)' }}>
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
+        <h2 className="text-xl sm:text-2xl font-bold mb-2 text-center text-[#222222]">
           Leisure & Recreation
         </h2>
         <div className="max-w-2xl mx-auto mb-6 text-center">
-          <p className="text-sm text-[#222222] mb-4">
+          <p className="text-xs sm:text-sm text-[#222222] mb-4">
             Beyond the professional sphere, I find joy and balance in a variety of recreational activities 
             that fuel my creativity and keep me grounded. These pursuits provide fresh perspectives 
             that often translate back into my work and life philosophy.
@@ -131,29 +131,29 @@ export function HobbiesCarousel() {
               {HOBBIES.map((hobby) => (
                 <CarouselItem key={hobby.id} className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                   <div className="p-1">
-                    <div className="hobby-card aspect-[3/4]">
+                    <div className="hobby-card aspect-[3/4] rounded-md shadow-sm">
                       {/* Color overlay filter - lighter blur with theme colors */}
                       <div 
-                        className="absolute inset-0 bg-gradient-to-b from-[#22222215] to-[#22222245] z-10"
+                        className="absolute inset-0 bg-gradient-to-b from-[#22222215] to-[#22222245] z-10 rounded-md"
                       />
                       <img 
                         src={hobby.imageUrl} 
                         alt={hobby.title}
-                        className="hobby-image"
+                        className="hobby-image rounded-md"
                         onError={(e) => {
                           (e.target as HTMLImageElement).src = `https://via.placeholder.com/400x500?text=${hobby.title}`;
                         }}
                       />
-                      <div className="hobby-overlay">
-                        <h3 className="hobby-title text-sm">{hobby.title}</h3>
+                      <div className="hobby-overlay rounded-b-md">
+                        <h3 className="hobby-title text-xs sm:text-sm">{hobby.title}</h3>
                       </div>
                     </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden sm:flex left-3 hobby-carousel-button" />
-            <CarouselNext className="hidden sm:flex right-3 hobby-carousel-button" />
+            <CarouselPrevious className="hidden sm:flex left-1 sm:left-3 hobby-carousel-button" />
+            <CarouselNext className="hidden sm:flex right-1 sm:right-3 hobby-carousel-button" />
           </Carousel>
         </div>
       </div>
