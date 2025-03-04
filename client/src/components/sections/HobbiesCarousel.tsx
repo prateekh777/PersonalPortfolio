@@ -132,9 +132,9 @@ export function HobbiesCarousel() {
                 <CarouselItem key={hobby.id} className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                   <div className="p-1">
                     <div className="hobby-card aspect-[3/4]">
-                      {/* Color overlay filter */}
+                      {/* Color overlay filter - lighter blur with theme colors */}
                       <div 
-                        className="absolute inset-0 bg-gradient-to-b from-[#22222230] to-[#22222280] z-10"
+                        className="absolute inset-0 bg-gradient-to-b from-[#22222215] to-[#22222245] z-10"
                       />
                       <img 
                         src={hobby.imageUrl} 
