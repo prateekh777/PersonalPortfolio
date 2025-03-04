@@ -5,27 +5,33 @@ import { GridSection } from "@/components/sections/GridSection";
 const gridItems = [
   {
     title: "Skills Honed, Stories Told - My Journey",
-    icon: "/images/gradients/blue_card.png",
+    icon: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=800&auto=format&fit=crop",
+    // Professional skills theme - laptop with code
   },
   {
     title: "Turning Puzzles into Pathways",
-    icon: "/images/gradients/black_card.png",
+    icon: "https://images.unsplash.com/photo-1506784365847-bbad939e9335?q=80&w=800&auto=format&fit=crop",
+    // Problem-solving theme - puzzle pieces
   },
   {
     title: "Things I've built Creations That Speak, Solutions That Sing",
-    icon: "/images/gradients/red_card.png",
+    icon: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=800&auto=format&fit=crop",
+    // Builder theme - architectural model or structure
   },
   {
     title: "Where AI Meets Soul - Let's Explore Together",
-    icon: "/images/gradients/yellow_card.png",
+    icon: "https://images.unsplash.com/photo-1655720031554-a929595ffad7?q=80&w=800&auto=format&fit=crop",
+    // AI theme - abstract digital connections
   },
   {
     title: "Conversations Open Doors - Let's Talk",
-    icon: "/images/gradients/white_card.png",
+    icon: "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?q=80&w=800&auto=format&fit=crop",
+    // Communication theme - speech bubbles or conversation
   },
   {
     title: "The Universe is Speaking—Here's How I Listen",
-    icon: "/images/gradients/green_card.png",
+    icon: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop",
+    // Interests theme - nature, cosmos, exploration
   },
 ];
 

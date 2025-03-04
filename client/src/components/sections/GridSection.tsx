@@ -81,33 +81,141 @@ export function GridSection({ title, items }: GridSectionProps) {
               >
                 <Card
                   className="grid-card shimmer group relative overflow-hidden border border-[#7B7B7B] transition-transform hover:scale-[1.02]"
-                  style={{
-                    backgroundImage: `url(${item.icon})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
                 >
-                  <CardContent className="grid-card-content flex min-h-[200px] flex-col items-center justify-center p-6 text-center diagonal-blur-gradient">
-                    {/* Card icon */}
+                  {/* Background image with semi-transparent overlay */}
+                  <div 
+                    className="absolute inset-0 z-0"
+                    style={{
+                      backgroundImage: `url(${item.icon})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      filter: "brightness(0.85) contrast(0.9)", // Subtle filter for consistency
+                    }}
+                  />
+                  
+                  <CardContent className="grid-card-content relative z-10 flex min-h-[200px] flex-col items-center justify-center p-6 text-center diagonal-blur-gradient">
+                    {/* Thematic icon based on card content */}
                     <div className="card-icon mb-4 opacity-75">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="text-[#444]"
-                      >
-                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-                        <path d="m22 2-5 5"></path>
-                        <path d="m22 2-5-5"></path>
-                        <path d="m2 22 5-5"></path>
-                        <path d="m2 22 5 5"></path>
-                      </svg>
+                      {item.title.includes("Skills") && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-[#444]"
+                        >
+                          <path d="M12 20a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z"></path>
+                          <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
+                          <path d="M12 2v2"></path>
+                          <path d="M12 22v-2"></path>
+                          <path d="m17 20.66-1-1.73"></path>
+                          <path d="M11 10.27 7 3.34"></path>
+                          <path d="m20.66 17-1.73-1"></path>
+                          <path d="m3.34 7 1.73 1"></path>
+                          <path d="M14 12h8"></path>
+                          <path d="M2 12h2"></path>
+                          <path d="m20.66 7-1.73 1"></path>
+                          <path d="m3.34 17 1.73-1"></path>
+                          <path d="m17 3.34-1 1.73"></path>
+                          <path d="m7 20.66 1-1.73"></path>
+                        </svg>
+                      )}
+                      {item.title.includes("Puzzles") && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-[#444]"
+                        >
+                          <path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925-.314-.848-.88-1.448-1.764-1.448-.666 0-1.45.39-1.759 1.362-.49 1.528.620 2.181 1.319 2.45.47.182.871.608.665 1.111-.197.482-.636.84-1.134.869l-2.728.138c-1.349.068-2.494-.732-2.823-1.983-.264-1.007.1-2.18 1.125-2.909.889-.632.829-1.563-.115-2.302-.944-.74-1.826-.578-2.302-.072-.47.5-1.156.578-1.7.183l-1.914-1.39c-.471-.341-.722-.909-.692-1.465.029-.556.329-1.086.829-1.427l2.23-1.625c.235-.15.543-.233.9-.254.385-.021.766.049 1.043.233.277.185.470.452.548.765.197.765.892 1.471 1.863 1.471.912 0 1.585-.638 1.674-1.22.116-.579-.339-1.491-1.283-1.81-.904-.308-1.211-.945-1.133-1.508.078-.556.462-1.013.973-1.142l2.99-.769c.514-.132 1.083-.058 1.524.199s.744.658.85 1.142l.34 1.611c.068.325.226.611.447.825.221.215.5.358.802.417.471.078 1.044.183 1.59.77"/>
+                        </svg>
+                      )}
+                      {item.title.includes("built") && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-[#444]"
+                        >
+                          <path d="M6 22V12a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10"></path>
+                          <path d="M6 18H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
+                          <path d="M10 22V8"></path>
+                          <path d="M14 22V8"></path>
+                        </svg>
+                      )}
+                      {item.title.includes("AI") && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-[#444]"
+                        >
+                          <path d="M12 2H2v10h10V2Z"></path>
+                          <path d="M12 12h10v10H12V12Z"></path>
+                          <path d="m17 22 5-5"></path>
+                          <path d="m17 2 5 5"></path>
+                          <path d="M7 2 2 7"></path>
+                          <path d="m7 22-5-5"></path>
+                        </svg>
+                      )}
+                      {item.title.includes("Conversations") && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-[#444]"
+                        >
+                          <path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4c0-1.1.9-2 2-2h8a2 2 0 0 1 2 2v5Z"></path>
+                          <path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"></path>
+                        </svg>
+                      )}
+                      {item.title.includes("Universe") && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="text-[#444]"
+                        >
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <circle cx="12" cy="12" r="6"></circle>
+                          <circle cx="12" cy="12" r="2"></circle>
+                        </svg>
+                      )}
                     </div>
 
                     {/* Item title */}
