@@ -50,7 +50,7 @@ const PLACEHOLDER_IMAGES: Record<InterestCategory | 'central', string> = {
 
 export function InterestOrbits() {
   const [activeCategory, setActiveCategory] = useState<InterestCategory | null>(null);
-  
+
   const handleOpenCategory = (category: InterestCategory) => {
     setActiveCategory(category);
   };
@@ -83,7 +83,7 @@ export function InterestOrbits() {
           Spirituality
         </button>
       </div>
-      
+
       {/* Main central circle */}
       <div 
         className="absolute z-10 w-40 h-40 rounded-full shadow-md orbit-item clickable-pulse"
@@ -104,7 +104,7 @@ export function InterestOrbits() {
           </div>
         </div>
       </div>
-      
+
       {/* Orbiting circles (using CSS animations for the orbiting effect) */}
       <div className="absolute w-[350px] h-[350px] rounded-full border border-dashed border-[#7B7B7B]/30">
         {/* Startups orbit */}
@@ -130,7 +130,7 @@ export function InterestOrbits() {
             </div>
           </div>
         </div>
-        
+
         {/* Science orbit (120 degrees offset) */}
         <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite', animationDelay: '-6.66s' }}>
           <div 
@@ -154,7 +154,7 @@ export function InterestOrbits() {
             </div>
           </div>
         </div>
-        
+
         {/* Spirituality orbit (240 degrees offset) */}
         <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite', animationDelay: '-13.33s' }}>
           <div 
@@ -179,7 +179,7 @@ export function InterestOrbits() {
           </div>
         </div>
       </div>
-      
+
       {/* Dialog for showing selected category images */}
       <Dialog open={activeCategory !== null} onOpenChange={handleCloseDialog}>
         <DialogContent className="sm:max-w-[90vw] max-h-[90vh] overflow-auto p-6" 
@@ -194,7 +194,7 @@ export function InterestOrbits() {
               {activeCategory === 'spirituality' && "Finding balance, meaning, and connection in our daily lives"}
             </div>
           </DialogHeader>
-          
+
           <Carousel className="w-full" opts={{ loop: true }}>
             <CarouselContent className="-ml-2 md:-ml-4">
               {activeCategory && MOCK_INTERESTS[activeCategory].map((item) => (
@@ -241,6 +241,7 @@ export function InterestOrbits() {
           </Carousel>
         </DialogContent>
       </Dialog>
+      </div>
     </div>
   );
 }
