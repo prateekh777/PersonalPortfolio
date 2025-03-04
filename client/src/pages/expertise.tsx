@@ -47,30 +47,52 @@ export default function Expertise() {
       <h1 className="text-4xl flex items=center justify-center font-bold ">
         Skills Honed, Stories Told.. My Journey!
       </h1>
-      {/* Role Selection - Made sticky */}
+      {/* Role Selection - Made sticky with tabs instead of dropdown */}
       <div className="sticky top-14 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 rounded-lg">
-        <div className="flex items-center justify-center gap-4">
-          <label className="text-lg font-medium">My Hats</label>
-          <Select
-            value={selectedRole}
-            onValueChange={(value: Role) => setSelectedRole(value)}
-          >
-            <SelectTrigger className="w-[240px] ">
-              <SelectValue placeholder="Select a role" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="tech-leader">Product Leader</SelectItem>
-              <SelectItem value="people-manager">
-                Operations - People Manager
-              </SelectItem>
-              <SelectItem value="individual-contributor">
-                Founder - CXO
-              </SelectItem>
-              <SelectItem value="strategy-contributor">
-                Strategy and Planning
-              </SelectItem>
-            </SelectContent>
-          </Select>
+        <div className="flex flex-col items-center justify-center gap-2">
+          <h2 className="text-xl font-medium mb-2">My Hats</h2>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <button 
+              onClick={() => setSelectedRole("tech-leader")}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                selectedRole === "tech-leader" 
+                  ? "bg-primary text-primary-foreground font-medium" 
+                  : "bg-muted hover:bg-muted/80"
+              }`}
+            >
+              Product Leader
+            </button>
+            <button 
+              onClick={() => setSelectedRole("people-manager")}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                selectedRole === "people-manager" 
+                  ? "bg-primary text-primary-foreground font-medium" 
+                  : "bg-muted hover:bg-muted/80"
+              }`}
+            >
+              Operations - People Manager
+            </button>
+            <button 
+              onClick={() => setSelectedRole("individual-contributor")}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                selectedRole === "individual-contributor" 
+                  ? "bg-primary text-primary-foreground font-medium" 
+                  : "bg-muted hover:bg-muted/80"
+              }`}
+            >
+              Founder - CXO
+            </button>
+            <button 
+              onClick={() => setSelectedRole("strategy-contributor")}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                selectedRole === "strategy-contributor" 
+                  ? "bg-primary text-primary-foreground font-medium" 
+                  : "bg-muted hover:bg-muted/80"
+              }`}
+            >
+              Strategy and Planning
+            </button>
+          </div>
         </div>
       </div>
       {/* Timeline Section */}
