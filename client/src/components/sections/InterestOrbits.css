@@ -13,32 +13,38 @@
   transform-origin: center;
 }
 
+/* Pause the animation on hover */
+.orbit-circle:hover {
+  animation-play-state: paused;
+}
+
 .orbit-item {
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #FFFFFF;
+  border: 2px solid #222222; /* Primary color */
 }
 
 .orbit-item:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Pulse animation to indicate clickability */
+/* Subtle pulse animation to indicate clickability */
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(0, 120, 212, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(0, 120, 212, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 120, 212, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(34, 34, 34, 0.3); } /* Primary color rgba */
+  70% { box-shadow: 0 0 0 8px rgba(34, 34, 34, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 34, 34, 0); }
 }
 
 .clickable-pulse {
   animation: pulse 2s infinite;
-  border: 2px solid #0078d4;
 }
 
 /* Enhanced carousel controls */
 .carousel-control {
-  background-color: #0078d4;
+  background-color: #222222; /* Primary color */
   color: white;
   border-radius: 50%;
   width: 50px;
@@ -53,6 +59,32 @@
 
 .carousel-control:hover {
   opacity: 1;
+}
+
+/* Center content in orbit items */
+.orbit-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.orbit-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.orbit-title {
+  position: absolute;
+  bottom: -30px;
+  text-align: center;
+  width: 100%;
+  font-weight: 500;
+  color: #222222; /* Primary color */
 }
 
 @media (max-width: 640px) {

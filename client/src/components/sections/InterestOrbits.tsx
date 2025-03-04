@@ -57,92 +57,110 @@ export function InterestOrbits() {
   };
 
   return (
-    <div className="relative w-full h-[600px] flex items-center justify-center">
+    <div className="relative w-full h-[600px] flex items-center justify-center" 
+      style={{ background: 'rgba(150, 140, 120, 0.05)' }}>
       {/* Main central circle */}
       <div 
-        className="absolute z-10 w-40 h-40 rounded-full bg-background shadow-md flex flex-col items-center justify-center clickable-pulse"
+        className="absolute z-10 w-40 h-40 rounded-full shadow-md orbit-item clickable-pulse"
       >
-        <div className="w-32 h-32 rounded-full overflow-hidden">
-          <img 
-            src={PLACEHOLDER_IMAGES.central} 
-            alt="Central" 
-            className="w-full h-full object-cover"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200?text=Interests';
-            }}
-          />
-        </div>
-        <span className="mt-2 font-medium">Interests</span>
-      </div>
-      
-      {/* Orbiting circles (using CSS animations for the orbiting effect) */}
-      <div className="absolute w-[500px] h-[500px] rounded-full border border-dashed border-muted-foreground/30">
-        {/* Startups orbit */}
-        <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite' }}>
-          <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-background shadow-md flex flex-col items-center justify-center orbit-item clickable-pulse"
-            onClick={() => handleOpenCategory('startups')}
-          >
-            <div className="w-24 h-24 rounded-full overflow-hidden">
+        <div className="orbit-content">
+          <div className="orbit-image-container">
+            <div className="w-32 h-32 rounded-full overflow-hidden">
               <img 
-                src={PLACEHOLDER_IMAGES.startups} 
-                alt="Startups" 
+                src={PLACEHOLDER_IMAGES.central} 
+                alt="Central" 
                 className="w-full h-full object-cover"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Startups';
+                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200?text=Interests';
                 }}
               />
             </div>
-            <span className="mt-2 font-medium">Startups</span>
+            <div className="orbit-title">Interests</div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Orbiting circles (using CSS animations for the orbiting effect) */}
+      <div className="absolute w-[500px] h-[500px] rounded-full border border-dashed border-[#7B7B7B]/30">
+        {/* Startups orbit */}
+        <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite' }}>
+          <div 
+            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full shadow-md orbit-item clickable-pulse"
+            onClick={() => handleOpenCategory('startups')}
+          >
+            <div className="orbit-content">
+              <div className="orbit-image-container">
+                <div className="w-24 h-24 rounded-full overflow-hidden">
+                  <img 
+                    src={PLACEHOLDER_IMAGES.startups} 
+                    alt="Startups" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Startups';
+                    }}
+                  />
+                </div>
+                <div className="orbit-title">Startups</div>
+              </div>
+            </div>
           </div>
         </div>
         
         {/* Science orbit (120 degrees offset) */}
         <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite', animationDelay: '-6.66s' }}>
           <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-background shadow-md flex flex-col items-center justify-center orbit-item clickable-pulse"
+            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full shadow-md orbit-item clickable-pulse"
             onClick={() => handleOpenCategory('science')}
           >
-            <div className="w-24 h-24 rounded-full overflow-hidden">
-              <img 
-                src={PLACEHOLDER_IMAGES.science} 
-                alt="Science" 
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Science';
-                }}
-              />
+            <div className="orbit-content">
+              <div className="orbit-image-container">
+                <div className="w-24 h-24 rounded-full overflow-hidden">
+                  <img 
+                    src={PLACEHOLDER_IMAGES.science} 
+                    alt="Science" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Science';
+                    }}
+                  />
+                </div>
+                <div className="orbit-title">Science</div>
+              </div>
             </div>
-            <span className="mt-2 font-medium">Science</span>
           </div>
         </div>
         
         {/* Spirituality orbit (240 degrees offset) */}
         <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite', animationDelay: '-13.33s' }}>
           <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-background shadow-md flex flex-col items-center justify-center orbit-item clickable-pulse"
+            className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full shadow-md orbit-item clickable-pulse"
             onClick={() => handleOpenCategory('spirituality')}
           >
-            <div className="w-24 h-24 rounded-full overflow-hidden">
-              <img 
-                src={PLACEHOLDER_IMAGES.spirituality} 
-                alt="Spirituality" 
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Spirituality';
-                }}
-              />
+            <div className="orbit-content">
+              <div className="orbit-image-container">
+                <div className="w-24 h-24 rounded-full overflow-hidden">
+                  <img 
+                    src={PLACEHOLDER_IMAGES.spirituality} 
+                    alt="Spirituality" 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://via.placeholder.com/120?text=Spirituality';
+                    }}
+                  />
+                </div>
+                <div className="orbit-title">Spirituality</div>
+              </div>
             </div>
-            <span className="mt-2 font-medium">Spirituality</span>
           </div>
         </div>
       </div>
       
       {/* Dialog for showing selected category images */}
       <Dialog open={activeCategory !== null} onOpenChange={handleCloseDialog}>
-        <DialogContent className="sm:max-w-[90vw] max-h-[90vh] overflow-auto p-6">
+        <DialogContent className="sm:max-w-[90vw] max-h-[90vh] overflow-auto p-6" 
+          style={{ background: '#F8F8F8', borderColor: '#222222' }}>
           <DialogHeader>
-            <DialogTitle className="text-2xl capitalize mb-4">
+            <DialogTitle className="text-2xl capitalize mb-4" style={{ color: '#222222' }}>
               {activeCategory} Interests
             </DialogTitle>
           </DialogHeader>
@@ -152,7 +170,7 @@ export function InterestOrbits() {
               {activeCategory && MOCK_INTERESTS[activeCategory].map((item) => (
                 <CarouselItem key={item.id} className="pl-2 md:pl-4 sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
                   <div className="p-1">
-                    <div className="bg-background rounded-lg overflow-hidden shadow-lg p-3 h-full">
+                    <div className="bg-white rounded-lg overflow-hidden shadow-md p-3 h-full border border-[#7B7B7B]/10">
                       <div className="aspect-square w-full overflow-hidden rounded-md mb-3">
                         <img 
                           src={item.imageUrl} 
@@ -164,16 +182,16 @@ export function InterestOrbits() {
                         />
                       </div>
                       <div className="pt-2">
-                        <h3 className="font-medium text-base mb-1">{item.title}</h3>
-                        <p className="text-sm text-muted-foreground">{item.description}</p>
+                        <h3 className="font-medium text-base mb-1" style={{ color: '#222222' }}>{item.title}</h3>
+                        <p className="text-sm" style={{ color: '#7B7B7B' }}>{item.description}</p>
                       </div>
                     </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="left-2 carousel-control" />
-            <CarouselNext className="right-2 carousel-control" />
+            <CarouselPrevious className="left-4 lg:left-8 carousel-control" />
+            <CarouselNext className="right-4 lg:right-8 carousel-control" />
           </Carousel>
         </DialogContent>
       </Dialog>
