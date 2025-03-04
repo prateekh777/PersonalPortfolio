@@ -1,9 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { type Interest } from "@shared/schema";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { InterestOrbits } from "@/components/sections/InterestOrbits";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Interests() {
   const { data: interests, isLoading } = useQuery<Interest[]>({
@@ -12,57 +11,27 @@ export default function Interests() {
 
   if (isLoading) {
     return (
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Skeleton className="h-[300px]" />
-        <Skeleton className="h-[300px]" />
-        <Skeleton className="h-[300px]" />
+      <div className="space-y-12 pt-16">
+        <h1 className="text-4xl font-bold">My Interests</h1>
+        <Skeleton className="h-[600px] w-full" />
       </div>
     );
   }
 
-  const categories = Array.from(
-    new Set(interests?.map((interest) => interest.category)),
-  );
-
   return (
-    <div className="space-y-12 pt-16">
-      <h1 className="text-4xl font-bold">My Interests</h1>
-      <Tabs defaultValue={categories[0]} className="w-full">
-        <TabsList className="mb-8">
-          {categories.map((category) => (
-            <TabsTrigger key={category} value={category} className="capitalize">
-              {category}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        {categories.map((category) => (
-          <TabsContent key={category} value={category}>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {interests
-                ?.filter((interest) => interest.category === category)
-                .map((interest) => (
-                  <Card key={interest.id}>
-                    {interest.imageUrl && (
-                      <img
-                        src={interest.imageUrl}
-                        alt={interest.title}
-                        className="aspect-video w-full object-cover"
-                      />
-                    )}
-                    <CardHeader>
-                      <CardTitle>{interest.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground">
-                        {interest.description}
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
-            </div>
-          </TabsContent>
-        ))}
-      </Tabs>
+    <div className="space-y-12 pt-16 container mx-auto">
+      <h1 className="text-4xl font-bold text-center">My Interests</h1>
+      <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto">
+        Explore my diverse interests across startups, science, and spirituality. Click on any orbit to discover more.
+      </p>
+      
+      {/* First Section: Orbiting Interests Visualization */}
+      <section className="py-12">
+        <InterestOrbits />
+      </section>
+      
+      {/* Second Section will be added later */}
+      <div className="h-12"></div>
     </div>
   );
 }
