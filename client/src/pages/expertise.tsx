@@ -51,43 +51,43 @@ export default function Expertise() {
       <div className="sticky top-14 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 py-4 rounded-lg">
         <div className="flex flex-col items-center justify-center gap-2">
           <h2 className="text-xl font-medium mb-2">My Hats</h2>
-          <div className="flex flex-wrap items-center justify-center gap-2">
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-2">
             <button 
               onClick={() => setSelectedRole("tech-leader")}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`px-6 py-3 rounded-lg transition-all font-medium ${
                 selectedRole === "tech-leader" 
-                  ? "bg-primary text-primary-foreground font-medium" 
-                  : "bg-muted hover:bg-muted/80"
+                  ? "bg-primary text-white shadow-md transform scale-105 border-b-4 border-primary-dark" 
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Product Leader
             </button>
             <button 
               onClick={() => setSelectedRole("people-manager")}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`px-6 py-3 rounded-lg transition-all font-medium ${
                 selectedRole === "people-manager" 
-                  ? "bg-primary text-primary-foreground font-medium" 
-                  : "bg-muted hover:bg-muted/80"
+                  ? "bg-primary text-white shadow-md transform scale-105 border-b-4 border-primary-dark" 
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Operations - People Manager
             </button>
             <button 
               onClick={() => setSelectedRole("individual-contributor")}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`px-6 py-3 rounded-lg transition-all font-medium ${
                 selectedRole === "individual-contributor" 
-                  ? "bg-primary text-primary-foreground font-medium" 
-                  : "bg-muted hover:bg-muted/80"
+                  ? "bg-primary text-white shadow-md transform scale-105 border-b-4 border-primary-dark" 
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Founder - CXO
             </button>
             <button 
               onClick={() => setSelectedRole("strategy-contributor")}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`px-6 py-3 rounded-lg transition-all font-medium ${
                 selectedRole === "strategy-contributor" 
-                  ? "bg-primary text-primary-foreground font-medium" 
-                  : "bg-muted hover:bg-muted/80"
+                  ? "bg-primary text-white shadow-md transform scale-105 border-b-4 border-primary-dark" 
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               Strategy and Planning

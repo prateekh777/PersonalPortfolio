@@ -1,5 +1,16 @@
 @tailwind base;
 @tailwind components;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-dark: 222.2 47.4% 30.2%;
+  }
+}
+
 @tailwind utilities;
 
 @layer base {
