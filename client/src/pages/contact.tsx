@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -21,7 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Calendar } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -34,6 +34,24 @@ type FormValues = z.infer<typeof formSchema>;
 export default function Contact() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [calendlyLoaded, setCalendlyLoaded] = useState(false);
+
+  // Load Calendly widget script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    script.onload = () => setCalendlyLoaded(true);
+    
+    document.body.appendChild(script);
+    
+    return () => {
+      // Cleanup function to remove the script when component unmounts
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -65,98 +83,122 @@ export default function Contact() {
   };
 
   return (
-    <div className="space-y-12 pt-16 grid gap-8 md:grid-cols-2">
-      <Card>
-        <CardHeader>
-          <CardTitle>Contact Me</CardTitle>
-          <CardDescription>
-            Fill out the form below and I'll get back to you as soon as
-            possible.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Your name" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="your.email@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Message</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Your message"
-                        className="min-h-[150px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Sending..." : "Send Message"}
-              </Button>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Get in Touch</CardTitle>
-          <CardDescription>
-            Feel free to reach out through any of these channels.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="flex items-center gap-4">
+    <div className="space-y-12 pt-16">
+      <div className="grid gap-8 md:grid-cols-2 mb-8">
+        <Card>
+          <CardHeader className="flex flex-row items-center gap-2">
             <Mail className="h-5 w-5 text-primary" />
             <div>
-              <h3 className="font-semibold">Email</h3>
-              <p className="text-muted-foreground">contact@example.com</p>
+              <CardTitle>Contact Me</CardTitle>
+              <CardDescription>
+                Fill out the form below and I'll get back to you as soon as
+                possible.
+              </CardDescription>
             </div>
-          </div>
-          <div className="flex items-center gap-4">
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="your.email@example.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Message</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Your message"
+                          className="min-h-[150px]"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type="submit" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </Button>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center gap-2">
             <Phone className="h-5 w-5 text-primary" />
             <div>
-              <h3 className="font-semibold">Phone</h3>
-              <p className="text-muted-foreground">+1 (555) 123-4567</p>
+              <CardTitle>Get in Touch</CardTitle>
+              <CardDescription>
+                Feel free to reach out through any of these channels.
+              </CardDescription>
             </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <MapPin className="h-5 w-5 text-primary" />
-            <div>
-              <h3 className="font-semibold">Location</h3>
-              <p className="text-muted-foreground">San Francisco, CA</p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex items-center gap-4">
+              <Mail className="h-5 w-5 text-primary" />
+              <div>
+                <h3 className="font-semibold">Email</h3>
+                <p className="text-muted-foreground">contact@example.com</p>
+              </div>
             </div>
+            <div className="flex items-center gap-4">
+              <Phone className="h-5 w-5 text-primary" />
+              <div>
+                <h3 className="font-semibold">Phone</h3>
+                <p className="text-muted-foreground">+1 (555) 123-4567</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <MapPin className="h-5 w-5 text-primary" />
+              <div>
+                <h3 className="font-semibold">Location</h3>
+                <p className="text-muted-foreground">San Francisco, CA</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+      
+      <Card className="w-full">
+        <CardHeader className="flex flex-row items-center gap-2">
+          <Calendar className="h-5 w-5 text-primary" />
+          <div>
+            <CardTitle>Schedule a Meeting</CardTitle>
+            <CardDescription>
+              Book a time slot directly on my calendar for a personal conversation.
+            </CardDescription>
           </div>
+        </CardHeader>
+        <CardContent>
+          {/* Calendly inline widget */}
+          <div className="calendly-inline-widget" data-url="https://calendly.com/prateekh/30min?hide_gdpr_banner=1" style={{minWidth: "320px", height: "700px"}}></div>
         </CardContent>
       </Card>
     </div>
