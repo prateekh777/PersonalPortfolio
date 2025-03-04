@@ -41,6 +41,35 @@
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
+/* Auto-sliding carousel styling */
+.auto-sliding-carousel {
+  position: relative;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.auto-sliding-carousel:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.auto-sliding-carousel:before {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background-color: rgba(34, 34, 34, 0.3);
+  border-radius: 2px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.auto-sliding-carousel:hover:before {
+  opacity: 1;
+}
+
 /* Custom carousel navigation buttons */
 .hobby-carousel-button {
   width: 50px;
@@ -52,11 +81,24 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+  opacity: 0.7;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .hobby-carousel-button:hover {
   background-color: white;
   transform: scale(1.1);
+  opacity: 1;
+}
+
+/* Animation for auto-sliding */
+@keyframes slideRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
 /* Responsive adjustments */

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 import {
   Carousel,
   CarouselContent,
@@ -54,6 +55,50 @@ const HOBBIES: HobbyItem[] = [
 ];
 
 export function HobbiesCarousel() {
+  const [api, setApi] = useState<any>(null);
+  const [isHovering, setIsHovering] = useState(false);
+  const autoplayRef = useRef<number | null>(null);
+  
+  // Function to scroll to the next slide
+  const scrollNext = () => {
+    if (api) {
+      api.scrollNext();
+    }
+  };
+  
+  // Auto-scroll effect that's paused when hovering
+  useEffect(() => {
+    if (api) {
+      // Clear any existing interval when api changes or component unmounts
+      if (autoplayRef.current) {
+        clearInterval(autoplayRef.current);
+      }
+      
+      // Only start auto-scrolling if not hovering
+      if (!isHovering) {
+        autoplayRef.current = window.setInterval(() => {
+          scrollNext();
+        }, 3000); // Change slide every 3 seconds
+      }
+      
+      // Cleanup function to clear interval when component unmounts or dependencies change
+      return () => {
+        if (autoplayRef.current) {
+          clearInterval(autoplayRef.current);
+          autoplayRef.current = null;
+        }
+      };
+    }
+  }, [api, isHovering]);
+  
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+  
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
+
   return (
     <div className="w-full py-16 bg-neutral-50" style={{ background: 'rgba(150, 140, 120, 0.05)' }}>
       <div className="container mx-auto px-4">
@@ -68,35 +113,41 @@ export function HobbiesCarousel() {
           </p>
         </div>
         
-        <Carousel className="w-full">
-          <CarouselContent className="-ml-2 md:-ml-4">
-            {HOBBIES.map((hobby) => (
-              <CarouselItem key={hobby.id} className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                <div className="p-1">
-                  <div className="hobby-card aspect-[3/4]">
-                    {/* Color overlay filter */}
-                    <div 
-                      className="absolute inset-0 bg-gradient-to-b from-[#22222230] to-[#22222280] z-10"
-                    />
-                    <img 
-                      src={hobby.imageUrl} 
-                      alt={hobby.title}
-                      className="hobby-image"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = `https://via.placeholder.com/400x500?text=${hobby.title}`;
-                      }}
-                    />
-                    <div className="hobby-overlay">
-                      <h3 className="hobby-title">{hobby.title}</h3>
+        <div 
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className="auto-sliding-carousel"
+        >
+          <Carousel className="w-full" setApi={setApi}>
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {HOBBIES.map((hobby) => (
+                <CarouselItem key={hobby.id} className="pl-2 md:pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                  <div className="p-1">
+                    <div className="hobby-card aspect-[3/4]">
+                      {/* Color overlay filter */}
+                      <div 
+                        className="absolute inset-0 bg-gradient-to-b from-[#22222230] to-[#22222280] z-10"
+                      />
+                      <img 
+                        src={hobby.imageUrl} 
+                        alt={hobby.title}
+                        className="hobby-image"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = `https://via.placeholder.com/400x500?text=${hobby.title}`;
+                        }}
+                      />
+                      <div className="hobby-overlay">
+                        <h3 className="hobby-title">{hobby.title}</h3>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="hidden sm:flex left-4 hobby-carousel-button" />
-          <CarouselNext className="hidden sm:flex right-4 hobby-carousel-button" />
-        </Carousel>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden sm:flex left-4 hobby-carousel-button" />
+            <CarouselNext className="hidden sm:flex right-4 hobby-carousel-button" />
+          </Carousel>
+        </div>
       </div>
     </div>
   );

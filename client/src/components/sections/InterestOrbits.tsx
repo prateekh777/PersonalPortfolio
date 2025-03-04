@@ -19,18 +19,18 @@ interface InterestItem {
 // Mock data for each category (will be replaced with API data later)
 const MOCK_INTERESTS: Record<InterestCategory, InterestItem[]> = {
   startups: [
-    { id: 1, title: 'Awards Building Edtech', description: 'When you win it fully!', mediaUrl: 'public/Interests/Startups/BC Award_2.jpg', mediaType: 'image' },
-    { id: 2, title: 'Some more Edtech', description: 'Creating new opportunities', mediaUrl: 'public/Interests/Startups/BC Award.jpg', mediaType: 'image' },
-    { id: 3, title: 'Blitz scale it with passion', description: 'Speed matters', mediaUrl: 'public/Interests/Startups/BC Video.mp4', mediaType: 'video' },
-    { id: 10, title: 'Love it when you do it', description: 'Education for all', mediaUrl: 'public/Interests/Startups/Edoflip Speech.mp4', mediaType: 'video' },
-    { id: 13, title: 'For the Climate', description: 'For everyones Future', mediaUrl: 'public/Interests/Startups/Public Speaking Greetude.jpg', mediaType: 'image' },
-    { id: 14, title: 'Helping Startup Ecosystem', description: 'Learn and share at the same time', mediaUrl: 'public/Interests/Startups/Startup India Prateek.jpg', mediaType: 'image' },
+    { id: 1, title: 'Awards Building Edtech', description: 'When you win it fully!', mediaUrl: '/Interests/Startups/BC Award_2.jpg', mediaType: 'image' },
+    { id: 2, title: 'Some more Edtech', description: 'Creating new opportunities', mediaUrl: '/Interests/Startups/BC Award.jpg', mediaType: 'image' },
+    { id: 3, title: 'Blitz scale it with passion', description: 'Speed matters', mediaUrl: '/Interests/Startups/BC Video.mp4', mediaType: 'video' },
+    { id: 10, title: 'Love it when you do it', description: 'Education for all', mediaUrl: '/Interests/Startups/Edoflip Speech.mp4', mediaType: 'video' },
+    { id: 13, title: 'For the Climate', description: 'For everyones Future', mediaUrl: '/Interests/Startups/Public Speaking Greetude.jpg', mediaType: 'image' },
+    { id: 14, title: 'Helping Startup Ecosystem', description: 'Learn and share at the same time', mediaUrl: '/Interests/Startups/Startup India Prateek.jpg', mediaType: 'image' },
   ],
   science: [
-    { id: 4, title: 'Chemistry at Play', description: 'On Stage for Kids', mediaUrl: 'public/Interests/Science/Prateek%20Chemistry.jpg', mediaType: 'image' },
-    { id: 5, title: 'Observations evaluated', description: 'The WoW effect!', mediaUrl: 'public/Interests/Science/Prateek Teaching.mp4', mediaType: 'video' },
-    { id: 6, title: 'Planets and Planeteriums!', description: 'Always wondered about the larger universe!', mediaUrl: 'public/Interests/Science/Science Prateek.jpg', mediaType: 'image' },
-    { id: 11, title: 'How to Wonder', description: 'Exploring mysteries together', mediaUrl: 'public/Interests/Science/Speaker KPS.jpg', mediaType: 'image' },
+    { id: 4, title: 'Chemistry at Play', description: 'On Stage for Kids', mediaUrl: '/Interests/Science/Prateek%20Chemistry.jpg', mediaType: 'image' },
+    { id: 5, title: 'Observations evaluated', description: 'The WoW effect!', mediaUrl: '/Interests/Science/Prateek Teaching.mp4', mediaType: 'video' },
+    { id: 6, title: 'Planets and Planeteriums!', description: 'Always wondered about the larger universe!', mediaUrl: '/Interests/Science/Science Prateek.jpg', mediaType: 'image' },
+    { id: 11, title: 'How to Wonder', description: 'Exploring mysteries together', mediaUrl: '/Interests/Science/Speaker KPS.jpg', mediaType: 'image' },
   ],
   spirituality: [
     { id: 7, title: 'Meditation', description: 'Finding inner peace', mediaUrl: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773', mediaType: 'image' },
