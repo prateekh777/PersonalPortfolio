@@ -50,10 +50,11 @@ const highlightsData: Record<Role, {
       url: "/images/gradients/green_card.png",
     },
     points: [
-      "Developed complex technical solutions",
-      "Contributed to open-source projects",
-      "Specialized in performance optimization",
-      "Led technical design and implementation",
+      "Architected and implemented scalable backend systems handling millions of user interactions daily",
+      "Created innovative AI-powered algorithms for personalized learning experiences with 98% accuracy",
+      "Engineered robust data pipelines that processed terabytes of educational data for actionable insights",
+      "Developed high-performance frontend components that reduced load times by 45%",
+      "Built cross-platform solutions ensuring seamless user experience across web and mobile interfaces",
     ],
   },
   "strategy-contributor": {
@@ -63,10 +64,11 @@ const highlightsData: Record<Role, {
       posterUrl: "/images/brightchamps-logo.png", // Poster image for the video
     },
     points: [
-      "Developed complex technical solutions",
-      "Contributed to open-source projects",
-      "Specialized in performance optimization",
-      "Led technical design and implementation",
+      "Guided BrightChamps' strategic vision and operational transformation, significantly impacting overall growth and market positioning",
+      "Implemented data-driven decision making that resulted in 25% improvement in conversion rates and learner retention",
+      "Created innovative educational products that expanded our reach to over 30 countries",
+      "Led cross-functional teams to solve complex business challenges during rapid scaling phases",
+      "Established scalable operational frameworks that supported 3x annual growth",
     ],
   },
 };
@@ -121,6 +123,10 @@ export function Highlights({ role }: HighlightsProps) {
                   poster={media.posterUrl}
                   className="absolute inset-0 h-full w-full object-cover cursor-pointer"
                   onClick={(e) => handleVideoClick(e.target as HTMLVideoElement)}
+                  onEnded={(e) => handleVideoEnded(e.target as HTMLVideoElement)}
+                  playsInline
+                  muted
+                  preload="metadata"
                   onError={(e) => {
                     const videoEl = e.target as HTMLVideoElement;
                     videoEl.style.display = 'none';
