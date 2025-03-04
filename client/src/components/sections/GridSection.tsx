@@ -89,13 +89,13 @@ export function GridSection({ title, items }: GridSectionProps) {
                       backgroundImage: `url(${item.icon})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
-                      filter: "brightness(0.95) contrast(1.05)", // Improved visibility
+                      filter: "brightness(1) contrast(1.1)", // Further improved visibility
                     }}
                   />
                   
                   <CardContent className="grid-card-content relative z-10 flex min-h-[200px] flex-col items-center justify-center p-6 text-center" style={{
-                    background: "linear-gradient(135deg, rgba(240,235,220,0.25) 0%, rgba(200,195,180,0.45) 100%)",
-                    backdropFilter: "blur(2px)" // Further reduced blur from 3px to 2px
+                    background: "linear-gradient(135deg, rgba(240,235,220,0.2) 0%, rgba(200,195,180,0.35) 100%)",
+                    backdropFilter: "blur(1.5px)" // Further reduced blur
                   }}>
                     {/* Thematic icon based on card content */}
                     <div className="card-icon mb-4 opacity-75">
@@ -221,10 +221,16 @@ export function GridSection({ title, items }: GridSectionProps) {
                       )}
                     </div>
 
-                    {/* Item title */}
-                    <h3 className="card-title text-lg font-semibold text-[#333333] drop-shadow-sm">
-                      {item.title}
-                    </h3>
+                    {/* Item title with contrast band for better readability */}
+                    <div className="relative mt-2 px-3 py-2 rounded" style={{
+                      background: "rgba(240, 235, 225, 0.75)",
+                      backdropFilter: "blur(3px)",
+                      boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
+                    }}>
+                      <h3 className="card-title text-lg font-semibold text-[#333333]">
+                        {item.title}
+                      </h3>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
