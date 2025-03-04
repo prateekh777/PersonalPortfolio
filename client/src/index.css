@@ -2,7 +2,7 @@
 /* Add highlight class styling */
 .highlight {
   font-weight: bold;
-  color: #0056b3;
+  color: #222222;
 }
 
 @tailwind base;

@@ -108,13 +108,13 @@ export function HobbiesCarousel() {
   };
 
   return (
-    <div className="w-full py-16 bg-neutral-50" style={{ background: 'rgba(150, 140, 120, 0.05)' }}>
+    <div className="w-full py-12 bg-neutral-50" style={{ background: 'rgba(150, 140, 120, 0.05)' }}>
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold mb-3 text-center" style={{ color: '#222222' }}>
+        <h2 className="text-2xl md:text-3xl font-bold mb-2 text-center text-[#222222]">
           Leisure & Recreation
         </h2>
-        <div className="max-w-2xl mx-auto mb-10 text-center">
-          <p className="text-lg text-neutral-600 mb-6">
+        <div className="max-w-2xl mx-auto mb-6 text-center">
+          <p className="text-sm text-[#222222] mb-4">
             Beyond the professional sphere, I find joy and balance in a variety of recreational activities 
             that fuel my creativity and keep me grounded. These pursuits provide fresh perspectives 
             that often translate back into my work and life philosophy.
@@ -145,15 +145,15 @@ export function HobbiesCarousel() {
                         }}
                       />
                       <div className="hobby-overlay">
-                        <h3 className="hobby-title">{hobby.title}</h3>
+                        <h3 className="hobby-title text-sm">{hobby.title}</h3>
                       </div>
                     </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden sm:flex left-4 hobby-carousel-button" />
-            <CarouselNext className="hidden sm:flex right-4 hobby-carousel-button" />
+            <CarouselPrevious className="hidden sm:flex left-3 hobby-carousel-button" />
+            <CarouselNext className="hidden sm:flex right-3 hobby-carousel-button" />
           </Carousel>
         </div>
       </div>
