@@ -1,6 +1,6 @@
 @keyframes orbit {
-  from { transform: rotate(0deg) translateX(180px) rotate(0deg); }
-  to { transform: rotate(360deg) translateX(180px) rotate(-360deg); }
+  from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
 }
 
 .orbit-circle {

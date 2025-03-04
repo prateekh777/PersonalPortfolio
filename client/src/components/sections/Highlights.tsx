@@ -10,21 +10,23 @@ const highlightsData: Record<Role, {
   points: string[];
 }> = {
   "tech-leader": {
-    image: "/images/tech-leader.jpg",
+    image: "public/assets/Cliamte Business.jpeg",
     points: [
-      "Led architectural decisions for enterprise-scale applications",
-      "Established technical standards and best practices",
-      "Mentored and grew technical teams",
-      "Drove innovation and technical excellence",
+      "Led initiatives to stabilize conversion rates during rapid scaling, refining engagement models and optimizing processes for sustained learner success.",
+      "Introduced scalable product structures in climate education, enhancing content delivery and facilitating successfully large group learner engagements in the DACH region.",
+      "Developed scalable workflows for partner acquisition and lesson delivery, increasing operational efficiency and managing millions of tutoring minutes.",
+      "Founded an online educational platform where 100% of students came through referrals, achieving 15% YoY growth and extended student engagement.",
+      "Designed an Energy Audit & Solutions Recommendation Engine, achieving significant energy savings and lighting up hundreds of homes annually.",
     ],
   },
   "people-manager": {
-    image: "/images/people-manager.jpg",
+    image: "public/assets/Sales done slack text.jpg",
     points: [
-      "Built and managed high-performing engineering teams",
-      "Developed career growth paths for team members",
-      "Implemented agile methodologies and processes",
-      "Fostered inclusive and collaborative team culture",
+      "Developed and implemented robust operational strategies that streamlined company workflows, significantly increasing efficiency and reducing costs by over 20%.",
+      "Fostered a team-oriented environment that encouraged innovation and collaborative problem-solving, leading to a 25% increase in project delivery efficiency.",
+      "Spearheaded the adoption of advanced digital tools and project management systems, enhancing team productivity and enabling real-time tracking of key performance indicators.",
+      "Initiated and led a company-wide change management program that successfully integrated agile methodologies, improving responsiveness and flexibility in operations.",
+      "Championed employee well-being and professional growth, resulting in a 15% improvement in employee retention rates and a highly engaged workforce.",
     ],
   },
   "individual-contributor": {
@@ -37,7 +39,7 @@ const highlightsData: Record<Role, {
     ],
   },
   "strategy-contributor": {
-    image: "/images/strategy-contributor.jpg",
+    image: "public/Interests/Startups/BC Video.mp4",
     points: [
       "Developed complex technical solutions",
       "Contributed to open-source projects",
