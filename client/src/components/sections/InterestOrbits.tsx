@@ -82,7 +82,7 @@ export function InterestOrbits() {
       </div>
       
       {/* Orbiting circles (using CSS animations for the orbiting effect) */}
-      <div className="absolute w-[500px] h-[500px] rounded-full border border-dashed border-[#7B7B7B]/30">
+      <div className="absolute w-[400px] h-[400px] rounded-full border border-dashed border-[#7B7B7B]/30">
         {/* Startups orbit */}
         <div className="orbit-circle" style={{ animation: 'orbit 20s linear infinite' }}>
           <div 
