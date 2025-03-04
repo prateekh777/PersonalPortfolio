@@ -35,6 +35,7 @@ export default function Contact() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [calendlyLoaded, setCalendlyLoaded] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   // Load Calendly widget script
   useEffect(() => {
@@ -45,10 +46,19 @@ export default function Contact() {
     
     document.body.appendChild(script);
     
+    // Load reCAPTCHA script
+    const recaptchaScript = document.createElement('script');
+    recaptchaScript.src = 'https://www.google.com/recaptcha/api.js';
+    recaptchaScript.async = true;
+    document.body.appendChild(recaptchaScript);
+    
     return () => {
-      // Cleanup function to remove the script when component unmounts
+      // Cleanup function to remove the scripts when component unmounts
       if (document.body.contains(script)) {
         document.body.removeChild(script);
+      }
+      if (document.body.contains(recaptchaScript)) {
+        document.body.removeChild(recaptchaScript);
       }
     };
   }, []);
@@ -65,13 +75,30 @@ export default function Contact() {
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     try {
+      // Get the reCAPTCHA token
+      // For test purposes, we'll use a simple approach - in production you'd want to use refs
+      const recaptchaToken = (window as any).grecaptcha?.getResponse() || '';
+      
+      if (!recaptchaToken) {
+        toast({
+          title: "Verification required",
+          description: "Please complete the reCAPTCHA verification before submitting.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+      
       // Send the data to our API endpoint
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          recaptchaToken
+        }),
       });
       
       const result = await response.json();
@@ -82,6 +109,14 @@ export default function Contact() {
           description: "Thanks for reaching out. I'll get back to you soon.",
         });
         form.reset();
+        // Reset reCAPTCHA
+        try {
+          (window as any).grecaptcha?.reset();
+        } catch (e) {
+          console.error("Error resetting reCAPTCHA:", e);
+        }
+        // Set submitted state to show success message
+        setFormSubmitted(true);
       } else {
         throw new Error(result.message || 'Failed to send message');
       }
@@ -111,58 +146,87 @@ export default function Contact() {
             </div>
           </CardHeader>
           <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder="your.email@example.com" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Message</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Your message"
-                          className="min-h-[150px]"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <div className="pt-4">
-                  <Button type="submit" className="w-full font-bold py-3" disabled={isSubmitting}>
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
+            {formSubmitted ? (
+              <div className="flex flex-col items-center justify-center py-10 space-y-4 text-center">
+                <div className="rounded-full bg-green-100 p-3 text-green-600">
+                  <Mail className="h-10 w-10" />
                 </div>
-              </form>
-            </Form>
+                <h3 className="text-2xl font-bold">Message sent!</h3>
+                <p className="text-muted-foreground max-w-md">
+                  Thank you for reaching out. I'll get back to you as soon as possible.
+                </p>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setFormSubmitted(false)} 
+                  className="mt-6"
+                >
+                  Send another message
+                </Button>
+              </div>
+            ) : (
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Your name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input placeholder="your.email@example.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Message</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Your message"
+                            className="min-h-[150px]"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  {/* Google reCAPTCHA */}
+                  <div className="flex justify-center my-4">
+                    <div className="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                  </div>
+                  
+                  <div className="pt-4">
+                    <Button 
+                      type="submit" 
+                      className="w-full font-bold py-6 text-lg bg-primary hover:bg-primary/90 text-white shadow-lg" 
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            )}
           </CardContent>
         </Card>
 
