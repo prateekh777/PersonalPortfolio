@@ -1,11 +1,9 @@
 
-/* Using the brand color scheme instead of highlight class */
-/* We'll keep this commented out for reference
+/* Add highlight class styling */
 .highlight {
   font-weight: bold;
-  color: #222222;
+  color: #0056b3;
 }
-*/
 
 @tailwind base;
 @tailwind components;
