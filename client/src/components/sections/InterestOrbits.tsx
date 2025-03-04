@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { LucideChevronLeft, LucideChevronRight } from 'lucide-react';
+import { LucideChevronLeft, LucideChevronRight, Play } from 'lucide-react';
 import './InterestOrbits.css';
 
 // Define interest category types
@@ -12,28 +12,29 @@ interface InterestItem {
   id: number;
   title: string;
   description: string;
-  imageUrl: string; 
+  mediaUrl: string; 
+  mediaType?: 'image' | 'video'; // Default is image if not specified
 }
 
 // Mock data for each category (will be replaced with API data later)
 const MOCK_INTERESTS: Record<InterestCategory, InterestItem[]> = {
   startups: [
-    { id: 1, title: 'Startup 1', description: 'Building innovative solutions', imageUrl: 'https://images.unsplash.com/photo-1661956602944-249bcd04b63f' },
-    { id: 2, title: 'Startup 2', description: 'Creating new opportunities', imageUrl: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd' },
-    { id: 3, title: 'Startup 3', description: 'Changing how we work', imageUrl: 'https://images.unsplash.com/photo-1551434678-e076c223a692' },
-    { id: 10, title: 'Startup 4', description: 'Exploring business models', imageUrl: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd' },
+    { id: 1, title: 'Startup 1', description: 'Building innovative solutions', mediaUrl: 'https://images.unsplash.com/photo-1661956602944-249bcd04b63f', mediaType: 'image' },
+    { id: 2, title: 'Startup 2', description: 'Creating new opportunities', mediaUrl: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd', mediaType: 'image' },
+    { id: 3, title: 'Startup Pitch', description: 'Elevator pitch example', mediaUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', mediaType: 'video' },
+    { id: 10, title: 'Co-working Space', description: 'Modern work environment', mediaUrl: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd', mediaType: 'image' },
   ],
   science: [
-    { id: 4, title: 'Physics', description: 'Understanding physical laws', imageUrl: 'https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa' },
-    { id: 5, title: 'Biology', description: 'Exploring living systems', imageUrl: 'https://images.unsplash.com/photo-1576086213369-97a306d36557' },
-    { id: 6, title: 'Technology', description: 'Advancing human capabilities', imageUrl: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158' },
-    { id: 11, title: 'Chemistry', description: 'Matter and its transformations', imageUrl: 'https://images.unsplash.com/photo-1581092335878-2d9ff86ca2bf' },
+    { id: 4, title: 'Physics', description: 'Understanding physical laws', mediaUrl: 'https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa', mediaType: 'image' },
+    { id: 5, title: 'Lab Experiment', description: 'Chemistry at work', mediaUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4', mediaType: 'video' },
+    { id: 6, title: 'Technology', description: 'Advancing human capabilities', mediaUrl: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158', mediaType: 'image' },
+    { id: 11, title: 'Chemistry', description: 'Matter and its transformations', mediaUrl: 'https://images.unsplash.com/photo-1581092335878-2d9ff86ca2bf', mediaType: 'image' },
   ],
   spirituality: [
-    { id: 7, title: 'Meditation', description: 'Finding inner peace', imageUrl: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773' },
-    { id: 8, title: 'Yoga', description: 'Balancing mind and body', imageUrl: 'https://images.unsplash.com/photo-1545389336-cf090694435e' },
-    { id: 9, title: 'Philosophy', description: 'Exploring meaning and purpose', imageUrl: 'https://images.unsplash.com/photo-1490730141103-6cac27aaab94' },
-    { id: 12, title: 'Nature', description: 'Connecting with the world', imageUrl: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f' },
+    { id: 7, title: 'Meditation', description: 'Finding inner peace', mediaUrl: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773', mediaType: 'image' },
+    { id: 8, title: 'Yoga', description: 'Balancing mind and body', mediaUrl: 'https://images.unsplash.com/photo-1545389336-cf090694435e', mediaType: 'image' },
+    { id: 9, title: 'Mindfulness Practice', description: 'Guided meditation session', mediaUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4', mediaType: 'video' },
+    { id: 12, title: 'Nature', description: 'Connecting with the world', mediaUrl: 'https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f', mediaType: 'image' },
   ],
 };
 
@@ -172,14 +173,30 @@ export function InterestOrbits() {
                   <div className="p-1">
                     <div className="bg-white rounded-lg overflow-hidden shadow-md p-3 h-full border border-[#7B7B7B]/10">
                       <div className="aspect-square w-full overflow-hidden rounded-md mb-3">
-                        <img 
-                          src={item.imageUrl} 
-                          alt={item.title}
-                          className="w-full h-full object-cover transition-all hover:scale-105"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = `https://via.placeholder.com/300?text=${item.title}`;
-                          }}
-                        />
+                        {item.mediaType === 'video' ? (
+                          <div className="video-container">
+                            <video 
+                              src={item.mediaUrl}
+                              className="w-full h-full object-cover"
+                              controls
+                              muted
+                              loop
+                              poster={`https://via.placeholder.com/300/222222/FFFFFF?text=${item.title}`}
+                            />
+                            <div className="play-indicator">
+                              <Play size={20} />
+                            </div>
+                          </div>
+                        ) : (
+                          <img 
+                            src={item.mediaUrl} 
+                            alt={item.title}
+                            className="w-full h-full object-cover transition-all hover:scale-105"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = `https://via.placeholder.com/300?text=${item.title}`;
+                            }}
+                          />
+                        )}
                       </div>
                       <div className="pt-2">
                         <h3 className="font-medium text-base mb-1" style={{ color: '#222222' }}>{item.title}</h3>
