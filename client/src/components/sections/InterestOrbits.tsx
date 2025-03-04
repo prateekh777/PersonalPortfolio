@@ -19,10 +19,12 @@ interface InterestItem {
 // Mock data for each category (will be replaced with API data later)
 const MOCK_INTERESTS: Record<InterestCategory, InterestItem[]> = {
   startups: [
-    { id: 1, title: 'Startup 1', description: 'Building innovative solutions', mediaUrl: 'https://images.unsplash.com/photo-1661956602944-249bcd04b63f', mediaType: 'image' },
-    { id: 2, title: 'Startup 2', description: 'Creating new opportunities', mediaUrl: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd', mediaType: 'image' },
-    { id: 3, title: 'Startup Pitch', description: 'Elevator pitch example', mediaUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', mediaType: 'video' },
-    { id: 10, title: 'Co-working Space', description: 'Modern work environment', mediaUrl: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd', mediaType: 'image' },
+    { id: 1, title: 'Awards Building Edtech', description: 'When you win it fully!', mediaUrl: 'public/Interests/Startups/BC Award_2.jpg', mediaType: 'image' },
+    { id: 2, title: 'Some more Edtech', description: 'Creating new opportunities', mediaUrl: 'public/Interests/Startups/BC Award.jpg', mediaType: 'image' },
+    { id: 3, title: 'Blitz scale it with passion', description: 'Speed matters', mediaUrl: 'public/Interests/Startups/BC Video.mp4', mediaType: 'video' },
+    { id: 10, title: 'Love it when you do it', description: 'Education for all', mediaUrl: 'public/Interests/Startups/Edoflip Speech.mp4', mediaType: 'video' },
+    { id: 13, title: 'For the Climate', description: 'For everyones Future', mediaUrl: 'public/Interests/Startups/Public Speaking Greetude.jpg', mediaType: 'image' },
+    { id: 14, title: 'Helping Startup Ecosystem', description: 'Learn and share at the same time', mediaUrl: 'public/Interests/Startups/Startup India Prateek.jpg', mediaType: 'image' },
   ],
   science: [
     { id: 4, title: 'Chemistry at Play', description: 'On Stage for Kids', mediaUrl: 'public/Interests/Science/Prateek%20Chemistry.jpg', mediaType: 'image' },
