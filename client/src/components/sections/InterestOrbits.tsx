@@ -241,7 +241,6 @@ export function InterestOrbits() {
           </Carousel>
         </DialogContent>
       </Dialog>
-      </div>
     </div>
   );
 }
