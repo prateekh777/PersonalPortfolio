@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { type Interest } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
 import { InterestOrbits } from "@/components/sections/InterestOrbits";
+import { HobbiesCarousel } from "@/components/sections/HobbiesCarousel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Interests() {
@@ -30,8 +31,10 @@ export default function Interests() {
         <InterestOrbits />
       </section>
       
-      {/* Second Section will be added later */}
-      <div className="h-12"></div>
+      {/* Second Section: Hobbies Carousel */}
+      <section className="mb-16">
+        <HobbiesCarousel />
+      </section>
     </div>
   );
 }
