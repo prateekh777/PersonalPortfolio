@@ -25,10 +25,10 @@ const MOCK_INTERESTS: Record<InterestCategory, InterestItem[]> = {
     { id: 10, title: 'Co-working Space', description: 'Modern work environment', mediaUrl: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd', mediaType: 'image' },
   ],
   science: [
-    { id: 4, title: 'Physics', description: 'Understanding physical laws', mediaUrl: 'https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa', mediaType: 'image' },
-    { id: 5, title: 'Lab Experiment', description: 'Chemistry at work', mediaUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4', mediaType: 'video' },
-    { id: 6, title: 'Technology', description: 'Advancing human capabilities', mediaUrl: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158', mediaType: 'image' },
-    { id: 11, title: 'Chemistry', description: 'Matter and its transformations', mediaUrl: 'https://images.unsplash.com/photo-1581092335878-2d9ff86ca2bf', mediaType: 'image' },
+    { id: 4, title: 'Chemistry at Play', description: 'On Stage for Kids', mediaUrl: 'public/Interests/Science/Prateek%20Chemistry.jpg', mediaType: 'image' },
+    { id: 5, title: 'Observations evaluated', description: 'The WoW effect!', mediaUrl: 'public/Interests/Science/Prateek Teaching.mp4', mediaType: 'video' },
+    { id: 6, title: 'Planets and Planeteriums!', description: 'Always wondered about the larger universe!', mediaUrl: 'public/Interests/Science/Speaker KPS.jpg', mediaType: 'image' },
+    { id: 11, title: 'How to Wonder', description: 'Matter and its transformations', mediaUrl: 'https://images.unsplash.com/photo-1581092335878-2d9ff86ca2bf', mediaType: 'image' },
   ],
   spirituality: [
     { id: 7, title: 'Meditation', description: 'Finding inner peace', mediaUrl: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773', mediaType: 'image' },
