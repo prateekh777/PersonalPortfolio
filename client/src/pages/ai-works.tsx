@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Brain, ExternalLinkIcon } from "lucide-react";
+import { ExternalLink, Brain } from "lucide-react";
 
 // Project-specific color palette - precisely matching requirements
 const COLORS = {
@@ -75,10 +75,12 @@ export default function AiWorks() {
       style={{ backgroundColor: COLORS.background }}
     >
       <div className="max-w-6xl mx-auto space-y-12">
-        <div className="flex flex-col md:flex-row items-center gap-4 mb-8">
+        <div className="flex flex-col md:flex-row items-center gap-4 mb-8 ai-card-enter">
           <Brain className="h-12 w-12" style={{ color: COLORS.primary }} />
           <div>
-            <h1 className="text-5xl font-bold" style={{ color: COLORS.primary }}>AI Works</h1>
+            <h1 className="text-5xl font-bold relative overflow-hidden ai-title-shimmer" style={{ color: COLORS.primary }}>
+              AI Works
+            </h1>
             <p className="text-lg mt-2" style={{ color: COLORS.secondary }}>
               A collection of my projects exploring the intersection of AI and everyday problems
             </p>
@@ -157,15 +159,16 @@ export default function AiWorks() {
                     {work.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mt-4">
-                    {work.technologies.map((tech) => (
+                    {work.technologies.map((tech, techIndex) => (
                       <Badge 
                         key={tech} 
                         variant="outline" 
-                        className="transition-colors duration-300"
+                        className={`transition-colors duration-300 ${activeCard === index ? 'tech-badge-pop' : ''}`}
                         style={{ 
                           backgroundColor: activeCard === index ? COLORS.primary : COLORS.tertiary, 
                           color: activeCard === index ? COLORS.white : COLORS.primary,
-                          borderColor: COLORS.primary 
+                          borderColor: COLORS.primary,
+                          animationDelay: `${techIndex * 50}ms`
                         }}
                       >
                         {tech}
