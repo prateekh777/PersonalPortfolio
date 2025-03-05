@@ -106,26 +106,36 @@ export function GridSection({ title, items }: GridSectionProps) {
                 onKeyDown={(e) => e.key === 'Enter' && setLocation(itemLink)}
               >
                 <Card
-                  className="group relative overflow-hidden transition-all duration-300 hover:shadow-xl rounded-xl"
+                  className="group relative overflow-hidden transition-all duration-500 hover:shadow-2xl rounded-2xl backdrop-blur-sm transform hover:-translate-y-1 hover:scale-[1.02]"
                   style={{ 
-                    border: "1px solid rgba(255,255,255,0.15)"
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    boxShadow: "0 10px 30px -15px rgba(0,0,0,0.3)"
                   }}
                 >
-                  {/* Color gradient cards */}
+                  {/* Color gradient cards with enhanced effects */}
                   <div 
-                    className="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105"
+                    className="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105 backdrop-blur-[5px]"
                     style={{
                       backgroundImage: `url(/images/gradients/${getGradientCardForItem(item.title)})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
+                      filter: "blur(1px)",
+                    }}
+                  />
+                  {/* Additional gradient blur overlay */}
+                  <div 
+                    className="absolute inset-0 z-0 opacity-70 mix-blend-overlay"
+                    style={{
+                      backgroundImage: "linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(0,0,0,0.4))",
+                      borderRadius: "1rem",
                     }}
                   />
                   
-                  {/* Elegant content layout */}
-                  <CardContent className="grid-card-content relative z-10 flex min-h-[220px] flex-col items-center justify-end p-6 text-center transition-all duration-300">
-                    {/* Floating icon with elegant styling */}
+                  {/* Elegant content layout with enhanced styling */}
+                  <CardContent className="grid-card-content relative z-10 flex min-h-[220px] flex-col items-center justify-end p-6 text-center transition-all duration-300 backdrop-blur-sm bg-gradient-to-b from-transparent via-transparent to-black/30">
+                    {/* Floating icon with enhanced elegant styling */}
                     <div 
-                      className="card-icon absolute top-6 left-1/2 -translate-x-1/2 mb-4 rounded-full bg-white/90 p-4 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl"
+                      className="card-icon absolute top-6 left-1/2 -translate-x-1/2 mb-4 rounded-full bg-white/95 p-4 shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:shadow-xl backdrop-blur-md"
                     >
                       {item.title.includes("Skills") && (
                         <svg
@@ -249,17 +259,17 @@ export function GridSection({ title, items }: GridSectionProps) {
                       )}
                     </div>
 
-                    {/* Clean, elegant title presentation */}
-                    <div className="transform transition-all duration-300 group-hover:translate-y-[-8px]">
-                      <h3 className="text-xl font-medium text-white">
+                    {/* Enhanced elegant title presentation with glass effect */}
+                    <div className="transform transition-all duration-300 group-hover:translate-y-[-8px] backdrop-blur-sm bg-black/20 p-3 rounded-xl border border-white/10">
+                      <h3 className="text-xl font-bold text-white drop-shadow-md">
                         {item.title}
                       </h3>
                       {item.subtitle && (
-                        <p className="text-sm font-medium text-white mt-1 max-w-[90%] mx-auto bg-black/40 px-2 py-1 rounded backdrop-blur-sm">
+                        <p className="text-sm font-medium text-white mt-1 max-w-[95%] mx-auto px-2 py-1 rounded-lg backdrop-blur-md bg-white/10">
                           {item.subtitle}
                         </p>
                       )}
-                      <div className="mt-2 mx-auto h-[2px] w-16 bg-white/50 transition-all duration-300 group-hover:w-24 group-hover:bg-white/80"></div>
+                      <div className="mt-2 mx-auto h-[2px] w-16 bg-white/70 transition-all duration-300 group-hover:w-24 group-hover:bg-white"></div>
                     </div>
                   </CardContent>
                 </Card>
