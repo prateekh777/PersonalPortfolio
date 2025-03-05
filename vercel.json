@@ -2,7 +2,8 @@
   "build": {
     "env": {
       "NPM_CONFIG_UPDATE_NOTIFIER": "false",
-      "src": "client/dist/**"
+      "src": "client/dist/**", "use": "@vercel/static",
+      "src": "server/index.ts", "use": "@vercel/node"
     }
   },
   "rewrites": [
@@ -10,5 +11,9 @@
       "source": "/:path*",
       "destination": "/index.html"
     }
+  ],
+  "routes": [
+    { "src": "/api/.*", "dest": "/server/index.ts" }, // API calls handled by backend
+    { "src": "/(.*)", "dest": "/client/dist/$1" } // Static React app served
   ]
 }
