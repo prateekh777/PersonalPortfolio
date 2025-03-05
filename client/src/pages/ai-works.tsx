@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Brain, ChevronRight, X } from "lucide-react";
+import { ExternalLink, Brain, ChevronRight, X, Lightbulb, MessageSquare } from "lucide-react";
 
 // Project-specific color palette - precisely matching requirements
 const COLORS = {
@@ -23,6 +23,8 @@ const COLORS = {
 
 export default function AiWorks() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const bannerRef = useRef<HTMLDivElement | null>(null);
+  const collaborateBannerRef = useRef<HTMLDivElement | null>(null);
   const [activeCard, setActiveCard] = useState<number | null>(null);
   const [selectedProject, setSelectedProject] = useState<AiWork | null>(null);
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
@@ -55,10 +57,22 @@ export default function AiWorks() {
       }
     });
     
+    // Observe banner elements
+    if (bannerRef.current) {
+      observer.observe(bannerRef.current);
+    }
+    
+    if (collaborateBannerRef.current) {
+      observer.observe(collaborateBannerRef.current);
+    }
+    
     return () => {
       cardsRef.current.forEach(card => {
         if (card) observer.unobserve(card);
       });
+      
+      if (bannerRef.current) observer.unobserve(bannerRef.current);
+      if (collaborateBannerRef.current) observer.unobserve(collaborateBannerRef.current);
     };
   }, []);
 
@@ -117,6 +131,28 @@ export default function AiWorks() {
             <p className="text-lg mt-2" style={{ color: COLORS.secondary }}>
               A collection of my projects exploring the intersection of AI and everyday problems
             </p>
+          </div>
+        </div>
+        
+        {/* AI Projects Introduction Banner */}
+        <div 
+          ref={bannerRef}
+          className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl p-6 md:p-8 opacity-0 transition-all duration-1000 ease-out"
+          style={{ transform: 'translateY(30px)' }}
+        >
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+            <div className="p-3 rounded-full bg-white/10">
+              <Lightbulb className="h-8 w-8 text-yellow-400" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-2">From Ideas to Real-World AI Solutions</h2>
+              <p className="text-gray-300">
+                These projects represent my journey through practical AI applications. Each one began with a specific 
+                challenge—often encountered in everyday life—that I solved using AI and programming. My approach 
+                focuses on creating accessible, efficient tools that solve real problems, not just technical 
+                exercises.
+              </p>
+            </div>
           </div>
         </div>
         
@@ -240,6 +276,41 @@ export default function AiWorks() {
               </Card>
             </div>
           ))}
+        </div>
+        
+        {/* Collaboration Banner */}
+        <div 
+          ref={collaborateBannerRef}
+          className="mt-16 bg-gradient-to-r from-indigo-600 to-indigo-800 rounded-xl p-6 md:p-8 opacity-0 transition-all duration-1000 ease-out"
+          style={{ transform: 'translateY(30px)' }}
+        >
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+            <div className="p-4 rounded-full bg-white/10">
+              <MessageSquare className="h-10 w-10 text-white" />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold text-white mb-2">Let's Collaborate on AI Projects</h2>
+              <p className="text-indigo-100 mb-4">
+                Have an interesting AI challenge or problem? I'm always looking to collaborate on projects 
+                that push the boundaries of what's possible with AI technology. Whether you're a business 
+                looking to innovate or a fellow developer with a creative idea, I'd love to hear from you.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a href="/contact">
+                  <Button
+                    className="transition-all duration-300 hover:translate-y-[-2px]"
+                    style={{ 
+                      backgroundColor: 'white',
+                      color: COLORS.primary,
+                      borderColor: 'white',
+                    }}
+                  >
+                    Get in Touch
+                  </Button>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
