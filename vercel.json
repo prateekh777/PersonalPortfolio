@@ -3,5 +3,11 @@
     "env": {
       "NPM_CONFIG_UPDATE_NOTIFIER": "false"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
+  ]
 }
