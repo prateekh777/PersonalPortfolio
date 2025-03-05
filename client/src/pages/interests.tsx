@@ -3,7 +3,7 @@ import { type Interest } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
 import { InterestOrbits } from "@/components/sections/InterestOrbits";
 import { HobbiesCarousel } from "@/components/sections/HobbiesCarousel";
-import { InterestsFlow } from "@/components/sections/InterestsFlow";
+import { InterestsVideoFlow } from "@/components/sections/InterestsVideoFlow";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Interests() {
@@ -36,9 +36,9 @@ export default function Interests() {
             &mdash;three seemingly different worlds that, to me, are deeply interconnected.
           </p>
           
-          {/* Interactive Flow Visualization */}
+          {/* Interactive Video Flow Visualization */}
           <div className="mb-10">
-            <InterestsFlow />
+            <InterestsVideoFlow />
           </div>
           
           {/* Detailed Sections */}
