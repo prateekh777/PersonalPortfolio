@@ -4,6 +4,7 @@ import { setupVite, log, serveStatic } from "./vite";
 import path from "path";
 import fs from "fs";
 import { registerRoutes } from "./routes";
+import { initData } from "./init-data";
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,9 @@ app.use(express.urlencoded({ extended: false }));
 
   // Register API routes
   await registerRoutes(app);
+  
+  // Initialize data
+  await initData();
 
   // Use Vite for development
   if (app.get("env") === "development") {
@@ -25,7 +29,7 @@ app.use(express.urlencoded({ extended: false }));
   }
 
   // ALWAYS serve the app on port 5000
-  const PORT = process.env.PORT || 5000;
+  const PORT = parseInt(process.env.PORT || "5000", 10);
   server.listen(PORT, "0.0.0.0", () => {
     log(`Server running at http://0.0.0.0:${PORT}`);
   });

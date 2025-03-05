@@ -1,0 +1,37 @@
+1. AI Screen Reader: A Real-Time Voice Tutor
+Sub-title: A screen reader that not only reads but also teaches and interacts in real time.
+What the solution was for: I envisioned a tool that could transform passive screen consumption into an active learning experience. Inspired by Google AI Studio, I built an AI screen reader that analyzes text on a screen, explains its content, and engages in interactive discussions with the user.
+How it could create an impact: This solution has the potential to help students, researchers, and professionals who need real-time contextual learning without switching tabs or looking up additional resources. Using OpenAI's Whisper for voice recognition and GPT-based models for analysis, I created a seamless experience where users could highlight text and get an explanation in a human-like voice. While still in its early stages, it could be particularly useful for individuals with visual impairments or reading difficulties, improving accessibility and learning efficiency.
+
+2. Flashcards for Spelling Bee: A Niece’s Overnight Hack
+Sub-title: When my niece needed a study tool, I built one overnight.
+What the solution was for: My niece had just qualified for the next round of a Spelling Bee competition. She needed a quick and efficient way to memorize hundreds of words but struggled with traditional methods. That night, I wrote a Python script that converted word lists into Anki flashcards, complete with pronunciation and example sentences.
+How it could create an impact: What started as a quick fix for my niece could be useful for other students preparing for competitive exams. Using Python, Pandas for text manipulation, and Anki’s API, I automated the entire process. With a single command, users can turn any word list into an interactive flashcard deck, ensuring spaced repetition and better retention. It showcases how simple automation can improve learning efficiency.
+
+3. Automated Work Logging with AI
+Sub-title: Screenshots, AI analysis, and smart documentation in one flow.
+What the solution was for: Every day, we spend hours working on projects but rarely document them efficiently. I built an AI-driven automation tool that takes periodic screenshots, feeds them into ChatGPT for contextual analysis, and allows users to add prompts for insights—all in a single step.
+How it could create an impact: This tool has the potential to be helpful for freelancers, consultants, and knowledge workers who want to keep better records of their work. Using Python, OpenCV for screenshots, and OpenAI’s API for text analysis, it structures work effortlessly. It could streamline productivity and simplify reporting. It has been very useful for me, since I can now get to the prompt with a single hotkey!
+
+4. Building a Website in 40 Hours for $30 with AI
+Sub-title: AI-powered coding made website building accessible and rapid.
+What the solution was for: I wanted to test how far AI tools could go in helping non-developers build a functional, professional website. My challenge was to create a fully operational site from scratch in under 40 hours while spending no more than $30.
+How it could create an impact: This experiment showed that AI-assisted coding tools like Replit and ChatGPT could significantly speed up web development. By using Vercel’s free tier, leveraging OpenAI’s API for content, and employing a minimalistic Bootstrap framework for styling, I was able to launch a functional site quickly. It highlights how AI can lower the barriers to entry for website creation. This is one of my favourites when it comes to design.
+
+5. Omi Apps: Capturing Memories with Voice Transcription
+Sub-title: An app that turns your voice into retrievable memories.
+What the solution was for: In a world where we take thousands of photos but forget key moments, I wanted a way to record fleeting thoughts, experiences, and insights effortlessly. I developed an AI-powered voice recording app that transcribes and categorizes memories for later retrieval.
+How it could create an impact: Using Whisper for accurate speech-to-text conversion and a custom-built tagging system, users can record thoughts hands-free and later search them by keywords. This tool could help people structure and retrieve their memories more effectively, making journaling and note-taking more intuitive. It has increased my productivity and retention immensely!
+
+6. AI-Assisted Code Editing & Component Isolation in Development
+Sub-title: A methodology for efficient AI-driven app development.
+What the solution was for: AI-assisted coding is powerful but often chaotic. I needed a way to ensure modular development where AI-generated components don’t interfere with each other.
+How it could create an impact: By designing a structured workflow where components are developed and validated independently before integration, I was able to build AI apps more efficiently. This approach, implemented through GitHub Copilot and structured prompts in OpenAI’s API, could make AI-assisted coding more maintainable. It’s an evolving process, but it provides a useful framework for handling AI-generated code effectively.
+
+7. Interactive AI Voice Agent for Live Video Analysis
+Sub-title: An AI-driven assistant that understands what you see and speaks to you in real time.
+What the solution was for: Inspired by real-time streaming analytics, I built a voice AI assistant that can analyze a video feed and provide contextual information on the fly. The goal was to enhance remote learning and research workflows by making visual content interactive.
+How it could create an impact: This tool uses OpenCV for video capture, Whisper for speech input, and GPT-based models for real-time context extraction. It allows users to ask questions about what they’re watching—whether a tutorial, a sports game, or a research presentation—and receive AI-generated insights. While still experimental, it hints at new possibilities for AI-driven education and accessibility tools.
+
+Each of these projects started as an idea to solve a specific problem, and while they are still in their early stages, they demonstrate how AI can be leveraged for practical, innovative solutions. As they evolve and get tested in real-world scenarios, their true impact will become clearer.
+ 

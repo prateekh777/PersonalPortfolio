@@ -5,31 +5,37 @@ import { GridSection } from "@/components/sections/GridSection";
 const gridItems = [
   {
     title: "Skills Honed, Stories Told - My Journey",
+    subtitle: "Explore my professional development and expertise",
     icon: "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=800&auto=format&fit=crop",
     // Professional skills theme - laptop with code
   },
   {
     title: "Turning Puzzles into Pathways",
+    subtitle: "Discover how I approach complex challenges",
     icon: "https://images.unsplash.com/photo-1506784365847-bbad939e9335?q=80&w=800&auto=format&fit=crop",
     // Problem-solving theme - puzzle pieces
   },
   {
     title: "Things I've built Creations That Speak, Solutions That Sing",
+    subtitle: "Browse my portfolio of creative works and projects",
     icon: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=800&auto=format&fit=crop",
     // Builder theme - architectural model or structure
   },
   {
     title: "Where AI Meets Soul - Let's Explore Together",
+    subtitle: "Examine the intersection of technology and humanity",
     icon: "https://images.unsplash.com/photo-1655720031554-a929595ffad7?q=80&w=800&auto=format&fit=crop",
     // AI theme - abstract digital connections
   },
   {
     title: "Conversations Open Doors - Let's Talk",
+    subtitle: "Connect with me through various communication channels",
     icon: "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?q=80&w=800&auto=format&fit=crop",
     // Communication theme - speech bubbles or conversation
   },
   {
     title: "The Universe is Speaking—Here's How I Listen",
+    subtitle: "Learn about my personal interests and inspirations",
     icon: "https://images.unsplash.com/photo-1534447677768-be436bb09401?q=80&w=800&auto=format&fit=crop",
     // Interests theme - nature, cosmos, exploration
   },

@@ -37,6 +37,7 @@ export const aiWorks = pgTable("ai_works", {
   title: text("title").notNull(),
   description: text("description").notNull(),
   imageUrl: text("image_url"),
+  mediaType: text("media_type").default("image"),
   demoUrl: text("demo_url"),
   technologies: json("technologies").$type<string[]>().default([]),
 });

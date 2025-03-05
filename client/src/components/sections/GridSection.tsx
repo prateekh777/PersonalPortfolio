@@ -5,6 +5,7 @@ import { useLocation } from "wouter";
 // Defining the structure of a single grid item
 interface GridItem {
   title: string;
+  subtitle?: string; // Optional subtitle property
   icon: string;
   link?: string; // Optional link property
 }
@@ -228,6 +229,11 @@ export function GridSection({ title, items }: GridSectionProps) {
                       <h3 className="text-xl font-medium text-white">
                         {item.title}
                       </h3>
+                      {item.subtitle && (
+                        <p className="text-sm font-medium text-white mt-1 max-w-[90%] mx-auto bg-black/40 px-2 py-1 rounded backdrop-blur-sm">
+                          {item.subtitle}
+                        </p>
+                      )}
                       <div className="mt-2 mx-auto h-[2px] w-16 bg-white/50 transition-all duration-300 group-hover:w-24 group-hover:bg-white/80"></div>
                     </div>
                   </CardContent>

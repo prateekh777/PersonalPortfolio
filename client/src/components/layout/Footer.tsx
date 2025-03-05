@@ -1,15 +1,22 @@
 import { Link } from "wouter";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Linkedin, Twitter, Instagram, Facebook, Globe, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
   return (
     <footer className="sticky top-[100vh] w-full border-t bg-background/80 backdrop-blur-sm supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 max-w-screen-xl items-center justify-between px-4">
-        <div className="flex items-center space-x-4">
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Portfolio. All rights reserved.
+      <div className="container flex flex-col md:flex-row h-auto py-4 md:h-20 max-w-screen-xl items-center justify-between px-4">
+        <div className="flex flex-col md:flex-row items-center md:space-x-4 mb-4 md:mb-0">
+          <p className="text-sm text-muted-foreground mb-2 md:mb-0">
+            © {new Date().getFullYear()} Prateek Hakay. All rights reserved.
           </p>
+          <div className="flex items-center space-x-4">
+            <a href="https://prateekhakay.com" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors">
+              <Globe className="h-3 w-3" />
+              <span>prateekhakay.com</span>
+            </a>
+            <span className="text-sm text-muted-foreground">Berlin, Germany</span>
+          </div>
         </div>
 
         <div className="flex items-center space-x-4">
@@ -17,32 +24,57 @@ export function Footer() {
           <div className="flex items-center space-x-2">
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://github.com"
+                href="https://github.com/prateekh777"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
+                className="text-gray-800 hover:text-gray-600 dark:text-gray-200 dark:hover:text-gray-400"
               >
                 <Github className="h-5 w-5" />
               </a>
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://linkedin.com"
+                href="https://twitter.com/Prateek_Hakay"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+                className="text-[#1DA1F2] hover:text-[#1DA1F2]/80"
+              >
+                <Twitter className="h-5 w-5" />
+              </a>
+            </Button>
+            <Button variant="ghost" size="icon" asChild>
+              <a
+                href="https://www.instagram.com/prateekhakay"
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="text-[#E4405F] hover:text-[#E4405F]/80"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+            </Button>
+            <Button variant="ghost" size="icon" asChild>
+              <a
+                href="https://www.linkedin.com/in/pratikhakay/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
+                className="text-[#0A66C2] hover:text-[#0A66C2]/80"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://twitter.com"
+                href="https://www.facebook.com/prateek.hakay/"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Twitter"
+                aria-label="Facebook"
+                className="text-[#1877F2] hover:text-[#1877F2]/80"
               >
-                <Twitter className="h-5 w-5" />
+                <Facebook className="h-5 w-5" />
               </a>
             </Button>
           </div>
