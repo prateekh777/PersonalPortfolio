@@ -125,7 +125,7 @@ export default function AiWorks() {
                         color: COLORS.white,
                         borderColor: COLORS.primary 
                       }}
-                      onClick={() => window.open(work.demoUrl, "_blank")}
+                      onClick={() => work.demoUrl && window.open(work.demoUrl as string, "_blank")}
                     >
                       <ExternalLink className="mr-2 h-4 w-4" />
                       View Demo

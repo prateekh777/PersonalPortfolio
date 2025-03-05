@@ -34,11 +34,14 @@ function Router() {
 }
 
 function App() {
+  // Check if the current page is AI Works (needs fullwidth layout)
+  const isAiWorksPage = window.location.pathname === "/ai-works";
+  
   return (
     <QueryClientProvider client={queryClient}>
       <div className="relative min-h-screen">
         <Header />
-        <main className="container mx-auto px-4 py-8">
+        <main className={isAiWorksPage ? "" : "container mx-auto px-4 py-8"}>
           <Router />
         </main>
         <Footer />
