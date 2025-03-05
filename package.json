@@ -109,6 +109,6 @@
   "npm": "10.x"
   },
   "scripts": {
-  "build": "node -v && npm -v"
+  "build": "export NPM_CONFIG_UPDATE_NOTIFIER=false && react-scripts build"
   }
 }
