@@ -48,7 +48,8 @@ export function InterestsVideoFlow() {
   if (isSmallScreen) {
     return (
       <div className="w-full py-6 px-4">
-        <div className="relative w-full aspect-video mb-6 rounded-lg overflow-hidden">
+        {/* The main video section */}
+        <div className="relative w-full h-[250px] mb-6 rounded-lg overflow-hidden">
           {/* Static gradient background fallback - always visible */}
           <div className="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/30 to-green-900/30 z-0"></div>
           
@@ -72,22 +73,32 @@ export function InterestsVideoFlow() {
               </div>
             </div>
           )}
+          
+          {/* Simple overlay for the video */}
+          <div className="absolute bottom-2 left-0 right-0 text-center z-20">
+            <p className="text-white/90 text-xs italic">
+              "Spirituality → Science → Startups"
+            </p>
+          </div>
         </div>
 
-        <div className="space-y-4">
+        {/* Three small cards below */}
+        <div className="flex flex-wrap gap-2 justify-center">
           {Object.entries(sections).map(([key, section]) => (
             <motion.div
               key={key}
-              className="rounded-lg p-4 transition-all cursor-pointer"
+              className="rounded-lg p-2 transition-all cursor-pointer"
               style={{ 
                 backgroundColor: section.color,
-                borderLeft: `3px solid ${section.borderColor}`
+                borderLeft: `3px solid ${section.borderColor}`,
+                width: 'calc(33% - 8px)',
+                minWidth: '90px'
               }}
               onClick={() => setActiveSection(activeSection === key as any ? null : key as any)}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <h3 className="font-semibold" style={{ color: section.textColor }}>{section.title}</h3>
+              <h3 className="font-semibold text-xs" style={{ color: section.textColor }}>{section.title}</h3>
               
               <AnimatePresence>
                 {activeSection === key && (
@@ -96,7 +107,7 @@ export function InterestsVideoFlow() {
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-sm mt-2 overflow-hidden"
+                    className="text-xs mt-1 overflow-hidden"
                   >
                     {section.description}
                   </motion.p>
@@ -109,13 +120,11 @@ export function InterestsVideoFlow() {
     );
   }
 
-  // Desktop version with larger video and flowing text overlays
+  // Desktop version with large video and small cards below
   return (
-    <div className="w-full h-[580px] relative overflow-hidden rounded-xl">
-      {/* Main background with optimized video loading */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 to-black/10 z-10" />
-        
+    <div className="w-full flex flex-col items-center space-y-6">
+      {/* Large video section */}
+      <div className="w-full h-[400px] relative overflow-hidden rounded-xl">
         {/* Static gradient background fallback - always visible */}
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-green-900/20"></div>
         
@@ -134,211 +143,156 @@ export function InterestsVideoFlow() {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center text-gray-400 bg-black/20 p-4 rounded-lg backdrop-blur-sm">
               <p>Video visualization unavailable</p>
-              <p className="text-xs mt-1">Interactive panels still available</p>
+              <p className="text-xs mt-1">Interactive cards available below</p>
             </div>
           </div>
         )}
-      </div>
-      
-      {/* Title Overlay */}
-      <motion.div 
-        className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 text-center"
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7 }}
-      >
-        <h2 className="text-white text-2xl font-bold mb-1">The Synthesis of Inner and Outer Worlds</h2>
-        <p className="text-white/80 text-sm">Click on each element to explore the connection</p>
-      </motion.div>
-      
-      {/* Interactive panels */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full max-w-screen-lg px-4">
-          {/* Spirituality */}
-          <motion.div
-            className="bg-white/90 backdrop-blur-sm rounded-xl p-5 shadow-lg cursor-pointer"
-            style={{ 
-              borderTop: activeSection === 'spirituality' ? '4px solid rgb(142, 68, 173)' : '4px solid transparent',
-              transform: activeSection === 'spirituality' ? 'translateY(-8px)' : 'translateY(0)'
-            }}
-            whileHover={{ y: -5 }}
-            onClick={() => setActiveSection(activeSection === 'spirituality' ? null : 'spirituality')}
-            transition={{ duration: 0.3 }}
-          >
-            <h3 className="text-xl font-bold mb-2" style={{ color: 'rgb(142, 68, 173)' }}>Spirituality</h3>
-            <p className="text-sm text-gray-700">
-              Gives purpose and <span className="font-semibold">inner strength</span>, forming the foundation of authentic growth. 
-              It's the inner world where consciousness expands and resilience is found.
-            </p>
-            
-            {/* Flow indicator */}
-            <motion.div 
-              className="w-full flex justify-end mt-3" 
-              animate={{ 
-                x: activeSection === 'spirituality' ? [0, 10, 0] : 0
-              }}
-              transition={{ repeat: activeSection === 'spirituality' ? Infinity : 0, duration: 1.5 }}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="rgb(142, 68, 173)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </motion.div>
-          </motion.div>
-          
-          {/* Science */}
-          <motion.div
-            className="bg-white/90 backdrop-blur-sm rounded-xl p-5 shadow-lg cursor-pointer"
-            style={{ 
-              borderTop: activeSection === 'science' ? '4px solid rgb(52, 152, 219)' : '4px solid transparent',
-              transform: activeSection === 'science' ? 'translateY(-8px)' : 'translateY(0)'
-            }}
-            whileHover={{ y: -5 }}
-            onClick={() => setActiveSection(activeSection === 'science' ? null : 'science')}
-            transition={{ duration: 0.3 }}
-          >
-            <h3 className="text-xl font-bold mb-2" style={{ color: 'rgb(52, 152, 219)' }}>Science</h3>
-            <p className="text-sm text-gray-700">
-              Corroborates the strength, <span className="font-semibold">validates it and supports it</span>. 
-              Through analysis and discovery, inner wisdom finds its outer expression.
-            </p>
-            
-            {/* Flow indicator */}
-            <motion.div 
-              className="w-full flex justify-end mt-3" 
-              animate={{ 
-                x: activeSection === 'science' ? [0, 10, 0] : 0
-              }}
-              transition={{ repeat: activeSection === 'science' ? Infinity : 0, duration: 1.5 }}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="rgb(52, 152, 219)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </motion.div>
-          </motion.div>
-          
-          {/* Startups/Impact */}
-          <motion.div
-            className="bg-white/90 backdrop-blur-sm rounded-xl p-5 shadow-lg cursor-pointer"
-            style={{ 
-              borderTop: activeSection === 'startups' ? '4px solid rgb(46, 204, 113)' : '4px solid transparent',
-              transform: activeSection === 'startups' ? 'translateY(-8px)' : 'translateY(0)'
-            }}
-            whileHover={{ y: -5 }}
-            onClick={() => setActiveSection(activeSection === 'startups' ? null : 'startups')}
-            transition={{ duration: 0.3 }}
-          >
-            <h3 className="text-xl font-bold mb-2" style={{ color: 'rgb(46, 204, 113)' }}>Impact Through Startups</h3>
-            <p className="text-sm text-gray-700">
-              The <span className="font-semibold">actualization of the deep synthesis</span> of Science and Spirituality 
-              leads to the expression of beauty. When inner and outer worlds combine, we produce meaningful impact.
-            </p>
-            
-            {/* Final result indicator */}
-            <motion.div 
-              className="w-full flex justify-center mt-3" 
-              animate={{ scale: activeSection === 'startups' ? [1, 1.1, 1] : 1 }}
-              transition={{ repeat: activeSection === 'startups' ? Infinity : 0, duration: 1.5 }}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="rgb(46, 204, 113)" fillOpacity="0.5" stroke="rgb(46, 204, 113)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </motion.div>
-          </motion.div>
+        
+        {/* Title Overlay */}
+        <motion.div 
+          className="absolute top-4 left-1/2 transform -translate-x-1/2 z-20 text-center"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2 className="text-white text-2xl font-bold mb-1">The Synthesis of Inner and Outer Worlds</h2>
+          <p className="text-white/80 text-sm">A visual journey through interconnected dimensions</p>
+        </motion.div>
+        
+        {/* Footer text */}
+        <div className="absolute bottom-4 left-0 right-0 text-center z-20">
+          <p className="text-white/90 text-sm italic">
+            "The synthesis of inner wisdom and scientific approach creates meaningful impact through entrepreneurship."
+          </p>
         </div>
       </div>
       
-      {/* Flow animation overlays */}
+      {/* Three small cards in a row */}
+      <div className="flex justify-center gap-6 w-full max-w-screen-lg px-4">
+        {/* Spirituality */}
+        <motion.div
+          className="bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-md cursor-pointer hover:shadow-lg"
+          style={{ 
+            borderTop: '3px solid rgb(142, 68, 173)',
+            maxWidth: '250px'
+          }}
+          whileHover={{ y: -3 }}
+          onClick={() => setActiveSection(activeSection === 'spirituality' ? null : 'spirituality')}
+          transition={{ duration: 0.3 }}
+        >
+          <h3 className="text-md font-bold mb-1" style={{ color: 'rgb(142, 68, 173)' }}>Spirituality</h3>
+          <p className="text-xs text-gray-700">
+            Gives purpose and <span className="font-semibold">inner strength</span>, forming the foundation of authentic growth.
+          </p>
+          
+          {/* Flow indicator - small arrow pointing right */}
+          <motion.div 
+            className="w-full flex justify-end mt-2" 
+            animate={{ 
+              x: activeSection === 'spirituality' ? [0, 5, 0] : 0
+            }}
+            transition={{ repeat: activeSection === 'spirituality' ? Infinity : 0, duration: 1.5 }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="rgb(142, 68, 173)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </motion.div>
+        </motion.div>
+        
+        {/* Science */}
+        <motion.div
+          className="bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-md cursor-pointer hover:shadow-lg"
+          style={{ 
+            borderTop: '3px solid rgb(52, 152, 219)',
+            maxWidth: '250px'
+          }}
+          whileHover={{ y: -3 }}
+          onClick={() => setActiveSection(activeSection === 'science' ? null : 'science')}
+          transition={{ duration: 0.3 }}
+        >
+          <h3 className="text-md font-bold mb-1" style={{ color: 'rgb(52, 152, 219)' }}>Science</h3>
+          <p className="text-xs text-gray-700">
+            Corroborates the strength, <span className="font-semibold">validates it and supports it</span> through analysis and discovery.
+          </p>
+          
+          {/* Flow indicator - small arrow pointing right */}
+          <motion.div 
+            className="w-full flex justify-end mt-2" 
+            animate={{ 
+              x: activeSection === 'science' ? [0, 5, 0] : 0
+            }}
+            transition={{ repeat: activeSection === 'science' ? Infinity : 0, duration: 1.5 }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="rgb(52, 152, 219)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </motion.div>
+        </motion.div>
+        
+        {/* Startups/Impact */}
+        <motion.div
+          className="bg-white/95 backdrop-blur-sm rounded-lg p-3 shadow-md cursor-pointer hover:shadow-lg"
+          style={{ 
+            borderTop: '3px solid rgb(46, 204, 113)',
+            maxWidth: '250px'
+          }}
+          whileHover={{ y: -3 }}
+          onClick={() => setActiveSection(activeSection === 'startups' ? null : 'startups')}
+          transition={{ duration: 0.3 }}
+        >
+          <h3 className="text-md font-bold mb-1" style={{ color: 'rgb(46, 204, 113)' }}>Impact Through Startups</h3>
+          <p className="text-xs text-gray-700">
+            The <span className="font-semibold">actualization</span> of Science and Spirituality's synthesis creates real-world impact.
+          </p>
+          
+          {/* Final result indicator - small star */}
+          <motion.div 
+            className="w-full flex justify-center mt-2" 
+            animate={{ scale: activeSection === 'startups' ? [1, 1.1, 1] : 1 }}
+            transition={{ repeat: activeSection === 'startups' ? Infinity : 0, duration: 1.5 }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="rgb(46, 204, 113)" fillOpacity="0.5" stroke="rgb(46, 204, 113)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </motion.div>
+        </motion.div>
+      </div>
+      
+      {/* Flow animation overlays for when a section is active */}
       <AnimatePresence>
-        {activeSection === 'spirituality' && (
+        {activeSection && (
           <motion.div 
-            className="absolute z-20 inset-0 pointer-events-none"
+            className="fixed top-0 left-0 right-0 bottom-0 pointer-events-none z-50 flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
           >
-            <div className="h-full w-full flex items-center justify-center">
-              <motion.div
-                className="absolute w-40 h-40 rounded-full"
-                style={{ 
-                  background: 'radial-gradient(circle, rgba(142,68,173,0.3) 0%, rgba(142,68,173,0) 70%)',
-                }}
-                animate={{
-                  scale: [1, 2, 1],
-                  opacity: [0.7, 0.1, 0.7]
-                }}
-                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              />
-            </div>
-          </motion.div>
-        )}
-        
-        {activeSection === 'science' && (
-          <motion.div 
-            className="absolute z-20 inset-0 pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="h-full w-full flex items-center justify-center">
-              <motion.div
-                className="absolute w-40 h-40 rounded-full"
-                style={{ 
-                  background: 'radial-gradient(circle, rgba(52,152,219,0.3) 0%, rgba(52,152,219,0) 70%)',
-                }}
-                animate={{
-                  scale: [1, 2, 1],
-                  opacity: [0.7, 0.1, 0.7]
-                }}
-                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              />
-            </div>
-          </motion.div>
-        )}
-        
-        {activeSection === 'startups' && (
-          <motion.div 
-            className="absolute z-20 inset-0 pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="h-full w-full flex items-center justify-center">
-              <motion.div
-                className="absolute w-60 h-60 rounded-full"
-                style={{ 
-                  background: 'radial-gradient(circle, rgba(46,204,113,0.3) 0%, rgba(46,204,113,0) 70%)',
-                }}
-                animate={{
-                  scale: [1, 1.7, 1],
-                  opacity: [0.7, 0.2, 0.7]
-                }}
-                transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
-              />
-              <motion.div
-                className="absolute w-20 h-20 rounded-full"
-                style={{ 
-                  background: 'radial-gradient(circle, rgba(46,204,113,0.5) 0%, rgba(46,204,113,0) 70%)',
-                }}
-                animate={{
-                  scale: [1, 3, 1],
-                  opacity: [0.8, 0.1, 0.8]
-                }}
-                transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-              />
-            </div>
+            <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
+            <motion.div 
+              className="relative bg-white/95 p-6 rounded-xl max-w-md"
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+            >
+              <h3 className="text-xl font-bold mb-2" style={{ 
+                color: activeSection === 'spirituality' ? 'rgb(142, 68, 173)' : 
+                      activeSection === 'science' ? 'rgb(52, 152, 219)' : 
+                      'rgb(46, 204, 113)'
+              }}>
+                {sections[activeSection].title}
+              </h3>
+              <p className="text-gray-700 mb-4">{sections[activeSection].description}</p>
+              <button 
+                className="text-sm text-gray-500 hover:text-gray-700"
+                onClick={() => setActiveSection(null)}
+              >
+                Close
+              </button>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-      
-      {/* Footer text */}
-      <div className="absolute bottom-4 left-0 right-0 text-center z-20">
-        <p className="text-white/80 text-sm italic">
-          "The synthesis of inner wisdom and scientific approach creates meaningful impact through entrepreneurship."
-        </p>
-      </div>
     </div>
   );
 }
