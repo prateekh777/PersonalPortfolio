@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Brain } from "lucide-react";
+import { ExternalLink, Brain, ChevronRight, X } from "lucide-react";
 
 // Project-specific color palette - precisely matching requirements
 const COLORS = {
@@ -24,6 +24,8 @@ const COLORS = {
 export default function AiWorks() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [activeCard, setActiveCard] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<AiWork | null>(null);
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
   
   // Setup scroll animation when component mounts
   useEffect(() => {
@@ -60,6 +62,19 @@ export default function AiWorks() {
     };
   }, []);
 
+  // Handle body scroll lock when overlay is open
+  useEffect(() => {
+    if (isOverlayOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOverlayOpen]);
+
   // Function to handle video hover effects
   const handleCardHover = (index: number) => {
     setActiveCard(index);
@@ -67,6 +82,24 @@ export default function AiWorks() {
 
   const handleCardLeave = () => {
     setActiveCard(null);
+  };
+
+  // Function to open project detail overlay
+  const openProjectOverlay = (project: AiWork) => {
+    setSelectedProject(project);
+    setIsOverlayOpen(true);
+  };
+
+  // Function to close project detail overlay
+  const closeProjectOverlay = () => {
+    setIsOverlayOpen(false);
+    setTimeout(() => setSelectedProject(null), 300); // Clear selected project after animation completes
+  };
+
+  // Truncate description text for card display
+  const truncateDescription = (text: string, maxLength = 150) => {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength) + '...';
   };
 
   return (
@@ -156,7 +189,16 @@ export default function AiWorks() {
                     className="mb-4 leading-relaxed" 
                     style={{ color: COLORS.secondary }}
                   >
-                    {work.description}
+                    {truncateDescription(work.description)}
+                    <Button 
+                      variant="link" 
+                      className="ml-1 p-0 h-auto font-medium"
+                      style={{ color: COLORS.primary }}
+                      onClick={() => openProjectOverlay(work)}
+                    >
+                      Read more
+                      <ChevronRight className="h-3 w-3 ml-1" />
+                    </Button>
                   </p>
                   <div className="flex flex-wrap gap-2 mt-4">
                     {work.technologies.map((tech, techIndex) => (
@@ -200,6 +242,102 @@ export default function AiWorks() {
           ))}
         </div>
       </div>
+
+      {/* Project Detail Overlay */}
+      {isOverlayOpen && selectedProject && (
+        <div 
+          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 md:p-8 overlay-enter"
+          onClick={closeProjectOverlay}
+        >
+          <div 
+            className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto overlay-card-enter"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative">
+              {selectedProject.imageUrl && (
+                <div className="h-60 sm:h-80 overflow-hidden">
+                  {selectedProject.mediaType === 'video' ? (
+                    <video 
+                      src={selectedProject.imageUrl} 
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    />
+                  ) : (
+                    <img
+                      src={selectedProject.imageUrl}
+                      alt={selectedProject.title}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                </div>
+              )}
+              
+              <Button 
+                className="absolute top-4 right-4 rounded-full w-10 h-10 p-0 flex items-center justify-center"
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.3)', backdropFilter: 'blur(4px)' }}
+                onClick={closeProjectOverlay}
+              >
+                <X className="h-5 w-5" style={{ color: COLORS.white }} />
+              </Button>
+              
+              <div className="absolute bottom-4 left-6 right-6">
+                <h2 className="text-3xl font-bold" style={{ color: COLORS.white }}>
+                  {selectedProject.title}
+                </h2>
+              </div>
+            </div>
+            
+            <div className="p-6">
+              <div className="mb-8">
+                <p className="text-lg leading-relaxed" style={{ color: COLORS.secondary }}>
+                  {selectedProject.description}
+                </p>
+              </div>
+              
+              <div>
+                <h3 className="text-lg font-semibold mb-3" style={{ color: COLORS.primary }}>Technologies</h3>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.technologies.map((tech) => (
+                    <Badge 
+                      key={tech} 
+                      variant="outline" 
+                      className="tech-badge-pop"
+                      style={{ 
+                        backgroundColor: COLORS.tertiary, 
+                        color: COLORS.primary,
+                        borderColor: COLORS.primary
+                      }}
+                    >
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              
+              {selectedProject.demoUrl && (
+                <div className="mt-8">
+                  <Button
+                    className="w-full"
+                    style={{ 
+                      backgroundColor: COLORS.primary,
+                      color: COLORS.white,
+                      borderColor: COLORS.primary
+                    }}
+                    onClick={() => selectedProject.demoUrl && window.open(selectedProject.demoUrl, "_blank")}
+                  >
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    View Demo
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
