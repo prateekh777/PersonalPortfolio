@@ -57,7 +57,7 @@ export function InterestsVideoFlow() {
           {!videoError ? (
             <>
               <video 
-                src="/abstract-video.mp4" 
+                src="public/Gen Alpha.mp4" 
                 autoPlay 
                 loop 
                 muted 
@@ -169,7 +169,7 @@ export function InterestsVideoFlow() {
         {/* Video with error handling */}
         {!videoError ? (
           <video 
-            src="/abstract-video.mp4" 
+            src="public/Gen Alpha.mp4" 
             autoPlay 
             loop 
             muted 
