@@ -107,9 +107,5 @@
   "engines": {
   "node": "18.x",
   "npm": "10.x"
-  },
-  "scripts": {
-  "build": "vite build",
-  "postinstall": "npm install"
   }
 }
