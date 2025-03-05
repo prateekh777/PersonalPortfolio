@@ -57,13 +57,16 @@ export function InterestsVideoFlow() {
           {!videoError ? (
             <>
               <video 
-                src="/videos/interests-abstract.mp4" 
+                src="/abstract-video.mp4" 
                 autoPlay 
                 loop 
                 muted 
                 playsInline
                 className="w-full h-full object-cover z-10"
-                onError={() => setVideoError(true)}
+                onError={(e) => {
+                  console.error("Video error:", e);
+                  setVideoError(true);
+                }}
               />
             </>
           ) : (
@@ -131,13 +134,16 @@ export function InterestsVideoFlow() {
         {/* Video with error handling */}
         {!videoError ? (
           <video 
-            src="/videos/interests-abstract.mp4" 
+            src="/abstract-video.mp4" 
             autoPlay 
             loop 
             muted 
             playsInline
             className="w-full h-full object-cover"
-            onError={() => setVideoError(true)}
+            onError={(e) => {
+              console.error("Desktop video error:", e);
+              setVideoError(true);
+            }}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
