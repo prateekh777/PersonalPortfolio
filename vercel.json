@@ -2,7 +2,7 @@
   "build": {
     "env": {
       "NPM_CONFIG_UPDATE_NOTIFIER": "false",
-      "src": "build/*",
+      "src": "dist/*",
       "use": "@vercel/static"
     }
   },
