@@ -102,23 +102,58 @@ export function InterestsVideoFlow() {
               whileTap={{ scale: 0.98 }}
             >
               <h3 className="font-semibold text-xs" style={{ color: section.textColor }}>{section.title}</h3>
-              
-              <AnimatePresence>
-                {activeSection === key && (
-                  <motion.p
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-xs mt-1 overflow-hidden"
-                  >
-                    {section.description}
-                  </motion.p>
-                )}
-              </AnimatePresence>
             </motion.div>
           ))}
         </div>
+        
+        {/* Modal overlay for mobile view */}
+        <AnimatePresence>
+          {activeSection && (
+            <motion.div 
+              className="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setActiveSection(null)} // Close when clicking the backdrop
+            >
+              <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
+              <motion.div 
+                className="relative bg-white/95 p-5 rounded-xl mx-4 max-w-md"
+                initial={{ scale: 0.9, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 20 }}
+                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the modal itself
+              >
+                {/* Close (X) button */}
+                <button 
+                  className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                  onClick={() => setActiveSection(null)}
+                  aria-label="Close"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+
+                <h3 className="text-lg font-bold mb-2 mt-1" style={{ 
+                  color: activeSection === 'spirituality' ? 'rgb(142, 68, 173)' : 
+                        activeSection === 'science' ? 'rgb(52, 152, 219)' : 
+                        'rgb(46, 204, 113)'
+                }}>
+                  {sections[activeSection].title}
+                </h3>
+                <p className="text-gray-700 text-sm mb-4">{sections[activeSection].description}</p>
+                <button 
+                  className="text-xs py-1 px-3 rounded bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                  onClick={() => setActiveSection(null)}
+                >
+                  Close
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     );
   }
@@ -268,11 +303,12 @@ export function InterestsVideoFlow() {
       <AnimatePresence>
         {activeSection && (
           <motion.div 
-            className="fixed top-0 left-0 right-0 bottom-0 pointer-events-none z-50 flex items-center justify-center"
+            className="fixed top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
+            onClick={() => setActiveSection(null)} // Close when clicking the backdrop
           >
             <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
             <motion.div 
@@ -280,7 +316,19 @@ export function InterestsVideoFlow() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the modal itself
             >
+              {/* Close (X) button */}
+              <button 
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                onClick={() => setActiveSection(null)}
+                aria-label="Close"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+
               <h3 className="text-xl font-bold mb-2" style={{ 
                 color: activeSection === 'spirituality' ? 'rgb(142, 68, 173)' : 
                       activeSection === 'science' ? 'rgb(52, 152, 219)' : 
@@ -290,7 +338,7 @@ export function InterestsVideoFlow() {
               </h3>
               <p className="text-gray-700 mb-4">{sections[activeSection].description}</p>
               <button 
-                className="text-sm text-gray-500 hover:text-gray-700"
+                className="text-sm py-1 px-3 rounded bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
                 onClick={() => setActiveSection(null)}
               >
                 Close
