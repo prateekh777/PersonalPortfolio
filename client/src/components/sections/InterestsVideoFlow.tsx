@@ -56,7 +56,7 @@ export function InterestsVideoFlow() {
           {!videoError ? (
             <>
               <video 
-                src="/videos/interests-flow.mp4" 
+                src="/videos/interests-abstract.mp4" 
                 autoPlay 
                 loop 
                 muted 
@@ -122,7 +122,7 @@ export function InterestsVideoFlow() {
         {/* Video with error handling */}
         {!videoError ? (
           <video 
-            src="/attached_assets/Gen-3 Alpha Turbo 811372575, Two abstract human-l, Human abstractjpg, M 5.mp4" 
+            src="/videos/interests-abstract.mp4" 
             autoPlay 
             loop 
             muted 
