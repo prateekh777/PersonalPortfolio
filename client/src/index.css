@@ -262,4 +262,21 @@
   .animate-pulse-subtle {
     animation: subtlePulse 3s ease-in-out infinite;
   }
+  
+  /* AI Works page animations */
+  .animate-in {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  
+  @keyframes cardEnter {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
