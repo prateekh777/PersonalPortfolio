@@ -5,6 +5,7 @@ import path from "path";
 import fs from "fs";
 import { registerRoutes } from "./routes";
 import { initData } from "./init-data";
+import { initializeStorageAndWait } from "./storage";
 
 const app = express();
 app.use(express.json());
@@ -12,6 +13,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // Simplified server just to serve the static files
 (async () => {
+  // First, ensure storage is properly initialized
+  await initializeStorageAndWait();
+  
   const server = createServer(app);
 
   // Register API routes

@@ -515,13 +515,24 @@ async function initializeStorage(): Promise<IStorage> {
   }
 }
 
-// Initialize storage with a default to MemStorage until initialization is complete
-let storage: IStorage = new MemStorage();
+// Private storage instance
+let _storage: IStorage | null = null;
 
-// Immediately start the initialization process
-initializeStorage().then(initializedStorage => {
-  storage = initializedStorage;
+// Function to wait for storage initialization
+export async function initializeStorageAndWait(): Promise<void> {
+  if (!_storage) {
+    console.log("Initializing storage...");
+    _storage = await initializeStorage();
+    console.log("Storage initialization complete.");
+  }
+}
+
+// Export a proxy to ensure storage is always initialized before use
+export const storage: IStorage = new Proxy({} as IStorage, {
+  get: function(target, prop) {
+    if (!_storage) {
+      throw new Error("Storage accessed before initialization! Call initializeStorageAndWait() first");
+    }
+    return _storage[prop as keyof IStorage];
+  }
 });
-
-// Export the storage that will be updated once initialization is complete
-export { storage };
