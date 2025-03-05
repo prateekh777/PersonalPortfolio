@@ -107,5 +107,9 @@
   "engines": {
   "node": "18.x",
   "npm": "10.x"
+  },
+  "scripts": {
+  "postinstall": "npm install -g npm@latest",
+  "build": "react-scripts build"
   }
 }
