@@ -1,12 +1,41 @@
 
 /* Add highlight class styling */
 .highlight {
-  font-weight: bold;
+  font-weight: 600;
   color: #222222;
+  position: relative;
+  display: inline-block;
+  padding: 0 2px;
 }
 
-@tailwind base;
-@tailwind components;
+.highlight::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0.2;
+  transition: opacity 0.3s ease;
+}
+
+/* Domain-specific highlights */
+.highlight-spirituality::after {
+  background-color: rgba(142, 68, 173, 0.3); /* Purple for spirituality */
+}
+
+.highlight-science::after {
+  background-color: rgba(52, 152, 219, 0.3); /* Blue for science */
+}
+
+.highlight-startups::after {
+  background-color: rgba(46, 204, 113, 0.3); /* Green for startups */
+}
+
+.highlight:hover::after {
+  opacity: 0.4;
+}
 
 @tailwind base;
 @tailwind components;
