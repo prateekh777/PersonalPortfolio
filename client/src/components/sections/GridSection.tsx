@@ -51,6 +51,31 @@ const getItemLink = (item: GridItem): string => {
 export function GridSection({ title, items }: GridSectionProps) {
   const [, setLocation] = useLocation();
 
+  // Helper function to determine which gradient card to use within the component
+  const getGradientCardForItem = (title: string): string => {
+    if (title === "Skills Honed, Stories Told - My Journey") {
+      return "blue_card.png";
+    }
+    if (title === "Turning Puzzles into Pathways") {
+      return "green_card.png";
+    }
+    if (title === "Things I've built Creations That Speak, Solutions That Sing") {
+      return "yellow_card.png";
+    }
+    if (title === "Where AI Meets Soul - Let's Explore Together") {
+      return "red_card.png";
+    }
+    if (title === "Conversations Open Doors - Let's Talk") {
+      return "black_card.png";
+    }
+    if (title === "The Universe is Speaking—Here's How I Listen") {
+      return "White_card.png";
+    }
+    
+    // Default gradient card
+    return "blue_card.png";
+  };
+
   return (
     <section className="py-20">
       <div className="container px-4 md:px-6 lg:px-8 mx-auto">
@@ -86,11 +111,11 @@ export function GridSection({ title, items }: GridSectionProps) {
                     border: "1px solid rgba(255,255,255,0.15)"
                   }}
                 >
-                  {/* Clean background image with gradient overlay */}
+                  {/* Color gradient cards */}
                   <div 
                     className="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105"
                     style={{
-                      backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%), url(${item.icon})`,
+                      backgroundImage: `url(/images/gradients/${getGradientCardForItem(item.title)})`,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                     }}
