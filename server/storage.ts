@@ -208,7 +208,7 @@ export class MongoStorage implements IStorage {
     
     // Initialize collections to empty collections to satisfy TypeScript
     // These will be properly set during connect()
-    const db = this.client.db();
+    const db = this.client.db('portfolio');
     this.sectionsCollection = db.collection('sections');
     this.projectsCollection = db.collection('projects');
     this.caseStudiesCollection = db.collection('caseStudies');
