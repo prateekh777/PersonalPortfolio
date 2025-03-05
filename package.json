@@ -107,5 +107,8 @@
   "engines": {
   "node": "18.x",
   "npm": "10.x"
-  }
+  },
+  "scripts": {
+  "build": "node -v && npm -v && react-scripts build"
+}
 }
