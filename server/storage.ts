@@ -219,18 +219,48 @@ export class MongoStorage implements IStorage {
   async connect(): Promise<boolean> {
     if (!this.isConnected) {
       try {
+        // Attempt connection with detailed error reporting
         await this.client.connect();
+        
+        // Get reference to the portfolio database
         const db = this.client.db('portfolio');
+        
+        // Initialize collections
         this.sectionsCollection = db.collection('sections');
         this.projectsCollection = db.collection('projects');
         this.caseStudiesCollection = db.collection('caseStudies');
         this.aiWorksCollection = db.collection('aiWorks');
         this.interestsCollection = db.collection('interests');
+        
+        // Connection successful
         this.isConnected = true;
         console.log('Connected to MongoDB');
+        
+        // Perform a simple test query to verify connection is fully working
+        try {
+          await this.aiWorksCollection.findOne({});
+          console.log('Database connection verified with test query');
+        } catch (queryError) {
+          console.error('Connected but failed test query:', queryError);
+          // We still consider this a successful connection
+        }
+        
         return true;
-      } catch (error) {
-        console.error('Failed to connect to MongoDB:', error);
+      } catch (error: any) {
+        // Provide more detailed error information based on error type
+        console.error('Failed to connect to MongoDB.');
+        
+        if (error.name === 'MongoServerSelectionError') {
+          console.error('Connection timeout or server selection error:', error.message);
+        } else if (error.code === 'ENOTFOUND') {
+          console.error('DNS lookup failed - hostname not found:', error.message);
+        } else if (error.message && error.message.includes('authentication failed')) {
+          console.error('Authentication error - check username and password');
+        } else {
+          console.error('Error details:', error);
+        }
+        
+        this.isConnected = false;
         return false;
       }
     }
@@ -455,21 +485,32 @@ async function initializeStorage(): Promise<IStorage> {
       
       // Create a timeout promise
       const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error("MongoDB connection timeout after 10 seconds")), 10000);
+        setTimeout(() => reject(new Error("MongoDB connection timeout after 15 seconds")), 15000);
       });
       
       // Race the connection against the timeout
-      await Promise.race([connectionPromise, timeoutPromise]);
+      const connected = await Promise.race([connectionPromise, timeoutPromise]);
       
-      console.log("Successfully connected to MongoDB!");
-      return mongoStorage;
+      if (connected) {
+        console.log("✅ Successfully connected to MongoDB database!");
+        return mongoStorage;
+      } else {
+        console.log("⚠️ MongoDB connection test failed");
+        console.log("ℹ️ Falling back to in-memory storage for this session");
+        return new MemStorage();
+      }
     } catch (error) {
-      console.error("Failed to connect to MongoDB:", error);
-      console.log("Falling back to in-memory storage");
+      console.error("❌ Failed to connect to MongoDB:", error);
+      console.log("ℹ️ Common MongoDB connection issues:");
+      console.log("  • Authentication issues: Check username and password in connection string");
+      console.log("  • Network issues: DNS resolution or firewall blocking connections");
+      console.log("  • Database name issues: Verify database name in connection string");
+      console.log("ℹ️ Using in-memory storage fallback - data will not persist between sessions");
       return new MemStorage();
     }
   } else {
-    console.log("No MongoDB URI provided, using in-memory storage");
+    console.log("ℹ️ No MongoDB URI provided, using in-memory storage");
+    console.log("ℹ️ Note: Data will not persist between application restarts");
     return new MemStorage();
   }
 }
