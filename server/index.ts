@@ -26,7 +26,10 @@ app.use(express.urlencoded({ extended: false }));
 
   // ALWAYS serve the app on port 5000
   const PORT = process.env.PORT || 5000;
-  server.listen(PORT, "0.0.0.0", () => {
-    log(`Server running at http://0.0.0.0:${PORT}`);
+  //server.listen(PORT, "0.0.0.0", () => {
+  //  log(`Server running at http://0.0.0.0:${PORT}`);
+  //});
+  server.listen(PORT, () => {
+    log(`Server running on port ${PORT}`);
   });
 })();
