@@ -1,9 +1,7 @@
 {
   "build": {
     "env": {
-      "NPM_CONFIG_UPDATE_NOTIFIER": "false",
-      "src": "package.json",
-      "use": "@vercel/static-build"
+      "NPM_CONFIG_UPDATE_NOTIFIER": "false"
     }
   },
   "rewrites": [
