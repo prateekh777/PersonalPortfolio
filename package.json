@@ -110,7 +110,6 @@
   },
   "scripts": {
   "build": "vite build",
-  "preview": "vite preview",
-  "deploy": "vite build && vercel deploy --prod"
+  "postinstall": "npm install"
   }
 }
