@@ -109,6 +109,6 @@
   "npm": "11.x"
   },
   "scripts": {
-  "build": "node -v && npm -v
-}
+  "build": "node -v && npm -v"
+  }
 }
