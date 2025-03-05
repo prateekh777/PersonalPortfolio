@@ -1,15 +1,24 @@
 {
-  "build": {
-    "env": {
-      "NPM_CONFIG_UPDATE_NOTIFIER": "false",
-      "src": "client/dist/**",
-      "src": "server/index.ts" 
-    }
-  },
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/:path*",
-      "destination": "/index.html"
+      "src": "server/index.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": { "zeroConfig": true }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "server/index.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/"
     }
   ]
 }
