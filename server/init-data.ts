@@ -57,28 +57,33 @@ const aiWorks = [
 export async function initData() {
   console.log("Initializing data...");
   
-  // Check if we already have AI works
-  const existingWorks = await storage.getAiWorks();
-  
-  // Only seed if we don't have any works yet
-  if (existingWorks.length === 0) {
-    console.log("No AI works found, seeding initial data...");
+  try {
+    // Check if we already have AI works
+    const existingWorks = await storage.getAiWorks();
     
-    for (const work of aiWorks) {
-      try {
-        // Validate the data using the schema
-        const validWork = insertAiWorkSchema.parse(work);
-        
-        // Create the AI work in storage
-        const created = await storage.createAiWork(validWork);
-        console.log(`Created AI work: ${created.title}`);
-      } catch (error) {
-        console.error(`Failed to create AI work: ${work.title}`, error);
+    // Only seed if we don't have any works yet
+    if (existingWorks.length === 0) {
+      console.log("No AI works found, seeding initial data...");
+      
+      for (const work of aiWorks) {
+        try {
+          // Validate the data using the schema
+          const validWork = insertAiWorkSchema.parse(work);
+          
+          // Create the AI work in storage
+          const created = await storage.createAiWork(validWork);
+          console.log(`Created AI work: ${created.title}`);
+        } catch (error) {
+          console.error(`Failed to create AI work: ${work.title}`, error);
+        }
       }
+      
+      console.log("Data initialization completed!");
+    } else {
+      console.log(`Found ${existingWorks.length} existing AI works, skipping initialization`);
     }
-    
-    console.log("Data initialization completed!");
-  } else {
-    console.log(`Found ${existingWorks.length} existing AI works, skipping initialization`);
+  } catch (error) {
+    console.error("Error during data initialization:", error);
+    console.log("Continuing with application startup despite initialization error");
   }
 }

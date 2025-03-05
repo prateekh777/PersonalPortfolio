@@ -194,21 +194,47 @@ export class MongoStorage implements IStorage {
   private isConnected: boolean = false;
 
   constructor(mongoUri: string) {
-    this.client = new MongoClient(mongoUri);
+    // Add connection options for better reliability with timeout settings
+    const options = {
+      connectTimeoutMS: 30000, // 30 seconds connection timeout
+      socketTimeoutMS: 45000,  // 45 seconds socket timeout
+      serverSelectionTimeoutMS: 30000, // 30 seconds server selection timeout
+      maxPoolSize: 10, // Maximum number of connections in the connection pool
+      retryWrites: true,
+      retryReads: true
+    };
+    
+    this.client = new MongoClient(mongoUri, options);
+    
+    // Initialize collections to empty collections to satisfy TypeScript
+    // These will be properly set during connect()
+    const db = this.client.db();
+    this.sectionsCollection = db.collection('sections');
+    this.projectsCollection = db.collection('projects');
+    this.caseStudiesCollection = db.collection('caseStudies');
+    this.aiWorksCollection = db.collection('aiWorks');
+    this.interestsCollection = db.collection('interests');
   }
 
-  async connect() {
+  async connect(): Promise<boolean> {
     if (!this.isConnected) {
-      await this.client.connect();
-      const db = this.client.db('portfolio');
-      this.sectionsCollection = db.collection('sections');
-      this.projectsCollection = db.collection('projects');
-      this.caseStudiesCollection = db.collection('caseStudies');
-      this.aiWorksCollection = db.collection('aiWorks');
-      this.interestsCollection = db.collection('interests');
-      this.isConnected = true;
-      console.log('Connected to MongoDB');
+      try {
+        await this.client.connect();
+        const db = this.client.db('portfolio');
+        this.sectionsCollection = db.collection('sections');
+        this.projectsCollection = db.collection('projects');
+        this.caseStudiesCollection = db.collection('caseStudies');
+        this.aiWorksCollection = db.collection('aiWorks');
+        this.interestsCollection = db.collection('interests');
+        this.isConnected = true;
+        console.log('Connected to MongoDB');
+        return true;
+      } catch (error) {
+        console.error('Failed to connect to MongoDB:', error);
+        return false;
+      }
     }
+    return this.isConnected;
   }
 
   // Sections
@@ -414,10 +440,47 @@ export class MongoStorage implements IStorage {
   }
 }
 
-// Check if MongoDB connection string is available
-const mongoUri = process.env.MONGODB_URI;
-export const storage = mongoUri 
-  ? new MongoStorage(mongoUri) 
-  : new MemStorage();
+// Create and initialize storage
+async function initializeStorage(): Promise<IStorage> {
+  const mongoUri = process.env.MONGODB_URI;
+  
+  if (mongoUri) {
+    console.log("MongoDB URI found, attempting to connect to MongoDB...");
+    
+    const mongoStorage = new MongoStorage(mongoUri);
+    
+    try {
+      // Test connection with a timeout
+      const connectionPromise = mongoStorage.connect();
+      
+      // Create a timeout promise
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error("MongoDB connection timeout after 10 seconds")), 10000);
+      });
+      
+      // Race the connection against the timeout
+      await Promise.race([connectionPromise, timeoutPromise]);
+      
+      console.log("Successfully connected to MongoDB!");
+      return mongoStorage;
+    } catch (error) {
+      console.error("Failed to connect to MongoDB:", error);
+      console.log("Falling back to in-memory storage");
+      return new MemStorage();
+    }
+  } else {
+    console.log("No MongoDB URI provided, using in-memory storage");
+    return new MemStorage();
+  }
+}
 
-console.log(`Using ${mongoUri ? 'MongoDB' : 'in-memory'} storage`);
+// Initialize storage with a default to MemStorage until initialization is complete
+let storage: IStorage = new MemStorage();
+
+// Immediately start the initialization process
+initializeStorage().then(initializedStorage => {
+  storage = initializedStorage;
+});
+
+// Export the storage that will be updated once initialization is complete
+export { storage };
