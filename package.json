@@ -106,9 +106,9 @@
   },
   "engines": {
   "node": "18.x",
-  "npm": "10.x"
+  "npm": "11.x"
   },
   "scripts": {
-  "build": "node -v && npm -v && react-scripts build"
+  "build": "node -v && npm -v
 }
 }
