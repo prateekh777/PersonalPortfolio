@@ -116,7 +116,7 @@ export const aiWorksData: AiWork[] = [
     description: "When my niece needed a study tool, I built one overnight. My niece had just qualified for the next round of a Spelling Bee competition. She needed a quick and efficient way to memorize hundreds of words but struggled with traditional methods. That night, I wrote a Python script that converted word lists into Anki flashcards, complete with pronunciation and example sentences.",
     imageUrl: "/assets/Screen Recording 2025-03-05 at 1.mp4",
     mediaType: "video",
-    demoUrl: null,
+    demoUrl: "",
     technologies: [
       "Python",
       "Pandas",
@@ -144,7 +144,7 @@ export const aiWorksData: AiWork[] = [
     description: "How I built a chatbot that actually knows the content of my website. Frustrated with chatbots that can't answer questions about the website they're on, I developed a solution. This chatbot indexes website content on-demand and uses vector embeddings to find relevant information when answering questions, drastically improving user experience.",
     imageUrl: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
     mediaType: "image",
-    demoUrl: null,
+    demoUrl: "",
     technologies: [
       "JavaScript",
       "OpenAI API",
@@ -158,7 +158,7 @@ export const aiWorksData: AiWork[] = [
     description: "A multilingual voice assistant for seniors navigating mobile apps. When my grandmother struggled with using her smartphone, I built a solution. This assistant recognizes voice commands in multiple languages and helps seniors navigate complex apps with natural language instructions and audio feedback, bridging the digital divide.",
     imageUrl: "https://images.unsplash.com/photo-1544777181-b5940c8c28e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
     mediaType: "image",
-    demoUrl: null,
+    demoUrl: "",
     technologies: [
       "React Native",
       "Speech Recognition",
@@ -186,7 +186,7 @@ export const aiWorksData: AiWork[] = [
     description: "Helping young athletes improve through AI video analysis. As a volunteer youth basketball coach, I wanted to provide professional-level feedback to young players. I developed a tool that analyzes smartphone recordings of games, tracks player movements, and identifies areas for improvement in technique and strategy.",
     imageUrl: "https://images.unsplash.com/photo-1546519638-68e109498ffc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
     mediaType: "image",
-    demoUrl: null,
+    demoUrl: "",
     technologies: [
       "Python",
       "Computer Vision",

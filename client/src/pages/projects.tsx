@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { ProjectSection } from "@/components/sections/ProjectSection";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
 
 import { Project } from "@/types/project";
+import { projectsData } from "@/data/mockData";
 
 export default function Projects() {
   useEffect(() => {
