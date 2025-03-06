@@ -1,6 +1,7 @@
 import { Switch, Route } from "wouter";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./lib/queryClient";
+// Import mock query client instead of the real one
+import { mockQueryClient } from "./lib/mockQueryClient"; 
 import { Toaster } from "@/components/ui/toaster";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -35,7 +36,7 @@ function Router() {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={mockQueryClient}>
       <div className="relative min-h-screen">
         <Header />
         <main className="container mx-auto px-4 py-8">

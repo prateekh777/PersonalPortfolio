@@ -16,7 +16,7 @@ export const sectionsData: Record<string, Section[]> = {
       type: "home",
       order: 1,
       mediaUrls: [],
-      stats: null
+      stats: []
     }
   ],
   expertise: [
@@ -27,7 +27,7 @@ export const sectionsData: Record<string, Section[]> = {
       type: "expertise",
       order: 1,
       mediaUrls: [],
-      stats: null
+      stats: []
     }
   ]
 };
@@ -102,7 +102,7 @@ export const aiWorksData: AiWork[] = [
     description: "A screen reader that not only reads but also teaches and interacts in real time. I envisioned a tool that could transform passive screen consumption into an active learning experience. Inspired by Google AI Studio, I built an AI screen reader that analyzes text on a screen, explains its content, and engages in interactive discussions with the user.",
     imageUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
     mediaType: "image",
-    demoUrl: null,
+    demoUrl: "",
     technologies: [
       "OpenAI Whisper",
       "GPT Models",
