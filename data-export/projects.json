@@ -1,0 +1,49 @@
+[
+  {
+    "_id": "67c8c762866c86a44b6a1f45",
+    "title": "Portfolio Website",
+    "subtitle": "Personal Showcase",
+    "description": "A modern portfolio website built with React and Tailwind CSS to showcase my projects and skills",
+    "imageUrl": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+    "projectUrl": "https://github.com/yourusername/portfolio",
+    "tags": [
+      "React",
+      "Tailwind CSS",
+      "JavaScript",
+      "Responsive Design"
+    ],
+    "position": "Full Stack Developer"
+  },
+  {
+    "_id": "67c8c763866c86a44b6a1f46",
+    "title": "E-Commerce Platform",
+    "subtitle": "Online Shopping Experience",
+    "description": "A complete e-commerce solution with product listings, shopping cart, and payment processing",
+    "imageUrl": "https://images.unsplash.com/photo-1556742031-c6961e8560b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+    "projectUrl": "https://github.com/yourusername/ecommerce",
+    "tags": [
+      "Node.js",
+      "MongoDB",
+      "Express",
+      "React",
+      "Redux",
+      "PayPal API"
+    ],
+    "position": "Lead Developer"
+  },
+  {
+    "_id": "67c8c763866c86a44b6a1f47",
+    "title": "Task Management App",
+    "subtitle": "Productivity Tool",
+    "description": "A task management application to help users organize their daily activities and improve productivity",
+    "imageUrl": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+    "projectUrl": "https://github.com/yourusername/task-manager",
+    "tags": [
+      "React Native",
+      "Firebase",
+      "Mobile Development",
+      "Cross-platform"
+    ],
+    "position": "Mobile Developer"
+  }
+]
