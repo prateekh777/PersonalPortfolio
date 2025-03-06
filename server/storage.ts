@@ -220,10 +220,19 @@ export class MongoStorage implements IStorage {
       { returnDocument: 'after' }
     );
     if (!result) throw new Error('Project not found');
-    return {
-      ...result,
-      id: result._id.toString()
-    } as Project;
+    
+    // Create a properly typed object with all required fields
+    const typedProject: Project = {
+      id: result._id.toString(),
+      title: result.title || '',
+      description: result.description || '',
+      tags: result.tags || [],
+      position: result.position || 'left',
+      subtitle: result.subtitle,
+      imageUrl: result.imageUrl,
+      projectUrl: result.projectUrl
+    };
+    return typedProject;
   }
 
   async deleteProject(id: string): Promise<void> {
@@ -235,11 +244,18 @@ export class MongoStorage implements IStorage {
   async getCaseStudies(): Promise<CaseStudy[]> {
     await this.connect();
     const caseStudies = await this.caseStudiesCollection.find().toArray();
-    return caseStudies.map(caseStudy => ({
-      ...caseStudy,
-      id: caseStudy._id.toString(),
-      technologies: caseStudy.technologies || []
-    })) as CaseStudy[];
+    return caseStudies.map(caseStudy => {
+      // Create a properly typed object with all required fields
+      const typedCaseStudy: CaseStudy = {
+        id: caseStudy._id.toString(),
+        title: caseStudy.title || '',
+        description: caseStudy.description || '',
+        technologies: caseStudy.technologies || [],
+        imageUrl: caseStudy.imageUrl,
+        outcome: caseStudy.outcome
+      };
+      return typedCaseStudy;
+    });
   }
 
   async createCaseStudy(caseStudy: InsertCaseStudy): Promise<CaseStudy> {
@@ -259,10 +275,18 @@ export class MongoStorage implements IStorage {
       { returnDocument: 'after' }
     );
     if (!result) throw new Error('Case study not found');
-    return {
-      ...result,
-      id: result._id.toString()
-    } as CaseStudy;
+    
+    // Create a properly typed object with all required fields
+    const typedCaseStudy: CaseStudy = {
+      id: result._id.toString(),
+      title: result.title || '',
+      description: result.description || '',
+      technologies: result.technologies || [],
+      imageUrl: result.imageUrl,
+      outcome: result.outcome
+    };
+    
+    return typedCaseStudy;
   }
 
   async deleteCaseStudy(id: string): Promise<void> {
@@ -274,11 +298,19 @@ export class MongoStorage implements IStorage {
   async getAiWorks(): Promise<AiWork[]> {
     await this.connect();
     const aiWorks = await this.aiWorksCollection.find().toArray();
-    return aiWorks.map(aiWork => ({
-      ...aiWork,
-      id: aiWork._id.toString(),
-      technologies: aiWork.technologies || []
-    })) as AiWork[];
+    return aiWorks.map(aiWork => {
+      // Create a properly typed object with all required fields
+      const typedAiWork: AiWork = {
+        id: aiWork._id.toString(),
+        title: aiWork.title || '',
+        description: aiWork.description || '',
+        technologies: aiWork.technologies || [],
+        mediaType: aiWork.mediaType || 'image',
+        imageUrl: aiWork.imageUrl,
+        demoUrl: aiWork.demoUrl
+      };
+      return typedAiWork;
+    });
   }
 
   async createAiWork(aiWork: InsertAiWork): Promise<AiWork> {
@@ -298,10 +330,19 @@ export class MongoStorage implements IStorage {
       { returnDocument: 'after' }
     );
     if (!result) throw new Error('AI work not found');
-    return {
-      ...result,
-      id: result._id.toString()
-    } as AiWork;
+    
+    // Create a properly typed object with all required fields
+    const typedAiWork: AiWork = {
+      id: result._id.toString(),
+      title: result.title || '',
+      description: result.description || '',
+      technologies: result.technologies || [],
+      mediaType: result.mediaType || 'image',
+      imageUrl: result.imageUrl,
+      demoUrl: result.demoUrl
+    };
+    
+    return typedAiWork;
   }
 
   async deleteAiWork(id: string): Promise<void> {
@@ -313,10 +354,18 @@ export class MongoStorage implements IStorage {
   async getInterests(): Promise<Interest[]> {
     await this.connect();
     const interests = await this.interestsCollection.find().toArray();
-    return interests.map(interest => ({
-      ...interest,
-      id: interest._id.toString()
-    })) as Interest[];
+    return interests.map(interest => {
+      // Create a properly typed object with all required fields
+      const typedInterest: Interest = {
+        id: interest._id.toString(),
+        title: interest.title || '',
+        description: interest.description || '',
+        mediaType: interest.mediaType || 'image',
+        mediaUrl: interest.mediaUrl || '',
+        category: interest.category || ''
+      };
+      return typedInterest;
+    });
   }
 
   async createInterest(interest: InsertInterest): Promise<Interest> {
@@ -336,10 +385,18 @@ export class MongoStorage implements IStorage {
       { returnDocument: 'after' }
     );
     if (!result) throw new Error('Interest not found');
-    return {
-      ...result,
-      id: result._id.toString()
-    } as Interest;
+    
+    // Create a properly typed object with all required fields
+    const typedInterest: Interest = {
+      id: result._id.toString(),
+      title: result.title || '',
+      description: result.description || '',
+      mediaType: result.mediaType || 'image',
+      mediaUrl: result.mediaUrl || '',
+      category: result.category || ''
+    };
+    
+    return typedInterest;
   }
 
   async deleteInterest(id: string): Promise<void> {
