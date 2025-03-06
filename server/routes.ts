@@ -6,11 +6,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const httpServer = createServer(app);
 
   // Health check endpoint for monitoring
-  app.get("/api/health", (req, res) => {
+  app.get("/api/health", async (req, res) => {
+    // Check MongoDB connection if we're using it
+    let dbStatus = 'not_configured';
+    
+    if (process.env.MONGODB_URI) {
+      try {
+        const { MongoClient } = await import('mongodb');
+        const client = new MongoClient(process.env.MONGODB_URI);
+        await client.connect();
+        // Successfully connected
+        await client.close();
+        dbStatus = 'connected';
+      } catch (error) {
+        console.error('Health check - MongoDB connection error:', error);
+        dbStatus = 'error';
+      }
+    }
+    
     res.status(200).json({
       status: "ok",
       timestamp: new Date().toISOString(),
-      uptime: process.uptime()
+      uptime: process.uptime(),
+      database: dbStatus,
+      email: process.env.SENDGRID_API_KEY ? 'configured' : 'not_configured'
     });
   });
 
