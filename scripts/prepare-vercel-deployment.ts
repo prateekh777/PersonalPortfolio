@@ -22,7 +22,10 @@ async function prepareVercelDeployment() {
   // Check for required files
   const requiredFiles = [
     'vercel.json',
-    'api/index.ts'
+    'api/index.ts',
+    'data-export/projects.json',
+    'data-export/interests.json',
+    'data-export/ai-works.json'
   ];
   
   let allFilesExist = true;
@@ -44,7 +47,6 @@ async function prepareVercelDeployment() {
   
   // Check environment variables
   const requiredEnvVars = [
-    'MONGODB_URI',
     'SENDGRID_API_KEY'
   ];
   
