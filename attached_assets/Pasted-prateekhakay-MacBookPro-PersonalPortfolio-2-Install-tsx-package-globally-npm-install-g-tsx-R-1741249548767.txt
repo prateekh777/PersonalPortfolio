@@ -1,0 +1,79 @@
+prateekhakay@MacBookPro PersonalPortfolio 2 % # Install tsx package globally
+npm install -g tsx
+
+# Run the script
+tsx scripts/prepare-vercel-deployment.ts
+zsh: command not found: #
+
+added 5 packages in 2s
+
+2 packages are looking for funding
+  run `npm fund` for details
+zsh: command not found: #
+
+node:internal/modules/run_main:104
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'dotenv' imported from /Volumes/Data/My Code/Personal Website/PersonalPortfolio 2/scripts/prepare-vercel-deployment.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:267:9)
+    at packageResolve (node:internal/modules/esm/resolve:768:81)
+    at moduleResolve (node:internal/modules/esm/resolve:854:18)
+    at defaultResolve (node:internal/modules/esm/resolve:984:11)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at resolveBase (file:///opt/homebrew/lib/node_modules/tsx/dist/esm/index.mjs?1741249443658:2:3212)
+    at resolveDirectory (file:///opt/homebrew/lib/node_modules/tsx/dist/esm/index.mjs?1741249443658:2:3584)
+    at resolveTsPaths (file:///opt/homebrew/lib/node_modules/tsx/dist/esm/index.mjs?1741249443658:2:4073)
+    at async resolve (file:///opt/homebrew/lib/node_modules/tsx/dist/esm/index.mjs?1741249443658:2:4441)
+    at async nextResolve (node:internal/modules/esm/hooks:748:22) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v23.7.0
+prateekhakay@MacBookPro PersonalPortfolio 2 % pm install -g tsx
+zsh: command not found: pm
+prateekhakay@MacBookPro PersonalPortfolio 2 % npm install -g tsx
+
+changed 5 packages in 1s
+
+2 packages are looking for funding
+  run `npm fund` for details
+prateekhakay@MacBookPro PersonalPortfolio 2 % tsx scripts/prepare-vercel-deployment.ts
+
+
+node:internal/modules/run_main:104
+    triggerUncaughtException(
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'dotenv' imported from /Volumes/Data/My Code/Personal Website/PersonalPortfolio 2/scripts/prepare-vercel-deployment.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:267:9)
+    at packageResolve (node:internal/modules/esm/resolve:768:81)
+    at moduleResolve (node:internal/modules/esm/resolve:854:18)
+    at defaultResolve (node:internal/modules/esm/resolve:984:11)
+    at nextResolve (node:internal/modules/esm/hooks:748:28)
+    at resolveBase (file:///opt/homebrew/lib/node_modules/tsx/dist/esm/index.mjs?1741249482823:2:3212)
+    at resolveDirectory (file:///opt/homebrew/lib/node_modules/tsx/dist/esm/index.mjs?1741249482823:2:3584)
+    at resolveTsPaths (file:///opt/homebrew/lib/node_modules/tsx/dist/esm/index.mjs?1741249482823:2:4073)
+    at async resolve (file:///opt/homebrew/lib/node_modules/tsx/dist/esm/index.mjs?1741249482823:2:4441)
+    at async nextResolve (node:internal/modules/esm/hooks:748:22) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v23.7.0
+prateekhakay@MacBookPro PersonalPortfolio 2 % npm install -g ts-node typescript
+
+
+added 20 packages in 2s
+prateekhakay@MacBookPro PersonalPortfolio 2 % ts-node scripts/prepare-vercel-deployment.ts
+
+Error: Cannot find package 'dotenv' imported from /Volumes/Data/My Code/Personal Website/PersonalPortfolio 2/scripts/prepare-vercel-deployment.ts
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:267:9)
+    at packageResolve (node:internal/modules/esm/resolve:768:81)
+    at moduleResolve (node:internal/modules/esm/resolve:854:18)
+    at defaultResolve (node:internal/modules/esm/resolve:984:11)
+    at ModuleLoader.defaultResolve (node:internal/modules/esm/loader:719:12)
+    at ModuleLoader.#cachedDefaultResolve (node:internal/modules/esm/loader:643:25)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:626:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:279:38)
+    at ModuleJob._link (node:internal/modules/esm/module_job:136:49) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+prateekhakay@MacBookPro PersonalPortfolio 2 % 
