@@ -1,13 +1,13 @@
 
 import { MongoClient, Collection, ObjectId } from 'mongodb';
 import { 
-  sections, projects, caseStudies, aiWorks, interests,
   type Section, type InsertSection,
   type Project, type InsertProject,
   type CaseStudy, type InsertCaseStudy,
   type AiWork, type InsertAiWork,
   type Interest, type InsertInterest
 } from "@shared/schema";
+import { IStorage } from './storage';
 
 export class MongoStorage implements IStorage {
   private client: MongoClient;
@@ -56,10 +56,10 @@ export class MongoStorage implements IStorage {
     } as Section;
   }
 
-  async updateSection(id: number, section: Partial<InsertSection>): Promise<Section> {
+  async updateSection(id: string, section: Partial<InsertSection>): Promise<Section> {
     await this.connect();
     const result = await this.sectionsCollection.findOneAndUpdate(
-      { _id: new ObjectId(id.toString()) },
+      { _id: new ObjectId(id) },
       { $set: section },
       { returnDocument: 'after' }
     );
@@ -70,9 +70,9 @@ export class MongoStorage implements IStorage {
     } as Section;
   }
 
-  async deleteSection(id: number): Promise<void> {
+  async deleteSection(id: string): Promise<void> {
     await this.connect();
-    await this.sectionsCollection.deleteOne({ _id: new ObjectId(id.toString()) });
+    await this.sectionsCollection.deleteOne({ _id: new ObjectId(id) });
   }
 
   // Projects
@@ -95,10 +95,10 @@ export class MongoStorage implements IStorage {
     } as Project;
   }
 
-  async updateProject(id: number, project: Partial<InsertProject>): Promise<Project> {
+  async updateProject(id: string, project: Partial<InsertProject>): Promise<Project> {
     await this.connect();
     const result = await this.projectsCollection.findOneAndUpdate(
-      { _id: new ObjectId(id.toString()) },
+      { _id: new ObjectId(id) },
       { $set: project },
       { returnDocument: 'after' }
     );
@@ -109,9 +109,9 @@ export class MongoStorage implements IStorage {
     } as Project;
   }
 
-  async deleteProject(id: number): Promise<void> {
+  async deleteProject(id: string): Promise<void> {
     await this.connect();
-    await this.projectsCollection.deleteOne({ _id: new ObjectId(id.toString()) });
+    await this.projectsCollection.deleteOne({ _id: new ObjectId(id) });
   }
 
   // Case Studies
@@ -134,10 +134,10 @@ export class MongoStorage implements IStorage {
     } as CaseStudy;
   }
 
-  async updateCaseStudy(id: number, caseStudy: Partial<InsertCaseStudy>): Promise<CaseStudy> {
+  async updateCaseStudy(id: string, caseStudy: Partial<InsertCaseStudy>): Promise<CaseStudy> {
     await this.connect();
     const result = await this.caseStudiesCollection.findOneAndUpdate(
-      { _id: new ObjectId(id.toString()) },
+      { _id: new ObjectId(id) },
       { $set: caseStudy },
       { returnDocument: 'after' }
     );
@@ -148,9 +148,9 @@ export class MongoStorage implements IStorage {
     } as CaseStudy;
   }
 
-  async deleteCaseStudy(id: number): Promise<void> {
+  async deleteCaseStudy(id: string): Promise<void> {
     await this.connect();
-    await this.caseStudiesCollection.deleteOne({ _id: new ObjectId(id.toString()) });
+    await this.caseStudiesCollection.deleteOne({ _id: new ObjectId(id) });
   }
 
   // AI Works
@@ -173,10 +173,10 @@ export class MongoStorage implements IStorage {
     } as AiWork;
   }
 
-  async updateAiWork(id: number, aiWork: Partial<InsertAiWork>): Promise<AiWork> {
+  async updateAiWork(id: string, aiWork: Partial<InsertAiWork>): Promise<AiWork> {
     await this.connect();
     const result = await this.aiWorksCollection.findOneAndUpdate(
-      { _id: new ObjectId(id.toString()) },
+      { _id: new ObjectId(id) },
       { $set: aiWork },
       { returnDocument: 'after' }
     );
@@ -187,9 +187,9 @@ export class MongoStorage implements IStorage {
     } as AiWork;
   }
 
-  async deleteAiWork(id: number): Promise<void> {
+  async deleteAiWork(id: string): Promise<void> {
     await this.connect();
-    await this.aiWorksCollection.deleteOne({ _id: new ObjectId(id.toString()) });
+    await this.aiWorksCollection.deleteOne({ _id: new ObjectId(id) });
   }
 
   // Interests
@@ -211,10 +211,10 @@ export class MongoStorage implements IStorage {
     } as Interest;
   }
 
-  async updateInterest(id: number, interest: Partial<InsertInterest>): Promise<Interest> {
+  async updateInterest(id: string, interest: Partial<InsertInterest>): Promise<Interest> {
     await this.connect();
     const result = await this.interestsCollection.findOneAndUpdate(
-      { _id: new ObjectId(id.toString()) },
+      { _id: new ObjectId(id) },
       { $set: interest },
       { returnDocument: 'after' }
     );
@@ -225,9 +225,9 @@ export class MongoStorage implements IStorage {
     } as Interest;
   }
 
-  async deleteInterest(id: number): Promise<void> {
+  async deleteInterest(id: string): Promise<void> {
     await this.connect();
-    await this.interestsCollection.deleteOne({ _id: new ObjectId(id.toString()) });
+    await this.interestsCollection.deleteOne({ _id: new ObjectId(id) });
   }
 
   async close() {
