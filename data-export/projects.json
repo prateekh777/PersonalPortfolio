@@ -1,5 +1,6 @@
 [
   {
+    "_id": "67c8c762866c86a44b6a1f45",
     "title": "Portfolio Website",
     "subtitle": "Personal Showcase",
     "description": "A modern portfolio website built with React and Tailwind CSS to showcase my projects and skills",
@@ -11,9 +12,11 @@
       "JavaScript",
       "Responsive Design"
     ],
-    "position": "Full Stack Developer"
+    "position": "Full Stack Developer",
+    "id": "67c8c762866c86a44b6a1f45"
   },
   {
+    "_id": "67c8c763866c86a44b6a1f46",
     "title": "E-Commerce Platform",
     "subtitle": "Online Shopping Experience",
     "description": "A complete e-commerce solution with product listings, shopping cart, and payment processing",
@@ -27,9 +30,11 @@
       "Redux",
       "PayPal API"
     ],
-    "position": "Lead Developer"
+    "position": "Lead Developer",
+    "id": "67c8c763866c86a44b6a1f46"
   },
   {
+    "_id": "67c8c763866c86a44b6a1f47",
     "title": "Task Management App",
     "subtitle": "Productivity Tool",
     "description": "A task management application to help users organize their daily activities and improve productivity",
@@ -41,6 +46,7 @@
       "Mobile Development",
       "Cross-platform"
     ],
-    "position": "Mobile Developer"
+    "position": "Mobile Developer",
+    "id": "67c8c763866c86a44b6a1f47"
   }
 ]

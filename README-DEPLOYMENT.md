@@ -1,128 +1,163 @@
-# Vercel Deployment Guide for Portfolio Website
+# Deployment Guide
 
-This guide will walk you through deploying your portfolio website to Vercel, ensuring proper functionality in a serverless environment with email capabilities via SendGrid.
+This guide provides instructions for deploying this portfolio website to production.
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Prerequisites](#prerequisites)
+3. [Deployment to Vercel](#deployment-to-vercel)
+4. [Environment Variables](#environment-variables)
+5. [Data Management](#data-management)
+6. [Testing](#testing)
+7. [Monitoring](#monitoring)
+8. [Troubleshooting](#troubleshooting)
+
+## Overview
+
+This portfolio website is designed to be deployed to Vercel as a serverless application. The application uses a static data approach with JSON files for content management, making it highly scalable and cost-effective.
+
+### Key Features
+
+- **Static Data Files**: Projects, case studies, AI works, and interests are stored as JSON files.
+- **Serverless API Routes**: All API endpoints are implemented as serverless functions.
+- **Email Integration**: Contact form uses SendGrid for reliable email delivery.
+- **Health Monitoring**: Built-in health check endpoint for monitoring.
 
 ## Prerequisites
 
-Before deploying to Vercel, make sure you have:
+Before deploying, make sure you have:
 
-1. A Vercel account (sign up at [vercel.com](https://vercel.com))
-2. A SendGrid account with API key (sign up at [sendgrid.com](https://sendgrid.com))
-3. Node.js installed locally for testing
+1. A Vercel account (Sign up at [https://vercel.com](https://vercel.com))
+2. A SendGrid account with an API key (Sign up at [https://sendgrid.com](https://sendgrid.com))
+3. Git repository access (e.g., GitHub, GitLab, or Bitbucket)
 
-## Deployment Steps
+## Deployment to Vercel
 
-### 1. Fork or Clone the Repository
+For detailed Vercel-specific deployment instructions, refer to [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md).
 
-If you haven't already, fork or clone this repository to your GitHub account.
+### Quick Start
 
-### 2. Set Up Environment Variables in Vercel
+1. **Prepare your data**
+   ```bash
+   # Extract data from MongoDB to static JSON files
+   npx tsx scripts/extract-data-for-frontend.ts
+   ```
 
-When setting up your project on Vercel, you'll need to configure the following environment variables:
+2. **Verify application health**
+   ```bash
+   # Test all aspects of the application
+   bash scripts/run-tests.sh all
+   ```
 
-**Required:**
-- `SENDGRID_API_KEY`: Your SendGrid API key
+3. **Deploy to Vercel**
+   - Push your code to your Git repository
+   - Connect your repository to Vercel
+   - Configure build settings and environment variables
+   - Deploy
 
-**Recommended:**
-- `CONTACT_FROM_EMAIL`: The email that will appear as the sender of contact form emails (must be verified in SendGrid)
-- `CONTACT_TO_EMAIL`: The email where you want to receive contact form submissions
+## Environment Variables
 
-**Optional:**
-- `RECAPTCHA_SECRET_KEY`: If you're using Google reCAPTCHA for spam protection
+The following environment variables must be set in your production environment:
 
-### 3. Deploy to Vercel
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `SENDGRID_API_KEY` | Yes | Your SendGrid API key for sending emails |
+| `CONTACT_FROM_EMAIL` | Recommended | The email address used as the sender |
+| `CONTACT_TO_EMAIL` | Recommended | The email address where form submissions are sent |
+| `RECAPTCHA_SECRET_KEY` | Optional | For reCAPTCHA spam protection on the contact form |
 
-**Using the Vercel Dashboard:**
+## Data Management
 
-1. Log in to the [Vercel dashboard](https://vercel.com/dashboard)
-2. Click "New Project"
-3. Import your GitHub repository
-4. Configure the environment variables
-5. Deploy
+### Static Data Files
 
-**Using the Vercel CLI:**
+All content is stored in static JSON files located in the `data-export` directory:
 
+- `projects.json`: Portfolio projects
+- `case-studies.json`: Professional case studies
+- `ai-works.json`: AI-related work
+- `interests.json`: Personal interests and hobbies
+
+### Updating Content
+
+To update content after deployment:
+
+1. Modify the JSON files locally
+2. Test changes with `bash scripts/run-tests.sh all`
+3. Deploy updated files to Vercel
+
+For MongoDB users, you can extract updated data using:
 ```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Log in to Vercel
-vercel login
-
-# Deploy to production
-vercel --prod
+npx tsx scripts/extract-data-for-frontend.ts
 ```
 
-### 4. Verify Deployment
+## Testing
 
-After deployment, verify that everything is working by:
+### Built-in Test Scripts
 
-1. Visiting the deployed site
-2. Testing the contact form
-3. Checking the `/api/health` endpoint to verify the service status
+The application includes several test scripts to verify functionality:
 
-## Key Features
+```bash
+# Run all tests
+bash scripts/run-tests.sh all
 
-### Static JSON Data
+# Test specific components
+bash scripts/run-tests.sh health    # API health check
+bash scripts/run-tests.sh email     # Email functionality
+bash scripts/run-tests.sh vercel    # Deployment readiness
+bash scripts/run-tests.sh extract   # Data extraction
+```
 
-This portfolio uses static JSON files (`data-export/*.json`) to store and serve content:
-- `projects.json`: Your project portfolio items
-- `interests.json`: Your personal interests
-- `ai-works.json`: Your AI-related work
+### Manual Testing
 
-No database is needed as these files are bundled with the deployment.
+After deployment, verify:
 
-### SendGrid Email Integration
+1. The website loads correctly at your Vercel URL
+2. All pages render correctly
+3. The contact form works properly
+4. API endpoints return correct data
 
-The contact form uses SendGrid to send emails:
-- When users submit the contact form, an email is sent to your specified address
-- The SendGrid API key is secured as an environment variable
+## Monitoring
 
-### API Structure
+### Health Check Endpoint
 
-The API is designed to be lightweight and serverless-friendly:
-- `/api/health`: Shows the system status
-- `/api/contact`: Processes contact form submissions
-- `/api/projects`, `/api/interests`, `/api/ai-works`: Serve static data from JSON files
+The application includes a health check endpoint at `/api/health` that returns:
 
-## Monitoring and Maintenance
-
-### Health Endpoint
-
-The application has a `/api/health` endpoint that provides status information about email service connections. You can use this to monitor the application's health.
-
-Example response:
 ```json
 {
   "status": "ok",
-  "timestamp": "2023-09-01T12:00:00Z",
-  "uptime": 3600,
+  "timestamp": "2023-01-01T00:00:00.000Z",
+  "uptime": 123.456,
   "email": "configured"
 }
 ```
 
-### Troubleshooting
+Use this endpoint with monitoring services like UptimeRobot, Pingdom, or StatusCake.
 
-If you encounter issues with the deployment:
+### Logging
 
-1. **Check environment variables** - Make sure all required environment variables are properly set in the Vercel dashboard.
-2. **Check logs** - Vercel provides deployment and function logs that can help diagnose issues.
-3. **Email service** - Verify that your SendGrid API key is active and the sender email is verified.
-4. **Static files** - Ensure the JSON files in `data-export/` are properly formatted.
+Vercel provides built-in logging for serverless functions. Access logs via the Vercel dashboard.
 
-## Local Development vs. Vercel Deployment
+## Troubleshooting
 
-There are a few key differences between local development and Vercel deployment:
+### Common Issues
 
-1. **Serverless functions** - On Vercel, the API routes run as serverless functions.
-2. **Cold starts** - Serverless functions may experience cold starts, causing the first request to be slower.
-3. **Environment variables** - Make sure to set the same environment variables in both environments.
+1. **Missing environment variables**
+   - Verify all required environment variables are set in Vercel
 
-## Additional Resources
+2. **Email delivery issues**
+   - Check SendGrid API key is valid
+   - Verify sender email is verified in SendGrid
 
-- [Vercel Documentation](https://vercel.com/docs)
-- [SendGrid API Documentation](https://docs.sendgrid.com/api-reference)
+3. **Static data not showing**
+   - Ensure JSON files exist in the `data-export` directory
+   - Check file permissions and format
 
-## License
+### Getting Support
 
-[MIT License](LICENSE)
+For Vercel deployment issues, refer to [Vercel Documentation](https://vercel.com/docs).
+For SendGrid issues, refer to [SendGrid Documentation](https://docs.sendgrid.com/).
+
+---
+
+For additional Vercel-specific deployment details, see [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md)

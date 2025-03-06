@@ -1,69 +1,151 @@
-import { MongoClient } from 'mongodb';
-import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
+import dotenv from 'dotenv';
+import { MongoClient } from 'mongodb';
+import { MongoStorage } from '../server/mongo-storage';
 
+// Load environment variables
 dotenv.config();
 
+const DATA_EXPORT_DIR = path.join(process.cwd(), 'data-export');
+
+/**
+ * This script extracts data from MongoDB and saves it as static JSON files
+ * for use in the Vercel serverless deployment
+ */
 async function extractDataForFrontend() {
+  console.log('Extracting data from MongoDB to static JSON files...');
+  
+  // Create data export directory if it doesn't exist
+  if (!fs.existsSync(DATA_EXPORT_DIR)) {
+    fs.mkdirSync(DATA_EXPORT_DIR, { recursive: true });
+    console.log(`Created directory: ${DATA_EXPORT_DIR}`);
+  }
+  
+  // Check if MongoDB URI is provided
   const mongoUri = process.env.MONGODB_URI;
   if (!mongoUri) {
-    console.error("MONGODB_URI environment variable is not set");
-    process.exit(1);
+    console.error('ERROR: MONGODB_URI environment variable not set');
+    console.log('Creating sample data files instead');
+    createSampleDataFiles();
+    return;
   }
-
-  console.log("Extracting MongoDB data for frontend hardcoding...");
   
-  const client = new MongoClient(mongoUri);
-  
+  // Initialize storage and connect to MongoDB
   try {
-    await client.connect();
-    console.log("Connected to MongoDB!");
+    const storage = new MongoStorage(mongoUri);
+    await storage.connect();
+    console.log('Connected to MongoDB');
     
-    const db = client.db('portfolio');
+    // Extract and save projects data
+    const projects = await storage.getProjects();
+    saveDataToFile(projects, 'projects.json');
     
-    // Extract data from projects collection
-    const projects = await db.collection('projects').find().toArray();
-    console.log(`\nExtracted ${projects.length} projects`);
+    // Extract and save case studies data
+    const caseStudies = await storage.getCaseStudies();
+    saveDataToFile(caseStudies, 'case-studies.json');
     
-    // Extract data from aiWorks collection
-    const aiWorks = await db.collection('aiWorks').find().toArray();
-    console.log(`Extracted ${aiWorks.length} AI works`);
+    // Extract and save AI works data
+    const aiWorks = await storage.getAiWorks();
+    saveDataToFile(aiWorks, 'ai-works.json');
     
-    // Extract data from interests collection
-    const interests = await db.collection('interests').find().toArray();
-    console.log(`Extracted ${interests.length} interests`);
+    // Extract and save interests data
+    const interests = await storage.getInterests();
+    saveDataToFile(interests, 'interests.json');
     
-    // Write data to files
-    const dataDir = path.join(process.cwd(), 'data-export');
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir);
-    }
+    // Close MongoDB connection
+    await storage.close();
+    console.log('MongoDB connection closed');
     
-    fs.writeFileSync(
-      path.join(dataDir, 'projects.json'), 
-      JSON.stringify(projects, null, 2)
-    );
-    
-    fs.writeFileSync(
-      path.join(dataDir, 'ai-works.json'), 
-      JSON.stringify(aiWorks, null, 2)
-    );
-    
-    fs.writeFileSync(
-      path.join(dataDir, 'interests.json'), 
-      JSON.stringify(interests, null, 2)
-    );
-    
-    console.log(`\nData exported to ${dataDir} directory`);
-    console.log("Use this data to hardcode into your frontend components");
-    
+    console.log('Data extraction completed successfully');
   } catch (error) {
-    console.error("Error extracting data:", error);
-  } finally {
-    await client.close();
-    console.log("\nExport complete");
+    console.error('Error extracting data from MongoDB:', error);
+    console.log('Creating sample data files instead');
+    createSampleDataFiles();
   }
 }
 
+/**
+ * Save data to a JSON file
+ */
+function saveDataToFile(data: any, filename: string) {
+  const filePath = path.join(DATA_EXPORT_DIR, filename);
+  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+  console.log(`Saved ${data.length} items to ${filePath}`);
+}
+
+/**
+ * Create sample data files if MongoDB extraction fails
+ */
+function createSampleDataFiles() {
+  console.log('Creating sample data files...');
+  
+  // Sample projects data
+  const sampleProjects = [
+    {
+      id: '1',
+      title: 'Portfolio Website',
+      subtitle: 'Personal showcase',
+      description: 'A responsive portfolio website built with React and Express',
+      imageUrl: '/images/portfolio.jpg',
+      tags: ['React', 'TypeScript', 'Tailwind CSS'],
+      position: 'Software Engineer'
+    }
+  ];
+  saveDataToFile(sampleProjects, 'projects.json');
+  
+  // Sample case studies data
+  const sampleCaseStudies = [
+    {
+      id: '1',
+      title: 'Increasing Conversion Rate',
+      result: 'Increased conversion by 25%',
+      actions: [
+        {
+          heading: 'Research',
+          items: ['Conducted user interviews', 'Analyzed analytics data']
+        },
+        {
+          heading: 'Implementation',
+          items: ['Redesigned landing page', 'Simplified signup flow']
+        }
+      ],
+      context: {
+        heading: 'Skills Applied',
+        skills: ['UX Research', 'Data Analysis', 'A/B Testing']
+      }
+    }
+  ];
+  saveDataToFile(sampleCaseStudies, 'case-studies.json');
+  
+  // Sample AI works data
+  const sampleAiWorks = [
+    {
+      id: '1',
+      title: 'AI Screen Reader',
+      description: 'A real-time voice tutor that reads text and provides explanations',
+      technologies: ['OpenAI', 'React', 'Web Speech API'],
+      mediaType: 'image',
+      imageUrl: '/images/ai-reader.jpg'
+    }
+  ];
+  saveDataToFile(sampleAiWorks, 'ai-works.json');
+  
+  // Sample interests data
+  const sampleInterests = [
+    {
+      id: '1',
+      title: 'Machine Learning',
+      description: 'Exploring neural networks and their applications',
+      mediaType: 'image',
+      mediaUrl: '/images/machine-learning.jpg',
+      category: 'science'
+    }
+  ];
+  saveDataToFile(sampleInterests, 'interests.json');
+  
+  console.log('Sample data files created successfully');
+}
+
+// Run the extraction function
 extractDataForFrontend().catch(console.error);
