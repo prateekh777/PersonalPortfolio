@@ -48,22 +48,22 @@ const timelineData: Record<Role, TimelineEvent[]> = {
   ],
   "people-manager": [
     {
-      date: "2021",
-      title: "Team Foundation",
-      description: "Built core engineering team of 10",
+      date: "2024 | Complori | VP, Product",
+      title: "Optimizing Contracts and Training for Team Efficiency",
+      description: "I facilitated contract modifications for DACH region and working students, ensuring compliance and clarity. Led teams to improve training and quality procedures, creating structured processes that enhanced consistency and service delivery.",
+      icon: "public/images/images_prev_ui.png"
+    },
+    {
+      date: "2020 | BrightChamps | Head of Operations",
+      title: "Scaling Global Operations with 1200+ Hires",
+      description: "I built and managed global operations across 16 countries, overseeing 1200+ contractors for seamless lesson delivery. Designed scalable recruitment, training, and performance systems, ensuring operational excellence while maintaining strong customer engagement and retention.",
       icon: "/images/brightchamps-logo.png"
     },
     {
-      date: "2022",
-      title: "Process Optimization",
-      description: "Reduced delivery time by 40%",
-      icon: "/images/brightchamps-logo.png"
-    },
-    {
-      date: "2023",
-      title: "Growth Achievement",
-      description: "Expanded team to 3 departments",
-      icon: "/images/brightchamps-logo.png"
+      date: "2019 | Edoflip | CEO",
+      title: "Building Trust Through Strong Referral Networks",
+      description: "Trust was at the core of Edoflip’s growth. With a high referral rate, we created a strong community-driven learning network, ensuring organic retention and long-term relationships. This trust-based model enabled sustainable growth without heavy reliance on paid marketing",
+      icon: "public/images/logo.png"
     },
   ],
   "individual-contributor": [
@@ -90,22 +90,34 @@ const timelineData: Record<Role, TimelineEvent[]> = {
   ],
   "strategy-contributor": [
     {
-      date: "2021",
-      title: "Core System Design",
-      description: "Architected primarily focusing on scalability and maintainability",
+      date: "2024 | Complori | VP, Product",
+      title: "Strategizing for Higher Student Engagement",
+      description: "I designed and implemented strategies to increase student engagement, from conceptualization to deployment. By aligning curriculum enhancements, product features, and incentive structures, I ensured a more engaging learning experience that drove higher retention and participation rates.",
+      icon: "public/images/images_prev_ui.png"
+    },
+    {
+      date: "2023 | Glacier | Head of Product",
+      title: "Building a Scalable Product from the Ground Up",
+      description: "I identified the core needs for scalability, selecting the right tech stacks and frameworks to support long-term growth. By bridging product vision with execution, I ensured that Glacier’s platform evolved strategically, balancing innovation with sustainable expansion.",
+      icon: "public/images/glaciereco_logo_prev_ui.png"
+    },
+    {
+      date: "2020 | BrightChamps | Head of Operations",
+      title: "End-to-End Strategy Across Product, Operations, and Curriculum",
+      description: "I played a pivotal role in shaping BrightChamps from its early product stages to full-scale operations. Managed product development, operations, curriculum structuring, and delivery, ensuring a seamless transition between strategy, execution, and business impact. Led placement initiatives, creating a complete learning-to-career pipeline.",
       icon: "/images/brightchamps-logo.png"
     },
     {
-      date: "2022",
-      title: "Performance Impact",
-      description: "Optimized critical workflows by 60%",
-      icon: "/images/brightchamps-logo.png"
+      date: "2019 | Edoflip | CEO",
+      title: "Building a Company Grounded in Strategy and Vision",
+      description: "From concept to execution, I built Edoflip as a scalable learning platform, ensuring strong market positioning and sustainable growth. Focused on trust-driven expansion, I developed a business model that thrived on referrals and long-term student engagement, proving the effectiveness of a community-first approach.",
+      icon: "public/images/logo.png"
     },
     {
-      date: "2023",
-      title: "Innovation Leadership",
-      description: "Delivered 3 breakthrough features",
-      icon: "/images/brightchamps-logo.png"
+      date: "2017 | Greetude Energy (ClimateTech) | Founder & Director",
+      title: "Strategic Execution of a Green Energy Venture",
+      description: "I developed and scaled a full-fledged green energy company, leading it from ideation to acquisition. Focused on commercial viability and sustainability, I navigated complex enterprise partnerships and regulatory landscapes, ultimately positioning Greetude as a high-impact, investment-worthy venture.",
+      icon: "public/images/Greetude Large Image.png"
     },
   ],
 };

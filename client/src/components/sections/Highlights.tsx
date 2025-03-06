@@ -46,8 +46,8 @@ const highlightsData: Record<Role, {
   },
   "individual-contributor": {
     media: {
-      type: 'image',
-      url: "/images/gradients/green_card.png",
+      type: 'video',
+      url: "public/images/Reena Discovers Edoflip - The Perfect Online Education Platform.mp4",
     },
     points: [
       "Architected and implemented scalable backend systems handling millions of user interactions daily",
