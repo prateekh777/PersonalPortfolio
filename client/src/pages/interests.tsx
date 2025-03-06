@@ -1,24 +1,38 @@
-import { useQuery } from "@tanstack/react-query";
 import { type Interest } from "@shared/schema";
-import { Skeleton } from "@/components/ui/skeleton";
 import { InterestOrbits } from "@/components/sections/InterestOrbits";
 import { HobbiesCarousel } from "@/components/sections/HobbiesCarousel";
 import { InterestsVideoFlow } from "@/components/sections/InterestsVideoFlow";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export default function Interests() {
-  const { data: interests, isLoading } = useQuery<Interest[]>({
-    queryKey: ["/api/interests"],
-  });
-
-  if (isLoading) {
-    return (
-      <div className="space-y-10 pt-12">
-        <h1 className="text-3xl font-bold">My Interests</h1>
-        <Skeleton className="h-[600px] w-full" />
-      </div>
-    );
+// Hardcoded interests data
+const interestsData: Interest[] = [
+  {
+    id: "1",
+    title: "Quantum Computing",
+    description: "Exploring the fascinating world of quantum computing and its potential applications in cryptography and optimization problems.",
+    mediaUrl: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    mediaType: "image",
+    category: "science"
+  },
+  {
+    id: "2",
+    title: "Meditation & Mindfulness",
+    description: "Practicing daily meditation and mindfulness techniques to improve focus, reduce stress, and enhance overall well-being.",
+    mediaUrl: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    mediaType: "image",
+    category: "spirituality"
+  },
+  {
+    id: "3",
+    title: "Venture Capital",
+    description: "Following trends in early-stage investments and analyzing what makes startups successful in today's rapidly changing market.",
+    mediaUrl: "https://images.unsplash.com/photo-1559067096-49ebca3406aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    mediaType: "image",
+    category: "startups"
   }
+];
+
+export default function Interests() {
 
   return (
     <div className="space-y-8 pt-16 px-4 sm:px-6 mx-auto max-w-screen-xl" 
