@@ -1,75 +1,83 @@
-import { pgTable, text, serial, integer, json, timestamp } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const sections = pgTable("sections", {
-  id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  content: text("content").notNull(),
-  type: text("type").notNull(), // home, expertise, etc.
-  order: integer("order").notNull(),
-  mediaUrls: text("media_urls").array().default([]).notNull(),
-  stats: json("stats").$type<{ label: string; value: string }[]>().default([]),
+// Define MongoDB Schema types using Zod
+
+// Section Schema
+export const sectionSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  content: z.string(),
+  type: z.string(), // home, expertise, etc.
+  order: z.number(),
+  mediaUrls: z.array(z.string()).default([]),
+  stats: z.array(z.object({ label: z.string(), value: z.string() })).default([]),
 });
 
-export const projects = pgTable("projects", {
-  id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  subtitle: text("subtitle"),
-  description: text("description").notNull(),
-  imageUrl: text("image_url"),
-  projectUrl: text("project_url"),
-  tags: json("tags").$type<string[]>().default([]),
-  position: text("position").default("left"), // Can be "left" or "right" to indicate image position
+export const insertSectionSchema = sectionSchema.omit({ id: true });
+
+// Project Schema
+export const projectSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  subtitle: z.string().optional(),
+  description: z.string(),
+  imageUrl: z.string().optional(),
+  projectUrl: z.string().optional(),
+  tags: z.array(z.string()).default([]),
+  position: z.string().default("left"), // Can be "left" or "right" to indicate image position
 });
 
-export const caseStudies = pgTable("case_studies", {
-  id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  description: text("description").notNull(),
-  imageUrl: text("image_url"),
-  outcome: text("outcome"),
-  technologies: json("technologies").$type<string[]>().default([]),
+export const insertProjectSchema = projectSchema.omit({ id: true });
+
+// Case Study Schema
+export const caseStudySchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string(),
+  imageUrl: z.string().optional(),
+  outcome: z.string().optional(),
+  technologies: z.array(z.string()).default([]),
 });
 
-export const aiWorks = pgTable("ai_works", {
-  id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  description: text("description").notNull(),
-  imageUrl: text("image_url"),
-  mediaType: text("media_type").default("image"),
-  demoUrl: text("demo_url"),
-  technologies: json("technologies").$type<string[]>().default([]),
+export const insertCaseStudySchema = caseStudySchema.omit({ id: true });
+
+// AI Works Schema
+export const aiWorkSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string(),
+  imageUrl: z.string().optional(),
+  mediaType: z.string().default("image"),
+  demoUrl: z.string().optional(),
+  technologies: z.array(z.string()).default([]),
 });
 
-export const interests = pgTable("interests", {
-  id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  description: text("description").notNull(),
-  mediaUrl: text("media_url").notNull(),
-  mediaType: text("media_type").default("image").notNull(), // "image" or "video"
-  category: text("category").notNull(),
+export const insertAiWorkSchema = aiWorkSchema.omit({ id: true });
+
+// Interests Schema
+export const interestSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string(),
+  mediaUrl: z.string(),
+  mediaType: z.string().default("image"), // "image" or "video"
+  category: z.string(),
 });
 
-// Insert schemas
-export const insertSectionSchema = createInsertSchema(sections);
-export const insertProjectSchema = createInsertSchema(projects);
-export const insertCaseStudySchema = createInsertSchema(caseStudies);
-export const insertAiWorkSchema = createInsertSchema(aiWorks);
-export const insertInterestSchema = createInsertSchema(interests);
+export const insertInterestSchema = interestSchema.omit({ id: true });
 
-// Types
-export type Section = typeof sections.$inferSelect;
+// Export Types for use throughout the application
+export type Section = z.infer<typeof sectionSchema>;
 export type InsertSection = z.infer<typeof insertSectionSchema>;
 
-export type Project = typeof projects.$inferSelect;
+export type Project = z.infer<typeof projectSchema>;
 export type InsertProject = z.infer<typeof insertProjectSchema>;
 
-export type CaseStudy = typeof caseStudies.$inferSelect;
+export type CaseStudy = z.infer<typeof caseStudySchema>;
 export type InsertCaseStudy = z.infer<typeof insertCaseStudySchema>;
 
-export type AiWork = typeof aiWorks.$inferSelect;
+export type AiWork = z.infer<typeof aiWorkSchema>;
 export type InsertAiWork = z.infer<typeof insertAiWorkSchema>;
 
-export type Interest = typeof interests.$inferSelect;
+export type Interest = z.infer<typeof interestSchema>;
 export type InsertInterest = z.infer<typeof insertInterestSchema>;
