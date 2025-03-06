@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "id": "1",
+    "title": "Increasing Conversion Rate from Demo Participants to Paid Customers",
+    "result": "Increased conversion by 25% while maintaining customer satisfaction",
+    "actions": [
+      {
+        "heading": "Research & Analysis",
+        "items": [
+          "Conducted interviews with 30+ demo participants who did not convert",
+          "Analyzed usage patterns from 500+ demo sessions to identify engagement metrics",
+          "Created conversion funnel visualization to pinpoint exact drop-off points"
+        ]
+      },
+      {
+        "heading": "Strategy Implementation",
+        "items": [
+          "Redesigned demo experience to focus on highest-value features first",
+          "Implemented personalized follow-up email sequence based on specific user interactions",
+          "Created targeted resources addressing common objections identified in research",
+          "Developed clear pricing comparison tools to improve transparency"
+        ]
+      },
+      {
+        "heading": "Measurement & Optimization",
+        "items": [
+          "Established A/B testing framework for continuous conversion optimization",
+          "Implemented real-time feedback collection during demo process",
+          "Created customer journey analytics dashboard for leadership"
+        ]
+      }
+    ],
+    "context": {
+      "heading": "Skills & Methodologies Applied",
+      "skills": ["User Research", "Data Analysis", "Conversion Optimization", "A/B Testing", "UX Design", "Customer Journey Mapping"]
+    }
+  }
+]

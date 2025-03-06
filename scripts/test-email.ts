@@ -1,12 +1,8 @@
-import sgMail from '@sendgrid/mail';
 import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { sendContactEmail } from '../server/email';
 
 // Load environment variables
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-dotenv.config({ path: path.join(__dirname, '..', '.env') });
+dotenv.config();
 
 /**
  * This script tests SendGrid email functionality by sending a test email
@@ -14,62 +10,49 @@ dotenv.config({ path: path.join(__dirname, '..', '.env') });
 async function testSendGridEmail() {
   console.log('Testing SendGrid email functionality...');
   
-  // Check for SendGrid API key
+  // Check if SendGrid API key is configured
   const sendgridApiKey = process.env.SENDGRID_API_KEY;
   if (!sendgridApiKey) {
-    console.error('Error: SENDGRID_API_KEY environment variable is not set.');
-    console.log('Please set this environment variable and try again.');
+    console.error('ERROR: SENDGRID_API_KEY environment variable not set');
+    console.log('Please set the SENDGRID_API_KEY environment variable in your .env file');
     process.exit(1);
   }
   
-  // Set SendGrid API key
-  sgMail.setApiKey(sendgridApiKey);
+  console.log('✅ SendGrid API key found');
   
-  // Get email addresses
-  const fromEmail = process.env.CONTACT_FROM_EMAIL || 'prateek@edoflip.com';
-  const toEmail = process.env.CONTACT_TO_EMAIL || 'prateek@edoflip.com';
+  // Get from and to email addresses
+  const fromEmail = process.env.CONTACT_FROM_EMAIL || 'noreply@example.com';
+  const toEmail = process.env.CONTACT_TO_EMAIL || 'recipient@example.com';
   
-  console.log(`From: ${fromEmail}`);
-  console.log(`To: ${toEmail}`);
+  console.log(`Sending test email:`);
+  console.log(`- From: ${fromEmail}`);
+  console.log(`- To: ${toEmail}`);
   
-  // Create test email
-  const msg = {
-    to: toEmail,
-    from: fromEmail,
-    subject: 'SendGrid Test Email',
-    text: 'This is a test email sent from the Portfolio Application using SendGrid.',
-    html: `
-      <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 5px;">
-        <h2 style="color: #333;">SendGrid Test Email</h2>
-        <p>This is a test email sent from the Portfolio Application using SendGrid.</p>
-        <p>If you're receiving this email, it means your SendGrid integration is working correctly!</p>
-        <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-        <p style="color: #666; font-size: 12px;">This is an automated test email. Please do not reply.</p>
-      </div>
-    `,
+  // Create test email data
+  const testData = {
+    name: 'Test User',
+    email: fromEmail,
+    subject: 'Test Email from Portfolio Website',
+    message: 'This is a test email sent from the portfolio website to verify SendGrid integration.',
+    recaptchaToken: 'test-token'
   };
   
   try {
-    // Send the email
-    const response = await sgMail.send(msg);
-    console.log('Test email sent successfully!');
-    console.log(`Status code: ${response[0].statusCode}`);
-    console.log('SendGrid integration is working correctly.');
-  } catch (error) {
-    console.error('Error sending test email:');
-    console.error(error);
+    // Send test email
+    const result = await sendContactEmail(testData);
     
-    // Check for SendGrid error response
-    if (error.response) {
-      console.error('SendGrid API error response:');
-      console.error(error.response.body);
+    if (result) {
+      console.log('✅ Test email sent successfully!');
+      console.log('Email functionality is working correctly.');
+    } else {
+      console.error('❌ Failed to send test email.');
+      console.log('Check your SendGrid configuration and try again.');
     }
-    
-    process.exit(1);
+  } catch (error) {
+    console.error('❌ Error sending test email:', error);
+    console.log('Make sure your SendGrid API key is valid and your sender email is verified in SendGrid.');
   }
 }
 
-testSendGridEmail().catch(error => {
-  console.error('Unexpected error:', error);
-  process.exit(1);
-});
+// Run the test
+testSendGridEmail();
