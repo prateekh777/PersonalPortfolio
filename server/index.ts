@@ -4,25 +4,17 @@ import { setupVite, log, serveStatic } from "./vite";
 import path from "path";
 import fs from "fs";
 import { registerRoutes } from "./routes";
-import { initData } from "./init-data";
-import { initializeStorageAndWait } from "./storage";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Simplified server just to serve the static files
+// Simplified server just to serve the static files and contact form API
 (async () => {
-  // First, ensure storage is properly initialized
-  await initializeStorageAndWait();
-  
   const server = createServer(app);
 
-  // Register API routes
+  // Register API routes (only contact form endpoint)
   await registerRoutes(app);
-  
-  // Initialize data
-  await initData();
 
   // Use Vite for development
   if (app.get("env") === "development") {
