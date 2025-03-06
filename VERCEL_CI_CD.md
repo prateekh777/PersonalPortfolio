@@ -1,204 +1,201 @@
-# Setting Up CI/CD with Vercel
+# CI/CD Setup for Vercel Deployment
 
-This guide will help you set up a Continuous Integration and Continuous Deployment (CI/CD) pipeline for your portfolio website using Vercel.
+This document outlines how to set up Continuous Integration and Continuous Deployment (CI/CD) for the portfolio website using GitHub Actions and Vercel.
 
-## Benefits of CI/CD with Vercel
+## GitHub Actions + Vercel Integration
 
-- **Automated Deployments**: Changes are automatically deployed when you push to your repository
-- **Preview Deployments**: Every pull request gets its own preview URL
-- **Easy Rollbacks**: Quickly revert to previous deployments if issues arise
-- **Environment Management**: Separate development, staging, and production environments
+### Prerequisites
 
-## Prerequisites
+1. GitHub repository for your project
+2. Vercel account linked to your GitHub account
+3. Project already deployed manually to Vercel at least once
 
-- A GitHub, GitLab, or Bitbucket repository containing your portfolio code
-- A Vercel account (sign up at [vercel.com](https://vercel.com))
-- Your SendGrid API key for email functionality
+### Setting Up GitHub Actions
 
-## Setting Up CI/CD Pipeline
-
-### Step 1: Connect Your Repository to Vercel
-
-1. Log in to your Vercel account
-2. Click "New Project"
-3. Import your Git repository
-4. Configure project settings:
-   - **Framework Preset**: Other
-   - **Root Directory**: ./
-   - **Build Command**: npm run build
-   - **Output Directory**: dist/public
-
-### Step 2: Configure Environment Variables
-
-In your Vercel project settings, add the following environment variables:
-
-| Variable | Description |
-|----------|-------------|
-| `SENDGRID_API_KEY` | Your SendGrid API key |
-| `CONTACT_FROM_EMAIL` | Email to send from (must be verified in SendGrid) |
-| `CONTACT_TO_EMAIL` | Email to receive contact form submissions |
-| `RECAPTCHA_SECRET_KEY` | (Optional) For spam protection |
-
-### Step 3: Set Up Branch Deployments
-
-1. Go to your Vercel project settings
-2. Navigate to "Git" section
-3. Configure the following:
-   - **Production Branch**: main (or your default branch)
-   - **Preview Branches**: Enable for all branches
-   - **Preview Comments**: Enabled (for PR comments)
-
-### Step 4: Configure Deployment Protection
-
-For production deployments, consider adding deployment protection:
-
-1. Go to project settings
-2. Navigate to "Git" > "Deploy Hooks"
-3. Enable password protection or OAuth verification
-
-## Workflow Examples
-
-### Basic Workflow
-
-```mermaid
-graph LR
-    A[Push Code to Repository] --> B[Automatic Build]
-    B --> C[Vercel Deployment]
-    C --> D[Health Check]
-```
-
-### Feature Branch Workflow
-
-```mermaid
-graph TB
-    A[Create Feature Branch] --> B[Develop Changes]
-    B --> C[Push to Repository]
-    C --> D[Preview Deployment]
-    D --> E[Manual Testing]
-    E --> F{Approved?}
-    F -->|Yes| G[Merge to Main]
-    F -->|No| B
-    G --> H[Production Deployment]
-```
-
-## Monitoring Deployments
-
-### Deployment Logs
-
-- Visit your Vercel dashboard
-- Select your project
-- Click on "Deployments" to view all deployments
-- Click on a specific deployment to view detailed logs
-
-### Health Checks
-
-After each deployment, verify that your application is working correctly:
-
-```bash
-# Replace with your actual deployment URL
-bash scripts/verify-deployment.sh https://your-portfolio.vercel.app
-```
-
-### Setting Up External Monitoring
-
-For production deployments, consider setting up external monitoring:
-
-1. **UptimeRobot**: Configure to ping your health endpoint (`/api/health`)
-2. **StatusCake**: Set up to monitor your main site and API endpoints
-3. **Datadog**: For more comprehensive monitoring and alerting
-
-## Automating Data Updates
-
-If your portfolio data changes frequently, consider setting up a scheduled data extraction:
-
-1. Create a GitHub Action that runs your data extraction script
-2. Schedule it to run daily or weekly
-3. Commit changes to your repository
-4. Vercel will automatically deploy the updated data
-
-Example GitHub workflow:
+1. Create a `.github/workflows` directory in your repository if it doesn't exist
+2. Create a new file `vercel-deploy.yml` with the following content:
 
 ```yaml
-name: Update Portfolio Data
+name: Deploy to Vercel
 
 on:
-  schedule:
-    - cron: '0 0 * * 0'  # Weekly on Sunday at midnight
-  workflow_dispatch:     # Allow manual trigger
+  push:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  update-data:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '20'
-          
+      
       - name: Install dependencies
         run: npm ci
-        
-      - name: Extract data
-        run: npx tsx scripts/extract-data-for-frontend.ts
+      
+      - name: Run tests
+        run: npm test
+      
+      - name: Extract data from MongoDB
+        if: success()
+        run: npm run extract-data
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          
-      - name: Commit and push if changed
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add data-export/
-          git diff --quiet && git diff --staged --quiet || git commit -m "Update portfolio data [skip ci]"
-          git push
+      
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./
+          vercel-args: '--prod'
 ```
 
-## Troubleshooting Common Issues
+### Required Secrets
 
-### Failed Builds
+Add the following secrets to your GitHub repository:
 
-If your Vercel build fails:
+1. `VERCEL_TOKEN`: A Vercel API token (create one in Vercel → Settings → Tokens)
+2. `VERCEL_ORG_ID`: Your Vercel Organization ID
+3. `VERCEL_PROJECT_ID`: Your Vercel Project ID
+4. `MONGODB_URI`: Your MongoDB connection string
 
-1. Check the build logs in the Vercel dashboard
-2. Verify that your project builds locally with `npm run build`
-3. Check for missing environment variables
+To find Vercel IDs:
+- Run `vercel whoami` to get your org ID
+- Run `vercel projects list` to list projects
+- Run `vercel project info` to get project ID
 
-### API Not Working
+### Preview Deployments for Pull Requests
 
-If your API endpoints aren't working:
+To enable preview deployments for pull requests, add the following job to your workflow file:
 
-1. Verify that your API routes are correctly configured in `vercel.json`
-2. Check that your data files are properly included in the deployment
-3. Use the verify-deployment script to check all endpoints
+```yaml
+  preview:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run tests
+        run: npm test
+      
+      - name: Extract data from MongoDB
+        if: success()
+        run: npm run extract-data
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      
+      - name: Deploy to Vercel (Preview)
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          working-directory: ./
+          github-comment: true
+```
 
-### Email Functionality Issues
+## Vercel Project Configuration
 
-If contact form emails aren't being sent:
+### Git Integration Settings
 
-1. Verify that SendGrid API key is correctly set in environment variables
-2. Check that sender email is verified in SendGrid
-3. Test email functionality locally before deploying
+1. Go to your Vercel project dashboard
+2. Navigate to "Settings" → "Git Integration"
+3. Configure:
+   - Production Branch: `main`
+   - Enable "Include source files outside of the Root Directory in the Build Step"
+   - Set "Ignored Build Step" to: `git diff --quiet HEAD^ HEAD ./ ':(exclude)data-export/'`
+     (This prevents rebuilds when only data files change)
 
-## Best Practices
+### Environment Variables
 
-1. **Use Environment Branch Deployments**: 
-   - `main` → Production
-   - `staging` → Staging environment
-   - Feature branches → Development previews
+Make sure all environment variables are properly set in Vercel:
+1. `SENDGRID_API_KEY`
+2. `CONTACT_FROM_EMAIL`
+3. `CONTACT_TO_EMAIL`
 
-2. **Add Integration Tests**:
-   - Create automated tests for API endpoints
-   - Set up end-to-end tests for critical user flows
+For Production and Preview environments, you may want different email addresses.
 
-3. **Implement Gradual Rollouts**:
-   - Use Vercel's gradual rollout feature for major changes
-   - Set to 10% traffic initially, then increase if no issues
+## Verification and Monitoring
 
-4. **Regular Audits**:
-   - Schedule regular performance and security audits
-   - Automate dependency updates with Dependabot
+### Post-Deployment Checks
 
----
+Create a `scripts/verify-deployment.sh` script to verify deployments:
 
-For more information, refer to the [Vercel Documentation](https://vercel.com/docs) and [GitHub Actions Documentation](https://docs.github.com/en/actions).
+```bash
+#!/bin/bash
+
+# Verify deployment
+URL=$1
+if [ -z "$URL" ]; then
+  echo "Usage: $0 <deployment-url>"
+  exit 1
+fi
+
+echo "Verifying deployment at $URL..."
+
+# Check if site is up
+echo "Checking if site is up..."
+if curl -s --head --request GET $URL | grep "200 OK" > /dev/null; then
+  echo "✅ Site is up"
+else
+  echo "❌ Site is down"
+  exit 1
+fi
+
+# Check API health endpoint
+echo "Checking API health..."
+if curl -s "$URL/api/health" | grep "status" > /dev/null; then
+  echo "✅ API is healthy"
+else
+  echo "❌ API health check failed"
+  exit 1
+fi
+
+# More checks as needed
+echo "All checks passed! ✅"
+```
+
+### Monitoring Setup
+
+1. Configure Vercel Analytics in your project settings
+2. Set up Slack or email notifications for failed deployments
+3. Consider setting up a separate monitoring service like UptimeRobot
+
+## Rollback Strategy
+
+In case of failed deployments:
+
+1. Automatic rollbacks:
+   - Add a step to your GitHub Action to verify deployment
+   - If verification fails, trigger a rollback to the previous successful deployment
+
+```yaml
+- name: Verify Deployment
+  run: ./scripts/verify-deployment.sh ${{ steps.deploy.outputs.preview-url || 'https://your-production-url.com' }}
+  id: verify
+
+- name: Rollback on Failure
+  if: failure() && steps.verify.outcome == 'failure'
+  run: vercel rollback --token=${{ secrets.VERCEL_TOKEN }}
+```
+
+2. Manual rollbacks:
+   - Go to Vercel dashboard
+   - Select your project
+   - Go to "Deployments" tab
+   - Find a previous successful deployment
+   - Click the three dots and select "Promote to Production"

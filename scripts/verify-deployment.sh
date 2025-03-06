@@ -1,93 +1,78 @@
 #!/bin/bash
 
-# Terminal colors
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-YELLOW='\033[0;33m'
-NC='\033[0m' # No Color
-
-if [ -z "$1" ]; then
-  echo -e "${YELLOW}Usage: $0 <vercel-deployment-url>${NC}"
-  echo "Example: $0 https://my-portfolio.vercel.app"
+# Verify deployment
+URL=$1
+if [ -z "$URL" ]; then
+  echo "Usage: $0 <deployment-url>"
   exit 1
 fi
 
-DEPLOYMENT_URL=$1
-API_URL="${DEPLOYMENT_URL}/api"
+echo "Verifying deployment at $URL..."
 
-echo -e "${YELLOW}Vercel Deployment Verification${NC}"
-echo "===================================="
-echo
-
-# Check if the URL is reachable
-echo "Checking if deployment URL is reachable..."
-if curl -s --head "${DEPLOYMENT_URL}" | grep "200 OK" > /dev/null; then
-  echo -e "✅ Frontend deployed at ${GREEN}${DEPLOYMENT_URL}${NC}"
+# Check if site is up
+echo "Checking if site is up..."
+if curl -s --head --request GET $URL | grep "200 OK" > /dev/null; then
+  echo "✅ Site is up"
 else
-  echo -e "❌ Frontend ${RED}not accessible${NC} at ${DEPLOYMENT_URL}"
+  echo "❌ Site is down"
+  exit 1
 fi
 
-echo
-
-# Check health endpoint
-echo "Checking API health endpoint..."
-HEALTH_RESPONSE=$(curl -s "${API_URL}/health")
-
-if [ -n "$HEALTH_RESPONSE" ]; then
-  echo -e "✅ Health endpoint ${GREEN}accessible${NC}"
-  echo "Health Response:"
-  echo "$HEALTH_RESPONSE" | json_pp
-  
-  # Extract status from health response
-  STATUS=$(echo "$HEALTH_RESPONSE" | grep -o '"status":"[^"]*"' | cut -d':' -f2 | tr -d '"')
-  if [ "$STATUS" = "ok" ]; then
-    echo -e "✅ API status: ${GREEN}OK${NC}"
-  else
-    echo -e "❌ API status: ${RED}NOT OK${NC}"
-  fi
-  
-  # Extract email config status from health response
-  EMAIL_STATUS=$(echo "$HEALTH_RESPONSE" | grep -o '"email":"[^"]*"' | cut -d':' -f2 | tr -d '"')
-  if [ "$EMAIL_STATUS" = "configured" ]; then
-    echo -e "✅ Email service: ${GREEN}Configured${NC}"
-  else
-    echo -e "❌ Email service: ${RED}Not Configured${NC}"
-  fi
+# Check API health endpoint
+echo "Checking API health..."
+if curl -s "$URL/api/health" | grep "status" > /dev/null; then
+  echo "✅ API is healthy"
 else
-  echo -e "❌ Health endpoint ${RED}not accessible${NC}"
+  echo "❌ API health check failed"
+  exit 1
 fi
 
-echo
+# Check if projects endpoint returns data
+echo "Checking projects API..."
+if curl -s "$URL/api/projects" | grep -E '\[.+\]' > /dev/null; then
+  echo "✅ Projects API is working"
+else
+  echo "❌ Projects API failed"
+  exit 1
+fi
 
-# Check API endpoints
-echo "Checking API endpoints..."
-endpoints=(
-  "projects"
-  "case-studies"
-  "ai-works"
-  "interests"
-)
+# Check if interests endpoint returns data
+echo "Checking interests API..."
+if curl -s "$URL/api/interests" | grep -E '\[.+\]' > /dev/null; then
+  echo "✅ Interests API is working"
+else
+  echo "❌ Interests API failed"
+  exit 1
+fi
 
-for endpoint in "${endpoints[@]}"; do
-  response=$(curl -s "${API_URL}/${endpoint}")
-  if [[ "$response" == "["* ]] || [[ "$response" == "{"* ]]; then
-    # Looks like valid JSON
-    item_count=$(echo "$response" | grep -o '\{' | wc -l)
-    echo -e "✅ ${endpoint}: ${GREEN}Working${NC} (${item_count} items)"
-  else
-    echo -e "❌ ${endpoint}: ${RED}Not working${NC}"
-  fi
-done
+# Check if ai-works endpoint returns data
+echo "Checking AI works API..."
+if curl -s "$URL/api/ai-works" | grep -E '\[.+\]' > /dev/null; then
+  echo "✅ AI works API is working"
+else
+  echo "❌ AI works API failed"
+  exit 1
+fi
 
-echo
+# Check if case-studies endpoint returns data
+echo "Checking case studies API..."
+if curl -s "$URL/api/case-studies" | grep -E '\[.+\]' > /dev/null; then
+  echo "✅ Case studies API is working"
+else
+  echo "❌ Case studies API failed"
+  exit 1
+fi
 
-# Summary
-echo -e "${YELLOW}Deployment Verification Summary${NC}"
-echo "===================================="
-echo -e "${GREEN}Frontend URL:${NC} ${DEPLOYMENT_URL}"
-echo -e "${GREEN}API URL:${NC} ${API_URL}"
-echo
-echo "To monitor application health, set up a regular check to:"
-echo "${API_URL}/health"
-echo
-echo "For any issues, check the deployment logs in the Vercel dashboard."
+# Check if contact form endpoint is available
+echo "Checking contact API..."
+if curl -s -o /dev/null -w "%{http_code}" -X OPTIONS "$URL/api/contact" | grep -E '2[0-9][0-9]' > /dev/null; then
+  echo "✅ Contact API endpoint is available"
+else
+  echo "❌ Contact API endpoint is not available"
+  exit 1
+fi
+
+# All checks passed
+echo ""
+echo "✅✅✅ All deployment checks passed! ✅✅✅"
+exit 0
