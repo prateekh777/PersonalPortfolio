@@ -1,163 +1,114 @@
-# Deployment Guide
+# Portfolio Website Deployment Guide
 
-This guide provides instructions for deploying this portfolio website to production.
+This guide provides instructions for deploying the portfolio website to Vercel.
 
-## Table of Contents
+## Project Overview
 
-1. [Overview](#overview)
-2. [Prerequisites](#prerequisites)
-3. [Deployment to Vercel](#deployment-to-vercel)
-4. [Environment Variables](#environment-variables)
-5. [Data Management](#data-management)
-6. [Testing](#testing)
-7. [Monitoring](#monitoring)
-8. [Troubleshooting](#troubleshooting)
+The portfolio website is a React/TypeScript application with an Express backend, configured to work as a serverless application on Vercel. The website displays the portfolio content from static JSON files located in the `data-export` directory.
 
-## Overview
+## Deployment Requirements
 
-This portfolio website is designed to be deployed to Vercel as a serverless application. The application uses a static data approach with JSON files for content management, making it highly scalable and cost-effective.
+Before deployment, ensure you have:
 
-### Key Features
-
-- **Static Data Files**: Projects, case studies, AI works, and interests are stored as JSON files.
-- **Serverless API Routes**: All API endpoints are implemented as serverless functions.
-- **Email Integration**: Contact form uses SendGrid for reliable email delivery.
-- **Health Monitoring**: Built-in health check endpoint for monitoring.
-
-## Prerequisites
-
-Before deploying, make sure you have:
-
-1. A Vercel account (Sign up at [https://vercel.com](https://vercel.com))
-2. A SendGrid account with an API key (Sign up at [https://sendgrid.com](https://sendgrid.com))
-3. Git repository access (e.g., GitHub, GitLab, or Bitbucket)
-
-## Deployment to Vercel
-
-For detailed Vercel-specific deployment instructions, refer to [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md).
-
-### Quick Start
-
-1. **Prepare your data**
-   ```bash
-   # Extract data from MongoDB to static JSON files
-   npx tsx scripts/extract-data-for-frontend.ts
-   ```
-
-2. **Verify application health**
-   ```bash
-   # Test all aspects of the application
-   bash scripts/run-tests.sh all
-   ```
-
-3. **Deploy to Vercel**
-   - Push your code to your Git repository
-   - Connect your repository to Vercel
-   - Configure build settings and environment variables
-   - Deploy
+1. A Vercel account
+2. A SendGrid account with API key for email functionality
+3. The static data JSON files in the `data-export` directory
 
 ## Environment Variables
 
-The following environment variables must be set in your production environment:
+The following environment variables must be set in your Vercel project:
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `SENDGRID_API_KEY` | Yes | Your SendGrid API key for sending emails |
-| `CONTACT_FROM_EMAIL` | Recommended | The email address used as the sender |
-| `CONTACT_TO_EMAIL` | Recommended | The email address where form submissions are sent |
-| `RECAPTCHA_SECRET_KEY` | Optional | For reCAPTCHA spam protection on the contact form |
+- `SENDGRID_API_KEY`: Your SendGrid API key
+- `CONTACT_FROM_EMAIL`: The email address from which contact form emails will be sent
+- `CONTACT_TO_EMAIL`: The email address that will receive contact form submissions
 
-## Data Management
+## Deployment Steps
 
-### Static Data Files
+### Option 1: Using Vercel CLI
 
-All content is stored in static JSON files located in the `data-export` directory:
+1. Install Vercel CLI:
+   ```
+   npm install -g vercel
+   ```
 
-- `projects.json`: Portfolio projects
-- `case-studies.json`: Professional case studies
-- `ai-works.json`: AI-related work
-- `interests.json`: Personal interests and hobbies
+2. Log in to Vercel:
+   ```
+   vercel login
+   ```
 
-### Updating Content
+3. Deploy the project:
+   ```
+   vercel
+   ```
 
-To update content after deployment:
+4. Follow the prompts to configure the project.
 
-1. Modify the JSON files locally
-2. Test changes with `bash scripts/run-tests.sh all`
-3. Deploy updated files to Vercel
+5. To deploy to production:
+   ```
+   vercel --prod
+   ```
 
-For MongoDB users, you can extract updated data using:
-```bash
-npx tsx scripts/extract-data-for-frontend.ts
-```
+### Option 2: Using GitHub Integration
 
-## Testing
+1. Push your code to a GitHub repository
+2. Link the repository to Vercel
+3. Configure the build settings:
+   - Framework Preset: Vite
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+4. Set the environment variables
+5. Deploy the project
 
-### Built-in Test Scripts
+## Vercel Configuration
 
-The application includes several test scripts to verify functionality:
+The project includes a `vercel.json` file with the following configuration:
 
-```bash
-# Run all tests
-bash scripts/run-tests.sh all
+- Routing for API endpoints to the serverless functions
+- Configuration for static file serving
+- Memory and duration limits for serverless functions
+- Environment variable references
 
-# Test specific components
-bash scripts/run-tests.sh health    # API health check
-bash scripts/run-tests.sh email     # Email functionality
-bash scripts/run-tests.sh vercel    # Deployment readiness
-bash scripts/run-tests.sh extract   # Data extraction
-```
+## Post-Deployment Verification
 
-### Manual Testing
+After deployment, verify that:
 
-After deployment, verify:
-
-1. The website loads correctly at your Vercel URL
-2. All pages render correctly
+1. The website loads correctly
+2. The API endpoints return data
 3. The contact form works properly
-4. API endpoints return correct data
 
-## Monitoring
+You can use the `scripts/verify-deployment.sh` script to check if your deployment is working:
 
-### Health Check Endpoint
-
-The application includes a health check endpoint at `/api/health` that returns:
-
-```json
-{
-  "status": "ok",
-  "timestamp": "2023-01-01T00:00:00.000Z",
-  "uptime": 123.456,
-  "email": "configured"
-}
+```
+./scripts/verify-deployment.sh https://your-vercel-domain.vercel.app
 ```
 
-Use this endpoint with monitoring services like UptimeRobot, Pingdom, or StatusCake.
+## Updating Content
 
-### Logging
+To update the website content:
 
-Vercel provides built-in logging for serverless functions. Access logs via the Vercel dashboard.
+1. Update the JSON files in the `data-export` directory
+2. Redeploy the application
+
+For a more dynamic content management system, consider integrating with a headless CMS.
+
+## Important Notes
+
+- The serverless function for the API has a memory limit of 1024MB and a max execution time of 10 seconds.
+- Static assets are served from the `public` directory.
+- The application is configured to use client-side routing for all non-API routes.
 
 ## Troubleshooting
 
-### Common Issues
+If you encounter issues with the deployment:
 
-1. **Missing environment variables**
-   - Verify all required environment variables are set in Vercel
+1. Check the Vercel deployment logs
+2. Verify that all environment variables are set correctly
+3. Ensure that the API endpoints are functioning properly
+4. Check that the static JSON files are present in the `data-export` directory
 
-2. **Email delivery issues**
-   - Check SendGrid API key is valid
-   - Verify sender email is verified in SendGrid
+## Support
 
-3. **Static data not showing**
-   - Ensure JSON files exist in the `data-export` directory
-   - Check file permissions and format
+For additional help with deployment, refer to:
 
-### Getting Support
-
-For Vercel deployment issues, refer to [Vercel Documentation](https://vercel.com/docs).
-For SendGrid issues, refer to [SendGrid Documentation](https://docs.sendgrid.com/).
-
----
-
-For additional Vercel-specific deployment details, see [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md)
+- [Vercel Documentation](https://vercel.com/docs)
+- [SendGrid Documentation](https://docs.sendgrid.com/)
