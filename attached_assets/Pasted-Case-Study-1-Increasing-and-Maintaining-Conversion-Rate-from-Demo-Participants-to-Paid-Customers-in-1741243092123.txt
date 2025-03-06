@@ -1,0 +1,83 @@
+Case Study 1: Increasing and Maintaining Conversion Rate from Demo Participants to Paid Customers in an EdTech Setup
+Result:
+We improved the conversion rate from demo sessions to paid customers by 30% within three months and maintained the uplift over time by establishing a structured, insight-driven approach to trial sessions.
+
+Action:
+Customer & Sales Insights Gathering:
+
+Conducted interviews with both parents and sales teams to identify key objections.
+Observed trial sessions to understand where engagement was dropping.
+Refining the Demo Experience:
+
+Identified gaps that failed to energize parents (buyers).
+Standardized a structured Demo Playbook with best practices to increase engagement.
+Training & Process Alignment:
+
+Conducted company-wide training for demo instructors to optimize storytelling, student engagement, and objection handling.
+Integrated real-time feedback loops from demo sessions into coaching sessions.
+Data-Driven Monitoring & Swift Action:
+
+Built a daily dashboard tracking conversion rates, objections, and qualitative feedback.
+Implemented a real-time escalation system, allowing quick iterations on scripts and training.
+Context (Key Product Manager Skill Sets Applied):
+Customer-Centric Mindset: Deeply analyzed buyer behavior to optimize engagement.
+Operational Efficiency: Created structured playbooks and feedback loops for continuous improvement.
+Data-Driven Decision-Making: Established real-time dashboards for tracking impact and iterating swiftly.
+Case Study 2: Hiring 500+ Remote Teachers in Indonesia with Language & Cultural Barriers
+Result:
+Built a scalable hiring model that enabled us to recruit and retain 500+ quality teachers within a year, overcoming remote work challenges, foreign language barriers, and cultural differences.
+
+Action:
+Foundational Testing with Early Hires:
+
+Hired two initial contractors to understand cultural fit, compensation expectations, and quality standards.
+Defined non-negotiable hiring criteria based on learnings.
+Iterative Referral-Based Scaling:
+
+Asked each early hire for two quality referrals to test repeatability.
+Allowed the first hires to act as trusted recruiters, ensuring quality control.
+Scaling Acquisition Channels:
+
+Introduced multiple recruitment channels, including:
+Meta Ads (Social Media Targeting)
+Job Boards
+University Ambassadors
+Recruitment Consultants
+Print Ads & Local Newspapers
+Referral Programs
+Building Retention & Quality Standards:
+
+Created a localized onboarding & training process to ensure teachers met the expected teaching quality.
+Adjusted incentive structures to match local motivators and job expectations.
+Context (Key Product Manager Skill Sets Applied):
+Market Expansion & Localization: Developed a country-specific hiring model while respecting cultural nuances.
+Scalable Growth Strategy: Designed a repeatable system with multiple acquisition channels.
+Process Optimization: Established a structured pipeline to ensure quality at scale.
+Case Study 3: Scaling RoboChamp Kit Shipments Across Countries
+Result:
+Successfully expanded RoboChamp kit shipments to three key international markets while reducing logistical costs by 25% through optimized vendor partnerships and localized distribution.
+
+Action:
+Market & Demand Analysis:
+
+Analyzed customer purchase data & shipping costs to identify the top three viable expansion markets.
+Validated demand with pre-order interest and existing customer inquiries.
+Supply Chain Optimization:
+
+Established local warehousing solutions in high-volume regions to reduce last-mile delivery costs.
+Partnered with regional vendors to minimize international shipping loss and delays.
+Branding & Packaging Optimization:
+
+Negotiated cost-effective branded packaging with local suppliers to maintain brand consistency while lowering costs.
+Strategic Shipping Partnerships for Scale:
+
+Partnered with bulk shippers handling similar routes to negotiate better shipping rates.
+Introduced batch shipping models to optimize costs for international fulfillment.
+Automated Logistics & Tracking:
+
+Integrated a shipment tracking system with customer dashboards to increase transparency & reduce support requests.
+Set up real-time inventory tracking for accurate order fulfillment.
+Context (Key Product Manager Skill Sets Applied):
+Supply Chain & Logistics Strategy: Built a scalable shipping model with cost-efficient fulfillment.
+Vendor & Partnership Management: Negotiated optimized contracts with shippers and local vendors.
+Technology & Customer Experience: Implemented automated tracking for better user experience and operational efficiency.
