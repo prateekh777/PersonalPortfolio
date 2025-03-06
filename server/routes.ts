@@ -5,6 +5,15 @@ import { contactFormSchema, sendContactEmail } from "./email";
 export async function registerRoutes(app: Express): Promise<Server> {
   const httpServer = createServer(app);
 
+  // Health check endpoint for monitoring
+  app.get("/api/health", (req, res) => {
+    res.status(200).json({
+      status: "ok",
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime()
+    });
+  });
+
   // Contact form - Only API endpoint we're keeping
   app.post("/api/contact", async (req, res) => {
     try {
