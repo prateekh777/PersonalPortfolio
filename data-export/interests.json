@@ -1,6 +1,5 @@
 [
   {
-    
     "title": "Quantum Computing",
     "description": "Exploring the fascinating world of quantum computing and its potential applications in cryptography and optimization problems.",
     "mediaUrl": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -8,7 +7,6 @@
     "category": "science"
   },
   {
-    
     "title": "Meditation & Mindfulness",
     "description": "Practicing daily meditation and mindfulness techniques to improve focus, reduce stress, and enhance overall well-being.",
     "mediaUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -16,7 +14,6 @@
     "category": "spirituality"
   },
   {
-    
     "title": "Venture Capital",
     "description": "Following trends in early-stage investments and analyzing what makes startups successful in today's rapidly changing market.",
     "mediaUrl": "https://images.unsplash.com/photo-1559067096-49ebca3406aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",

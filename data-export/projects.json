@@ -1,6 +1,5 @@
 [
   {
-    
     "title": "Portfolio Website",
     "subtitle": "Personal Showcase",
     "description": "A modern portfolio website built with React and Tailwind CSS to showcase my projects and skills",
@@ -15,7 +14,6 @@
     "position": "Full Stack Developer"
   },
   {
-    
     "title": "E-Commerce Platform",
     "subtitle": "Online Shopping Experience",
     "description": "A complete e-commerce solution with product listings, shopping cart, and payment processing",
@@ -32,7 +30,6 @@
     "position": "Lead Developer"
   },
   {
-    
     "title": "Task Management App",
     "subtitle": "Productivity Tool",
     "description": "A task management application to help users organize their daily activities and improve productivity",
