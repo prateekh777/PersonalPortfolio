@@ -1,144 +1,149 @@
-# Deploying to Vercel
+# Vercel Deployment Guide
 
-This document provides step-by-step instructions for deploying this portfolio website to Vercel.
+This guide provides detailed instructions for deploying this portfolio website to Vercel as a serverless application.
 
 ## Prerequisites
 
-1. A [Vercel](https://vercel.com) account
-2. [Node.js](https://nodejs.org) installed (v14.x or later)
-3. Vercel CLI installed globally (`npm install -g vercel`)
-4. A MongoDB database (e.g., MongoDB Atlas)
-5. A SendGrid account with API key
+Before deploying to Vercel, make sure you have:
 
-## Pre-deployment Checks
+1. A Vercel account ([Sign up here](https://vercel.com/signup))
+2. A SendGrid account with an API key ([Sign up here](https://sendgrid.com/))
+3. (Optional) A verified sender email in SendGrid for production use
 
-Before deploying, run the following command to verify that your project is properly configured:
+## Step 1: Prepare Your Project
 
-```bash
-npm run ts-node scripts/prepare-vercel-deployment.ts
-```
+1. **Test the application locally**
+   ```bash
+   # Run the development server
+   npm run dev
+   
+   # Test the API health endpoint
+   bash scripts/run-tests.sh health
+   
+   # Verify email functionality 
+   bash scripts/run-tests.sh email
+   ```
 
-This script will check for required files and environment variables, ensuring your project is ready for deployment.
+2. **Create static JSON data files**
+   
+   All data for the portfolio is stored in static JSON files in the `data-export` directory:
+   - `projects.json`
+   - `interests.json`
+   - `ai-works.json`
+   
+   If you have existing MongoDB data, you can extract it using:
+   ```bash
+   bash scripts/run-tests.sh extract
+   ```
 
-## Configuration Files
+3. **Check Vercel deployment readiness**
+   ```bash
+   bash scripts/run-tests.sh vercel
+   ```
 
-### vercel.json
+## Step 2: Install and Configure Vercel CLI
 
-This file contains the Vercel-specific configuration for your project. It defines build settings, routes, and environment variables.
+1. **Install Vercel CLI**
+   ```bash
+   npm install -g vercel
+   ```
 
-```json
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/index.ts",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/index.ts"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ]
-}
-```
-
-### api/index.ts
-
-This file serves as the serverless entry point for API routes on Vercel. It adapts the Express application to work in a serverless environment.
-
-## Environment Variables
-
-Set up the following environment variables in the Vercel dashboard:
-
-| Variable | Description |
-|----------|-------------|
-| `MONGODB_URI` | The connection string to your MongoDB database |
-| `SENDGRID_API_KEY` | Your SendGrid API key for sending emails |
-| `CONTACT_FROM_EMAIL` | The email address to send from (must be verified in SendGrid) |
-| `CONTACT_TO_EMAIL` | The email address to send contact form submissions to |
-
-## Deployment Steps
-
-1. **Login to Vercel CLI**:
+2. **Log in to Vercel**
    ```bash
    vercel login
    ```
 
-2. **Deploy to Vercel**:
+## Step 3: Deploy to Vercel
+
+### Option 1: Deploy using Vercel CLI
+
+1. **Initial deployment**
+   ```bash
+   vercel
+   ```
+   This will guide you through an interactive setup process.
+
+2. **Production deployment**
    ```bash
    vercel --prod
    ```
 
-3. During deployment, you'll be asked to:
-   - Link to an existing project or create a new one
-   - Confirm your deployment settings
-   - Set environment variables (if not already set)
+### Option 2: Deploy from the Vercel Dashboard
 
-4. Once deployment is complete, Vercel will provide a URL to your live application.
+1. Go to the [Vercel Dashboard](https://vercel.com/dashboard)
+2. Click "New Project"
+3. Import your GitHub repository
+4. Configure settings (see "Environment Variables" section below)
+5. Click "Deploy"
 
-## Post-deployment Verification
+## Environment Variables
 
-After deploying, verify that:
+Set the following environment variables in your Vercel project settings:
 
-1. The website loads correctly
-2. MongoDB connections work properly
-3. The contact form sends emails successfully
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `SENDGRID_API_KEY` | Yes | Your SendGrid API key for sending emails |
+| `CONTACT_FROM_EMAIL` | Recommended | The verified email address to send emails from |
+| `CONTACT_TO_EMAIL` | Recommended | The email address where you want to receive contact form messages |
+| `RECAPTCHA_SECRET_KEY` | Optional | Secret key for Google reCAPTCHA if you're using it to protect the contact form |
 
-## Troubleshooting Common Issues
+## Project Structure for Vercel
 
-### Database Connection Problems
+The project is structured to work seamlessly with Vercel:
 
-- Ensure your `MONGODB_URI` is correctly set in Vercel environment variables
-- Check that your MongoDB Atlas cluster allows connections from any IP (0.0.0.0/0)
-- Verify your MongoDB Atlas user has appropriate permissions
+- `api/index.ts` - The serverless API entry point
+- `vercel.json` - Configuration for routing and builds
+- `data-export/*.json` - Static data files
+- `dist/public/` - Built frontend assets
 
-### Email Sending Issues
+## Monitoring Your Deployment
 
-- Confirm your SendGrid API key is valid and properly set
-- Ensure your sender email is verified in SendGrid
-- Check SendGrid logs for any delivery issues
+After deployment, you can monitor your site:
 
-### Static Asset Loading Problems
+1. **Check API health**
+   
+   Visit `https://your-domain.vercel.app/api/health` to verify the API status.
 
-- Make sure all static assets use relative paths
-- Check that the build process correctly includes all required assets
+2. **View deployment logs**
+   
+   Check logs in the Vercel dashboard under your project's "Deployments" tab.
 
-## Continuous Deployment
+## Troubleshooting
 
-Set up continuous deployment by connecting your Git repository to Vercel:
+### Common Issues
 
-1. Go to your project dashboard on Vercel
-2. Navigate to "Git Integration"
-3. Connect your GitHub, GitLab, or Bitbucket repository
-4. Configure automatic deployments for specific branches
+1. **Cold Start Delays**
+   
+   Serverless functions may experience "cold starts" where the first request after a period of inactivity takes longer to respond. This is normal behavior.
 
-This will trigger a new deployment whenever you push changes to your connected repository.
+2. **Environment Variables**
+   
+   If you're experiencing issues with email functionality, verify your environment variables are correctly set in the Vercel dashboard.
 
-## Local Testing
+3. **Build Failures**
+   
+   If your deployment fails to build, check the build logs in the Vercel dashboard for specific error messages.
 
-To test the Vercel deployment locally:
+### Getting Help
 
-```bash
-vercel dev
-```
-
-This command will start a local development environment that mimics the Vercel production environment.
-
-## Additional Resources
+If you encounter issues not covered here, refer to:
 
 - [Vercel Documentation](https://vercel.com/docs)
-- [MongoDB Atlas Documentation](https://docs.atlas.mongodb.com/)
 - [SendGrid Documentation](https://docs.sendgrid.com/)
+
+## Updating Your Deployment
+
+To update your site after making changes:
+
+1. Push changes to your GitHub repository if using GitHub integration
+2. Or deploy again using `vercel --prod` from the CLI
+
+## Cost Considerations
+
+Vercel's Hobby tier is free and includes:
+
+- Unlimited personal projects
+- Serverless functions with limits on execution time
+- Basic analytics
+
+For more resources or removing usage limits, consider upgrading to a Pro plan.
