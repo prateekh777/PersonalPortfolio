@@ -3,6 +3,14 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// Define the health response type for proper type checking
+interface HealthResponse {
+  status: string;
+  timestamp: string;
+  uptime: number;
+  email: 'configured' | 'not_configured';
+}
+
 /**
  * This script checks the API health endpoint to verify system status
  */
@@ -12,7 +20,7 @@ async function checkHealth() {
     console.log(`Checking health at ${url}/api/health`);
     
     const response = await fetch(`${url}/api/health`);
-    const data = await response.json();
+    const data = await response.json() as HealthResponse;
     
     console.log('\nHealth Check Response:');
     console.log(JSON.stringify(data, null, 2));

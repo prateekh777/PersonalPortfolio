@@ -1,94 +1,103 @@
-# Portfolio Website
+# Personal Portfolio Website
 
-A sophisticated personal portfolio website with an advanced visual frame-based content management system, enabling dynamic and responsive layout design through interactive, customizable content frames.
+A modern, responsive personal portfolio website built with React, Tailwind CSS, and Express. Designed to showcase projects, skills, and contact information with a clean, professional interface.
 
-## Technologies Used
+## Features
 
-- React frontend with drag-and-drop frame editor
-- Express backend
-- Tailwind CSS for styling
-- React DnD for interactive frame positioning
-- Framer Motion for animations
-- Wouter for lightweight routing
-- Responsive design with adaptive content scaling
-- Dynamic expertise page with role-based content management
-- Enhanced contact form with message confirmation and spam prevention
-- Video content management with error handling
+- 🎨 Modern UI with Tailwind CSS and shadcn/ui components
+- 📱 Fully responsive design for all device sizes
+- 🖥️ Showcase portfolio projects with detailed information
+- 📊 Dynamic expertise page with role-based content management
+- 📧 Contact form with email integration via SendGrid
+- 🌐 Optimized for performance and SEO
+- 🚀 Ready for deployment to Vercel
 
-## Local Development
+## Getting Started
 
-1. Install dependencies:
+### Prerequisites
+
+- Node.js 18+ installed
+- SendGrid account for email functionality (optional for local development)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/portfolio-website.git
+   cd portfolio-website
    ```
+
+2. Install dependencies:
+   ```bash
    npm install
    ```
 
-2. Create a `.env` file based on `.env.example` and fill in your environment variables.
-
-3. Start the development server:
+3. Set up environment variables:
+   Create a `.env` file in the root directory with the following variables:
    ```
-   npm run dev
+   SENDGRID_API_KEY=your_sendgrid_api_key
+   CONTACT_FROM_EMAIL=your_verified_sender_email
+   CONTACT_TO_EMAIL=your_recipient_email
    ```
 
-4. The application will be available at [http://localhost:5000](http://localhost:5000)
+### Development
 
-## Building for Production
-
-To build the application for production:
-
-```
-npm run build
+Start the development server:
+```bash
+npm run dev
 ```
 
-To start the production server:
-
-```
-npm run start
-```
-
-## Deploying to Vercel
-
-This project is configured for deployment on Vercel. To deploy:
-
-1. Create a Vercel account at [vercel.com](https://vercel.com)
-
-2. Install the Vercel CLI:
-   ```
-   npm install -g vercel
-   ```
-
-3. Log in to Vercel:
-   ```
-   vercel login
-   ```
-
-4. Deploy to Vercel:
-   ```
-   vercel
-   ```
-
-### Environment Variables on Vercel
-
-Make sure to set up all required environment variables in the Vercel dashboard:
-
-1. Go to your project settings in the Vercel dashboard
-2. Navigate to the "Environment Variables" section
-3. Add all the variables from your `.env.example` file
-
-### Database Setup on Vercel
-
-If you're using a PostgreSQL database:
-
-1. Create a PostgreSQL database on your preferred provider
-2. Add the database connection string to your Vercel environment variables as `DATABASE_URL`
+The application will be available at [http://localhost:5000](http://localhost:5000).
 
 ## Project Structure
 
-- `/client` - React frontend application
-- `/server` - Express backend
-- `/api` - Vercel serverless functions
-- `/shared` - Shared code between frontend and backend
-- `/public` - Static assets
+```
+portfolio-website/
+├── api/                   # Vercel serverless API functions
+├── client/                # React frontend 
+│   ├── src/
+│   │   ├── components/    # Reusable UI components
+│   │   ├── hooks/         # Custom React hooks
+│   │   ├── lib/           # Utility functions and services
+│   │   ├── pages/         # Application pages
+│   │   └── types/         # TypeScript type definitions
+├── data-export/           # Static JSON data files
+├── scripts/               # Utility scripts
+├── server/                # Express server for local development
+└── shared/                # Shared code between frontend and backend
+```
+
+## Data Management
+
+The application uses static JSON files for data storage, making it perfect for serverless deployments:
+
+- `data-export/projects.json`: Portfolio projects data
+- `data-export/interests.json`: Personal interests data
+- `data-export/ai-works.json`: AI-related work data
+
+To update the content, modify these JSON files directly.
+
+## Deployment
+
+This project is optimized for deployment to Vercel. See [README-DEPLOYMENT.md](README-DEPLOYMENT.md) for detailed deployment instructions.
+
+## Scripts
+
+- `npm run dev`: Start the development server
+- `npm run build`: Build the project for production
+- `npm run start`: Start the production server
+- `npm run test:email`: Test email functionality with SendGrid
+- `npm run test:health`: Test API health endpoints
 
 ## License
 
-MIT
+[MIT License](LICENSE)
+
+## Acknowledgements
+
+- [React](https://reactjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Express](https://expressjs.com/)
+- [SendGrid](https://sendgrid.com/)
+- [Vercel](https://vercel.com/)
