@@ -16,8 +16,8 @@ interface InterestItem {
   mediaType?: 'image' | 'video'; // Default is image if not specified
 }
 
-// Mock data for each category (will be replaced with API data later)
-const MOCK_INTERESTS: Record<InterestCategory, InterestItem[]> = {
+// Hardcoded data for each category
+const INTERESTS_DATA: Record<InterestCategory, InterestItem[]> = {
   startups: [
     { id: 1, title: 'Awards Building Edtech', description: 'When you win it fully!', mediaUrl: '/Interests/Startups/BC Award_2.jpg', mediaType: 'image' },
     { id: 2, title: 'Some more Edtech', description: 'Creating new opportunities', mediaUrl: '/Interests/Startups/BC Award.jpg', mediaType: 'image' },
@@ -176,7 +176,7 @@ export function InterestOrbits() {
           
           <Carousel className="w-full" opts={{ loop: true }}>
             <CarouselContent className="-ml-2 md:-ml-4">
-              {activeCategory && MOCK_INTERESTS[activeCategory].map((item) => (
+              {activeCategory && INTERESTS_DATA[activeCategory].map((item) => (
                 <CarouselItem key={item.id} className="pl-2 md:pl-4 sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
                   <div className="p-1">
                     <div className="bg-white rounded-lg overflow-hidden shadow-md p-2 h-full border border-[#7B7B7B]/10">
